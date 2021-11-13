@@ -46,5 +46,13 @@
   "existingUserTxt": "Already a user? Sign In here",
   "@existingUserTxt": {
     "description": "pre-existing user text"
+  },
+  "alternateSignIn": "Or sign in with",
+  "@alternateSignIn": {
+    "description": "alternate sign in options"
+  },
+  "newAccountPrompt": "Not a user yet?",
+  "@newAccountPrompt": {
+    "description": "title for new user button"
   }
 }

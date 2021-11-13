@@ -3,21 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
-class CustomButton extends StatelessWidget {
+class CustomImageButton extends StatelessWidget {
 
-  final String? text;
   final VoidCallback? onPressed;
   final bool? outlined;
   final bool? isLoading;
+  final String? image;
   final double? width;
 
-  CustomButton({this.text, this.onPressed, this.outlined, this.isLoading, this.width});
+  CustomImageButton({this.onPressed, this.outlined, this.isLoading, this.image, this.width});
 
   @override
   Widget build(BuildContext context) {
 
     bool _outlined = outlined ?? false;
     bool _isLoading = isLoading ?? false;
+    String _image = image ?? 'lib/assets/exclamation.png';
 
     return GestureDetector(
       onTap: onPressed,
@@ -31,31 +32,38 @@ class CustomButton extends StatelessWidget {
             color: _outlined ? Colors.black : const Color(0xff0e4c76),
             width: 1,
           ),
-         borderRadius: BorderRadius.circular(30),
+         borderRadius: BorderRadius.circular(15),
         ),
         margin: EdgeInsets.symmetric(
-          horizontal: 24,
+          horizontal: 10,
           vertical: 16,
         ),
         child: Stack(
           alignment: Alignment.center,
           children: [
             Visibility(
-              visible: _isLoading ? false : true,
-              child: Text(
-                text ?? AppLocalizations.of(context)!.defaultTxt,
-                style: TextStyle(
-                  color: _outlined ? Colors.black : Colors.white,
+                visible: _isLoading ? false : true,
+                child: Container(
+                  width: 50,
+                  margin: EdgeInsets.fromLTRB(3, 10, 3, 10),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(_image),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                 ),
-              ),
             ),
             Visibility(
               visible: _isLoading,
-              child: SizedBox(
-                height: 20,
-                width: 20,
-                child:CircularProgressIndicator(
-                  color: Colors.blueGrey,
+              child: Container(
+                margin: EdgeInsets.only(left: 18, right: 18),
+                child: SizedBox(
+                  height: 20,
+                  width: 20,
+                  child:CircularProgressIndicator(
+                    color: Colors.blueGrey,
+                  ),
                 ),
               ),
             ),

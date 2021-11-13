@@ -1,4 +1,4 @@
-import 'package:biblio_files/constants.dart';
+import 'package:biblio_files/Styles/constants.dart';
 import 'package:biblio_files/screens/home_page.dart';
 import 'package:biblio_files/screens/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';

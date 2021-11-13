@@ -1,4 +1,4 @@
-import 'package:biblio_files/constants.dart';
+import 'package:biblio_files/Styles/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
