@@ -1,0 +1,50 @@
+{
+  "welcome": "Welcome to Biblio!",
+  "@welcome": {
+    "description": "Welcome to the app"
+  },
+  "test": "eng test",
+  "@test": {
+    "description": "ttt"
+  },
+  "createAccountTxt": "Create New Account",
+  "@createAccountTxt": {
+    "description": "Create new account"
+  },
+  "defaultTxt": "There should be some other text here!",
+  "@defaultTxt": {
+    "description": "default button text"
+  },
+  "signInTxt": "Sign In",
+  "@signInTxt": {
+    "description": "Sign in"
+  },
+  "signUpTxt": "Sign Up",
+  "@signUpTxt": {
+    "description": "Sign Up"
+  },
+  "emailHint": "Email",
+  "@emailHint": {
+    "description": "Email"
+  },
+  "emailConfHint": "Confirm Email",
+  "@emailConfHint": {
+    "description": "Confirm Email"
+  },
+  "passwordHint": "Password",
+  "@passwordHint": {
+    "description": "Password"
+  },
+  "passwordConfHint": "Confirm Password",
+  "@passwordConfHint": {
+    "description": "Confirm Password"
+  },
+  "registerHeading": "Register",
+  "@registerHeading": {
+    "description": "Register"
+  },
+  "existingUserTxt": "Already a user? Sign In here",
+  "@existingUserTxt": {
+    "description": "pre-existing user text"
+  }
+}
