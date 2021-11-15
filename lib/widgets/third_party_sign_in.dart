@@ -1,4 +1,5 @@
 import 'package:biblio_files/Styles/constants.dart';
+import 'package:biblio_files/functions/account_linker.dart';
 import 'package:biblio_files/screens/home_page.dart';
 import 'package:biblio_files/screens/register_page.dart';
 import 'package:biblio_files/widgets/custom_button.dart';
@@ -88,7 +89,6 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
     }  on FirebaseAuthException catch (e) {
       //Account liniking adapted from FluterFire error handing docs - https://firebase.flutter.dev/docs/auth/error-handling/
       if (e.code == 'account-exists-with-different-credential') {
-        await _linkAccountDialog();
         String? email = e.email;
         AuthCredential? pendingCredential = e.credential;
 
@@ -112,46 +112,9 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
             print(e.toString());
             signInMaster(credential);
           }
-        }
-
-        if (userSignInMethods.first == 'facebook.com') {
-          final LoginResult loginResult = await FacebookAuth.instance.login();
-
-          // Create a credential from the access token
-          final OAuthCredential credential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
-
-          UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-
-          await userCredential.user!.linkWithCredential(pendingCredential!);
-        }
-
-        if (userSignInMethods.first == 'google.com') {
-          final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-          // Obtain the auth details from the request
-          final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-          // Create a new credential
-          final credential = GoogleAuthProvider.credential(
-            accessToken: googleAuth?.accessToken,
-            idToken: googleAuth?.idToken,
-          );
-          UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-          await userCredential.user!.linkWithCredential(pendingCredential!);
-        }
-
-        if (userSignInMethods.first == 'twitter.com') {
-          final twitterLogin = TwitterLogin(
-              apiKey: 'spNv8GQWq0Wofh8PaFGypRLKU',
-              apiSecretKey: 'AdHnWhI91R9FefYzmykjS89DgJZWxc89Z5sJhc9sBM7VI1OJZK',
-              redirectURI: 'biblio://');
-
-          await twitterLogin.login().then((value) async {
-            final credential = TwitterAuthProvider.credential(
-                accessToken: value.authToken!,
-                secret: value.authTokenSecret!);
-
-            UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-            await userCredential.user!.linkWithCredential(pendingCredential!);
-          });
+        } else {
+          await _linkAccountDialog();
+          AccountLinker(e.email, e.credential);
         }
       }
     } catch (e) {
@@ -282,6 +245,8 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
   String email = "";
   String password = "";
   String errorMsg = "";
+
+
   @override
   Widget build(BuildContext context) {
     return Row(

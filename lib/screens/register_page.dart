@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:biblio_files/Styles/constants.dart';
 import 'package:biblio_files/screens/home_page.dart';
 import 'package:biblio_files/widgets/custom_button.dart';
@@ -7,15 +9,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPage createState() => _RegisterPage();
 }
 
-class _LoginPageState extends State<RegisterPage> {
+class _RegisterPage extends State<RegisterPage> {
 
   Future<String?> _createAccount() async {
     if (newEmail.toLowerCase() == confEmail.toLowerCase()) {
@@ -72,6 +75,7 @@ class _LoginPageState extends State<RegisterPage> {
   bool googleLoading = false;
   bool facebookLoading = false;
   bool twitterLoading = false;
+  bool keyboardVisible = false;
 
   String email = "";
   String password = "";
@@ -79,6 +83,8 @@ class _LoginPageState extends State<RegisterPage> {
   late FocusNode confEmailFocusNode;
   late FocusNode passwordFocusNode;
   late FocusNode confpasswordFocusNode;
+  late StreamSubscription<bool> keyboardSubscription;
+
 
   @override
   void initState() {
@@ -86,6 +92,14 @@ class _LoginPageState extends State<RegisterPage> {
     passwordFocusNode = FocusNode();
     confpasswordFocusNode = FocusNode();
     super.initState();
+
+    var keyboardVisibilityController = KeyboardVisibilityController();
+
+    // keyboard visibility checker from https://pub.dev/packages/flutter_keyboard_visibility accessed 15/11/21
+    keyboardSubscription = keyboardVisibilityController.onChange.listen((bool visible) {
+      keyboardVisible = visible;
+    });
+
   }
 
   @override
@@ -96,85 +110,89 @@ class _LoginPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-      return Scaffold(
-        body: SafeArea(
-          child: Center(
-            child: Container(
-              width: double.infinity,
-              constraints: BoxConstraints(maxWidth: 600),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(AppLocalizations.of(context)!.registerHeading, style: constants.headingText,),
-                  Column(
-                    children: [
-                      Text(errorMsg, style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500, fontSize: 16)),
-                      CustomInput(
-                        text : AppLocalizations.of(context)!.emailHint, primaryInput: false,
-                        onChanged: (value) {
-                          newEmail = value;
-                        },
-                        onSubmitted: (value) {
-                          confEmailFocusNode.requestFocus();
-                        },
-                        textInputAction: TextInputAction.next,),
+      return KeyboardDismissOnTap(
+        child: Scaffold(
+          body: SafeArea(
+            child: Center(
+              child: Container(
+                width: double.infinity,
+                constraints: BoxConstraints(maxWidth: 600),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(AppLocalizations.of(context)!.registerHeading, style: constants.headingText,),
+                    Column(
+                      children: [
+                        Text(errorMsg, style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500, fontSize: 16)),
+                        CustomInput(
+                          text : AppLocalizations.of(context)!.emailHint, primaryInput: false,
+                          onChanged: (value) {
+                            newEmail = value;
+                          },
+                          onSubmitted: (value) {
+                            confEmailFocusNode.requestFocus();
+                          },
+                          textInputAction: TextInputAction.next,),
 
-                      CustomInput(
-                        text : AppLocalizations.of(context)!.emailConfHint, primaryInput: false,
-                        onChanged: (value) {
-                          confEmail = value;
-                        },
-                        onSubmitted: (value) {
-                          passwordFocusNode.requestFocus();
-                        },
-                        focusNode: confEmailFocusNode,
-                        textInputAction: TextInputAction.next,),
+                        CustomInput(
+                          text : AppLocalizations.of(context)!.emailConfHint, primaryInput: false,
+                          onChanged: (value) {
+                            confEmail = value;
+                          },
+                          onSubmitted: (value) {
+                            passwordFocusNode.requestFocus();
+                          },
+                          focusNode: confEmailFocusNode,
+                          textInputAction: TextInputAction.next,),
 
-                      CustomInput(
-                        text : AppLocalizations.of(context)!.passwordHint, primaryInput: false,
-                        hiddenText: true,
-                        onChanged: (value) {
-                          newPassword = value;
-                        },
-                        onSubmitted: (value) {
-                          confpasswordFocusNode.requestFocus();
-                        },
-                        focusNode: passwordFocusNode,
-                        textInputAction: TextInputAction.next,),
+                        CustomInput(
+                          text : AppLocalizations.of(context)!.passwordHint, primaryInput: false,
+                          hiddenText: true,
+                          onChanged: (value) {
+                            newPassword = value;
+                          },
+                          onSubmitted: (value) {
+                            confpasswordFocusNode.requestFocus();
+                          },
+                          focusNode: passwordFocusNode,
+                          textInputAction: TextInputAction.next,),
 
-                      CustomInput(
-                        text : AppLocalizations.of(context)!.passwordConfHint, primaryInput: false,
-                        hiddenText: true,
-                        onChanged: (value) {
-                          confPassword = value;
-                        },
-                        onSubmitted: (vale) {
-                          submitForm();
-                        },
-                        focusNode: confpasswordFocusNode,),
+                        CustomInput(
+                          text : AppLocalizations.of(context)!.passwordConfHint, primaryInput: false,
+                          hiddenText: true,
+                          onChanged: (value) {
+                            confPassword = value;
+                          },
+                          onSubmitted: (vale) {
+                            submitForm();
+                          },
+                          focusNode: confpasswordFocusNode,),
 
-                      CustomButton(
-                        text: AppLocalizations.of(context)!.signUpTxt,
+                        CustomButton(
+                          text: AppLocalizations.of(context)!.signUpTxt,
+                          onPressed: () {
+                            submitForm();
+                          },
+                          isLoading: formLoading,
+                        ),
+                        Text(AppLocalizations.of(context)!.alternateSignUp,style: constants.fadedText,),
+                        ThirdPartySignIn()
+                      ],
+                    ),
+                    Visibility(
+                      visible: !keyboardVisible,
+                      child: CustomButton(
+                        text: AppLocalizations.of(context)!.existingUserTxt,
                         onPressed: () {
-                          submitForm();
+                          Navigator.pop(context);
                         },
-                        isLoading: formLoading,
+                        outlined: true,
                       ),
-                      Text(AppLocalizations.of(context)!.alternateSignUp,style: constants.fadedText,),
-                      ThirdPartySignIn()
-                    ],
-                  ),
-                  CustomButton(
-                    text: AppLocalizations.of(context)!.existingUserTxt,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    outlined: true,
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
