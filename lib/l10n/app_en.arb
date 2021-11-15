@@ -54,5 +54,17 @@
   "newAccountPrompt": "Not a user yet?",
   "@newAccountPrompt": {
     "description": "title for new user button"
+  },
+  "googleClosedError": "Google Sign in closed early",
+  "@googleClosedError": {
+    "description": "user closed google sign in prematurely"
+  },
+  "preExistingUserErrorTitle": "User Already Exists",
+  "@preExistingUserErrorTitle": {
+    "description": "user signed in with wrong provider"
+  },
+  "preExistingUserError": "An account already exists with the same email address but different sign-in credentials. Please enter your account password to link.",
+  "@preExistingUserError": {
+    "description": "user signed in with wrong provider"
   }
 }
