@@ -171,16 +171,23 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
         return e.toString();
       }
     } else {
-      // Trigger the authentication flow
-      FacebookAuthProvider facebookProvider = FacebookAuthProvider();
+      try {
+        // Trigger the authentication flow
+        FacebookAuthProvider facebookProvider = FacebookAuthProvider();
 
-      facebookProvider.addScope('email');
-      facebookProvider.setCustomParameters({
-        'display': 'popup',
-      });
+        facebookProvider.addScope('email');
+        facebookProvider.setCustomParameters({
+          'display': 'popup',
+        });
 
-      // Once signed in, return the UserCredential
-      FirebaseAuth.instance.signInWithPopup(facebookProvider);
+        // Once signed in, return the UserCredential
+        await FirebaseAuth.instance.signInWithPopup(facebookProvider);
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'account-exists-with-different-credential') {
+          await _linkAccountDialog();
+          AccountLinker(e.email, e.credential);
+        }
+      }
     }
   }
 
@@ -217,8 +224,15 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
           return e.toString();
         }
     } else {
-      TwitterAuthProvider twitterProvider = TwitterAuthProvider();
-      FirebaseAuth.instance.signInWithPopup(twitterProvider);
+      try{
+        TwitterAuthProvider twitterProvider = TwitterAuthProvider();
+        await FirebaseAuth.instance.signInWithPopup(twitterProvider);
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'account-exists-with-different-credential') {
+          await _linkAccountDialog();
+          AccountLinker(e.email, e.credential);
+        }
+      }
     }
   }
 
