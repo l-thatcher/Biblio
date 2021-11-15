@@ -59,6 +59,29 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  Future<void> _linkAccountDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('User linked to another account'),
+          content: SingleChildScrollView(
+            child: Text(AppLocalizations.of(context)!.accountLinkDialog)
+            ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Continue'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Future<String?> signIn() async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -129,6 +152,7 @@ class _LoginPageState extends State<LoginPage> {
           // Create a credential from the access token
           final OAuthCredential credential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
 
+          await _linkAccountDialog();
           UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
 
           await userCredential.user!.linkWithCredential(pendingCredential!);
@@ -143,10 +167,26 @@ class _LoginPageState extends State<LoginPage> {
             accessToken: googleAuth?.accessToken,
             idToken: googleAuth?.idToken,
           );
-
+          await _linkAccountDialog();
           UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-
           await userCredential.user!.linkWithCredential(pendingCredential!);
+        }
+
+        if (userSignInMethods.first == 'twitter.com') {
+          await _linkAccountDialog();
+          final twitterLogin = TwitterLogin(
+              apiKey: 'spNv8GQWq0Wofh8PaFGypRLKU',
+              apiSecretKey: 'AdHnWhI91R9FefYzmykjS89DgJZWxc89Z5sJhc9sBM7VI1OJZK',
+              redirectURI: 'biblio://');
+
+          await twitterLogin.login().then((value) async {
+            final credential = TwitterAuthProvider.credential(
+                accessToken: value.authToken!,
+                secret: value.authTokenSecret!);
+
+            UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+            await userCredential.user!.linkWithCredential(pendingCredential!);
+          });
         }
       }
     } catch (e) {

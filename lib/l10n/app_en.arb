@@ -63,6 +63,10 @@
   "@preExistingUserErrorTitle": {
     "description": "user signed in with wrong provider"
   },
+  "accountLinkDialog": "You have previously signed in to Biblio with another account, You will be taken to that app to confirm linking the account.",
+  "@accountLinkDialog": {
+    "description": "user signed in with previously existing provider"
+  },
   "preExistingUserError": "An account already exists with the same email address but different sign-in credentials. Please enter your account password to link.",
   "@preExistingUserError": {
     "description": "user signed in with wrong provider"
