@@ -2,6 +2,7 @@ import 'package:biblio_files/Styles/constants.dart';
 import 'package:biblio_files/screens/home_page.dart';
 import 'package:biblio_files/widgets/custom_button.dart';
 import 'package:biblio_files/widgets/custom_input_field.dart';
+import 'package:biblio_files/widgets/third_party_sign_in.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -67,6 +68,13 @@ class _LoginPageState extends State<RegisterPage> {
   String newPassword = "";
   String confEmail = "";
   String confPassword = "";
+
+  bool googleLoading = false;
+  bool facebookLoading = false;
+  bool twitterLoading = false;
+
+  String email = "";
+  String password = "";
 
   late FocusNode confEmailFocusNode;
   late FocusNode passwordFocusNode;
@@ -155,6 +163,8 @@ class _LoginPageState extends State<RegisterPage> {
                         },
                         isLoading: formLoading,
                       ),
+                      Text(AppLocalizations.of(context)!.alternateSignUp,style: constants.fadedText,),
+                      ThirdPartySignIn()
                     ],
                   ),
                   CustomButton(

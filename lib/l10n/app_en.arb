@@ -51,6 +51,10 @@
   "@alternateSignIn": {
     "description": "alternate sign in options"
   },
+  "alternateSignUp": "Or sign up with",
+  "@alternateSignUp": {
+    "description": "alternate sign up options"
+  },
   "newAccountPrompt": "Not a user yet?",
   "@newAccountPrompt": {
     "description": "title for new user button"
