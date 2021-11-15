@@ -1,9 +1,6 @@
 import 'package:biblio_files/Styles/constants.dart';
-import 'package:biblio_files/functions/account_linker.dart';
-import 'package:biblio_files/screens/home_page.dart';
 import 'package:biblio_files/screens/register_page.dart';
 import 'package:biblio_files/widgets/custom_button.dart';
-import 'package:biblio_files/widgets/custom_image_button.dart';
 import 'package:biblio_files/widgets/custom_input_field.dart';
 import 'package:biblio_files/widgets/third_party_sign_in.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,10 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:twitter_login/twitter_login.dart';
-import 'dart:io' show Platform;
+
 
 
 class LoginPage extends StatefulWidget {
