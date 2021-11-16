@@ -21,6 +21,29 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
+  Future<void> _linkAccountDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('User linked to another account'),
+          content: SingleChildScrollView(
+              child: Text(AppLocalizations.of(context)!.accountLinkDialog)
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Continue'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Future<String?> signIn() async {
     List<String> userSignInMethods = await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
     try {
