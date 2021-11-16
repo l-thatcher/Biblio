@@ -22,24 +22,28 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
 
   Future<String?> signIn() async {
-    List<String> userSignInMethods = await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
     try {
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
           password: password
       );
+      return null;
     } on FirebaseAuthException catch (e) {
+
       if (e.code == 'user-not-found') {
         return('No user found for that email.');
       } else if (e.code == 'unknown') {
         return ('Fields have been left empty');
-      } else if (!userSignInMethods.contains('password')) {
-        return('This email is associated with an alternate sign in method');
       } else if (e.code == 'wrong-password') {
-        return('Wrong password provided for that user.');
+        List<String> userSignInMethods = await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+        if (!userSignInMethods.contains('password')) {
+          return('This email is associated with an alternate sign in method');
+        } else {
+          return('Wrong password provided for that user.');
+        }
       }
-    }
-    catch (e) {
+      return e.message;
+    } catch (e) {
       return e.toString();
     }
   }
