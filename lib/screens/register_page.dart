@@ -73,7 +73,7 @@ class _RegisterPage extends State<RegisterPage> {
   bool googleLoading = false;
   bool facebookLoading = false;
   bool twitterLoading = false;
-  bool keyboardVisible = false;
+  bool btnVisible = true;
 
   String email = "";
   String password = "";
@@ -95,7 +95,9 @@ class _RegisterPage extends State<RegisterPage> {
 
     // keyboard visibility checker from https://pub.dev/packages/flutter_keyboard_visibility accessed 15/11/21
     keyboardSubscription = keyboardVisibilityController.onChange.listen((bool visible) {
-      keyboardVisible = visible;
+      setState(() {
+        btnVisible = !visible;
+      });
     });
 
   }
@@ -180,7 +182,7 @@ class _RegisterPage extends State<RegisterPage> {
                       ],
                     ),
                     Visibility(
-                      visible: !keyboardVisible,
+                      visible: btnVisible,
                       child: CustomButton(
                         text: AppLocalizations.of(context)!.existingUserTxt,
                         onPressed: () {
