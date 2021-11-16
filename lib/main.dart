@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.quicksandTextTheme(
           Theme.of(context).textTheme,
         ),
-
-
+        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: const Color(
+            0xff0e4c76)),
       ),
 
       localizationsDelegates: [
