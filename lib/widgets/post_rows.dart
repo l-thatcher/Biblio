@@ -13,6 +13,7 @@ class PostRows extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: MediaQuery.of(context).size.height * 0.22,
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
@@ -30,8 +31,7 @@ class PostRows extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(title ?? "", style: constants.subtitleText,),
-              SizedBox(
-                height: 150,
+              Expanded(
                 child: ListView(
                   // This next line does the trick.
                   scrollDirection: Axis.horizontal,

@@ -28,7 +28,10 @@ class Searchpage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(AppLocalizations.of(context)!.searchTitle, style: constants.titleText,),
-                  Container(height: 65, child: CustomImageButton()),
+                  Container(
+                    height: 75,
+                    padding: const EdgeInsets.only(top: 10,),
+                      child: CustomImageButton(image: 'lib/assets/icons/burgerIcon.png', outlined: true,)),
                 ],
               ),
             ),
@@ -46,6 +49,7 @@ class Searchpage extends StatelessWidget {
                     primaryInput: false,
                   ),
                   Container(
+                    height: MediaQuery.of(context).size.height * 0.6,
                     margin: EdgeInsets.only(top: 20),
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -68,8 +72,7 @@ class Searchpage extends StatelessWidget {
                             ),
                             child: Text("Search history")
                         ),
-                        SizedBox(
-                          height: 570,
+                        Expanded(
                           child: ListView(
                             children: const <Widget>[
                               ListTile(
