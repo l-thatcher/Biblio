@@ -1,15 +1,20 @@
+import 'package:biblio_files/screens/pages/home_page.dart';
+import 'package:biblio_files/screens/pages/messages_page.dart';
+import 'package:biblio_files/screens/pages/profile_page.dart';
+import 'package:biblio_files/screens/pages/search_page.dart';
+import 'package:biblio_files/screens/pages/post_page.dart';
 import 'package:biblio_files/widgets/bottom_navbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomeScreen> {
 
   late PageController _tabPageController;
   int selectedPage = 0;
@@ -41,31 +46,11 @@ class _HomePageState extends State<HomePage> {
                   });
                 },
                 children: [
-                  Container(
-                    child: Center(
-                      child: Text("Homepage"),
-                    ),
-                  ),
-                  Container(
-                    child: Center(
-                      child: Text("Search Page"),
-                    ),
-                  ),
-                  Container(
-                    child: Center(
-                      child: Text("New Post"),
-                    ),
-                  ),
-                  Container(
-                    child: Center(
-                      child: Text("Message Page"),
-                    ),
-                  ),
-                  Container(
-                    child: Center(
-                      child: Text("profile Page"),
-                    ),
-                  ),
+                  Homepage(),
+                  Searchpage(),
+                  Postpage(),
+                  Messagespage(),
+                  Profilepage()
                 ],
               ),
             ),

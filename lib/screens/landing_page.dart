@@ -1,5 +1,5 @@
 import 'package:biblio_files/Styles/constants.dart';
-import 'package:biblio_files/screens/home_page.dart';
+import 'package:biblio_files/screens/home_screen.dart';
 import 'package:biblio_files/screens/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -40,7 +40,7 @@ class LandingPage extends StatelessWidget {
                 if(user == null) {
                   return LoginPage();
                 } else {
-                  return HomePage();
+                  return HomeScreen();
                 }
               }
               return Scaffold(
