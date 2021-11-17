@@ -132,6 +132,7 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
       );
       // Once signed in, return the UserCredential
       signInMaster(credential);
+
     } on PlatformException catch (e) {if (e.code == 'popup_closed_by_user') {
       return AppLocalizations.of(context)!.googleClosedError;
     }
@@ -187,6 +188,9 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
           await _linkAccountDialog();
           AccountLinker(e.email, e.credential);
         }
+        return e.message;
+      } catch (e){
+        return e.toString();
       }
     }
   }
@@ -232,6 +236,9 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
           await _linkAccountDialog();
           AccountLinker(e.email, e.credential);
         }
+        return e.message;
+      } catch (e) {
+        return e.toString();
       }
     }
   }
