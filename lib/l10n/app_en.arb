@@ -74,5 +74,13 @@
   "preExistingUserError": "An account already exists with the same email address but different sign-in credentials. Please enter your account password to link.",
   "@preExistingUserError": {
     "description": "user signed in with wrong provider"
-  }
+  },
+  "homeTitle": "Home",
+  "@homeTitle": {
+  "description": "title text for home page"
+  },
+  "searchTitle": "Search",
+  "@searchTitle": {
+  "description": "title text for search page"
+ }
 }

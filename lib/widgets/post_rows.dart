@@ -31,7 +31,7 @@ class PostRows extends StatelessWidget {
             children: [
               Text(title ?? "", style: constants.subtitleText,),
               SizedBox(
-                height: 120,
+                height: 150,
                 child: ListView(
                   // This next line does the trick.
                   scrollDirection: Axis.horizontal,

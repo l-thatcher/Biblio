@@ -1,10 +1,8 @@
-import 'package:biblio_files/widgets/custom_image_button.dart';
-import 'package:biblio_files/widgets/custom_page_title.dart';
 import 'package:biblio_files/widgets/post_rows.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:biblio_files/Styles/constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class Homepage extends StatelessWidget {
@@ -22,7 +20,7 @@ class Homepage extends StatelessWidget {
             right: 24,
             bottom: 24,
           ),
-          child: const Text("Home", style: constants.titleText,),
+          child: Text(AppLocalizations.of(context)!.homeTitle, style: constants.titleText,),
           ),
           Container(
             padding: const EdgeInsets.only(

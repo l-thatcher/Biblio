@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 class Profilepage extends StatelessWidget {
@@ -7,7 +8,13 @@ class Profilepage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text("profile page"),
+        child: FlatButton(
+          child: Text("Profile Page - logout"),
+          onPressed: () {
+            FirebaseAuth.instance.signOut();
+          },
+        ),
+
       ),
     );
   }
