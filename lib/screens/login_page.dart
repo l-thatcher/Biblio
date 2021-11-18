@@ -88,6 +88,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
       return KeyboardDismissOnTap(
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           body: SafeArea(
             child: Center(
               child: Container(
@@ -96,9 +97,12 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(AppLocalizations.of(context)!.welcome,style: constants.headingText,),
                     Column(
                       children: [
+                        Container(
+                            margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.15),
+                            child: Text(AppLocalizations.of(context)!.welcome,style: constants.headingText,)
+                        ),
                         Text(errorMsg, style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500, fontSize: 16), textAlign: TextAlign.center,),
                         CustomInput(
                           text : AppLocalizations.of(context)!.emailHint,
@@ -130,7 +134,6 @@ class _LoginPageState extends State<LoginPage> {
                         ),
 
                         Text(AppLocalizations.of(context)!.alternateSignIn,style: constants.fadedText,),
-
                         ThirdPartySignIn(),
                       ],
                     ),

@@ -78,7 +78,7 @@ class _HomeScreen extends State<HomeScreen> {
                   selectedTab: selectedPage,
                   changePage: (num) {
                     _tabPageController.animateToPage(num,
-                        duration: Duration(milliseconds: 500),
+                        duration: Duration(milliseconds: 700),
                         curve: Curves.easeInOutQuart);
                   },
                 ),
