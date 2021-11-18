@@ -8,8 +8,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:twitter_login/entity/auth_result.dart';
 import 'package:twitter_login/twitter_login.dart';
 import 'package:flutter/foundation.dart';
+import 'package:biblio_files/services/database.dart';
+
 
 
 class ThirdPartySignIn extends StatefulWidget {
@@ -20,6 +23,9 @@ class ThirdPartySignIn extends StatefulWidget {
 }
 
 class _ThirdPartySignInState extends State<ThirdPartySignIn> {
+
+  DatabaseMethods databaseMethods = new DatabaseMethods();
+  final String method = "";
 
   Future<void> _showPasswordReq() async {
     return showDialog<void>(
@@ -81,7 +87,11 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
 
   Future<String?> signInMaster(credential) async{
     try {
-      await FirebaseAuth.instance.signInWithCredential(credential);
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      if (userCredential.additionalUserInfo!.isNewUser == true) {
+        print("GOT HERE");
+        createDetails();
+      }
       Navigator.of(context).popUntil((route) => route.isFirst);
     }  on FirebaseAuthException catch (e) {
       //Account liniking adapted from FluterFire error handing docs - https://firebase.flutter.dev/docs/auth/error-handling/
@@ -119,6 +129,21 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
     }
   }
 
+  Future<String?> createDetails() async {
+    String? email = FirebaseAuth.instance.currentUser!.email;
+    String? name = FirebaseAuth.instance.currentUser!.displayName;
+    String _email = email!;
+    String _name = name ?? email.split("@")[0];
+
+
+    Map<String, String> userInfoMap = {
+      "email": _email,
+      "name": _name
+    };
+
+    databaseMethods.uploadUserInfo(userInfoMap);
+  }
+
   Future<String?> signInWithGoogle() async {
     // Trigger the authentication flow
     try {
@@ -132,7 +157,6 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
       );
       // Once signed in, return the UserCredential
       signInMaster(credential);
-
     } on PlatformException catch (e) {if (e.code == 'popup_closed_by_user') {
       return AppLocalizations.of(context)!.googleClosedError;
     }
@@ -181,8 +205,10 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
           'display': 'popup',
         });
 
-        // Once signed in, return the UserCredential
-        await FirebaseAuth.instance.signInWithPopup(facebookProvider);
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithPopup(facebookProvider);
+        if (userCredential.additionalUserInfo!.isNewUser == true){
+          createDetails();
+        }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {
           await _linkAccountDialog();
@@ -230,7 +256,10 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
     } else {
       try{
         TwitterAuthProvider twitterProvider = TwitterAuthProvider();
-        await FirebaseAuth.instance.signInWithPopup(twitterProvider);
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithPopup(twitterProvider);
+        if (userCredential.additionalUserInfo!.isNewUser == true){
+          createDetails();
+        }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {
           await _linkAccountDialog();

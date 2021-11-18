@@ -23,6 +23,10 @@
   "@signUpTxt": {
     "description": "Sign Up"
   },
+  "nameHint": "Name",
+  "@nameHint": {
+    "description": "Name"
+  },
   "emailHint": "Email",
   "@emailHint": {
     "description": "Email"
@@ -82,5 +86,9 @@
   "searchTitle": "Search",
   "@searchTitle": {
   "description": "title text for search page"
- }
+ },
+  "messagesTitle": "Messages",
+  "@messagesTitle": {
+    "description": "title text for messaging page"
+  }
 }

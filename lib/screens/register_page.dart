@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:biblio_files/Styles/constants.dart';
+import 'package:biblio_files/services/database.dart';
 import 'package:biblio_files/widgets/custom_button.dart';
 import 'package:biblio_files/widgets/custom_input_field.dart';
 import 'package:biblio_files/widgets/third_party_sign_in.dart';
@@ -18,6 +19,8 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPage extends State<RegisterPage> {
 
+  DatabaseMethods databaseMethods = new DatabaseMethods();
+
   Future<String?> _createAccount() async {
     if (newEmail.toLowerCase() == confEmail.toLowerCase()) {
       if (newPassword == confPassword) {
@@ -27,6 +30,14 @@ class _RegisterPage extends State<RegisterPage> {
               email: newEmail,
               password: newPassword
           );
+
+          Map<String, String> userInfoMap = {
+            "email" : newEmail,
+            "name" : newName
+          };
+
+          databaseMethods.uploadUserInfo(userInfoMap);
+
           return null;
         } on FirebaseAuthException catch (e) {
           if (e.code == 'weak-password') {
@@ -65,6 +76,7 @@ class _RegisterPage extends State<RegisterPage> {
   bool formLoading = false;
   String errorMsg = "";
 
+  String newName = "";
   String newEmail = "";
   String newPassword = "";
   String confEmail = "";
@@ -75,9 +87,11 @@ class _RegisterPage extends State<RegisterPage> {
   bool twitterLoading = false;
   bool btnVisible = true;
 
+  String name = "";
   String email = "";
   String password = "";
 
+  late FocusNode EmailFocusNode;
   late FocusNode confEmailFocusNode;
   late FocusNode passwordFocusNode;
   late FocusNode confpasswordFocusNode;
@@ -86,6 +100,7 @@ class _RegisterPage extends State<RegisterPage> {
 
   @override
   void initState() {
+    EmailFocusNode = FocusNode();
     confEmailFocusNode = FocusNode();
     passwordFocusNode = FocusNode();
     confpasswordFocusNode = FocusNode();
@@ -104,6 +119,7 @@ class _RegisterPage extends State<RegisterPage> {
 
   @override
   void dispose() {
+    EmailFocusNode.dispose();
     confEmailFocusNode.dispose();
     passwordFocusNode.dispose();
     confpasswordFocusNode.dispose();
@@ -127,6 +143,15 @@ class _RegisterPage extends State<RegisterPage> {
                       children: [
                         Text(errorMsg, style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500, fontSize: 16)),
                         CustomInput(
+                          text : AppLocalizations.of(context)!.nameHint, primaryInput: false,
+                          onChanged: (value) {
+                            newName = value;
+                          },
+                          onSubmitted: (value) {
+                            EmailFocusNode.requestFocus();
+                          },
+                          textInputAction: TextInputAction.next,),
+                        CustomInput(
                           text : AppLocalizations.of(context)!.emailHint, primaryInput: false,
                           onChanged: (value) {
                             newEmail = value;
@@ -134,6 +159,7 @@ class _RegisterPage extends State<RegisterPage> {
                           onSubmitted: (value) {
                             confEmailFocusNode.requestFocus();
                           },
+                          focusNode: EmailFocusNode,
                           textInputAction: TextInputAction.next,),
 
                         CustomInput(
@@ -177,18 +203,22 @@ class _RegisterPage extends State<RegisterPage> {
                           },
                           isLoading: formLoading,
                         ),
-                        Text(AppLocalizations.of(context)!.alternateSignUp,style: constants.fadedText,),
-                        ThirdPartySignIn()
                       ],
                     ),
                     Visibility(
                       visible: btnVisible,
-                      child: CustomButton(
-                        text: AppLocalizations.of(context)!.existingUserTxt,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        outlined: true,
+                      child: Column(
+                        children: [
+                          Text(AppLocalizations.of(context)!.alternateSignUp,style: constants.fadedText,),
+                          ThirdPartySignIn(),
+                          CustomButton(
+                            text: AppLocalizations.of(context)!.existingUserTxt,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            outlined: true,
+                          ),
+                        ],
                       ),
                     ),
                   ],

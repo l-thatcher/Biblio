@@ -1,13 +1,48 @@
+import 'package:biblio_files/widgets/chat_pages/chat_page.dart';
+import 'package:biblio_files/widgets/custom_image_button.dart';
+import 'package:biblio_files/widgets/custom_input_field.dart';
+import 'package:biblio_files/widgets/post_rows.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:biblio_files/Styles/constants.dart';
+
 class Messagespage extends StatelessWidget {
   const Messagespage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text("messages"),
+    return SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.only(
+              top: 15,
+              left: 18,
+              right: 24,
+              bottom: 10,
+            ),
+            child: Text(AppLocalizations.of(context)!.messagesTitle, style: constants.titleText,),
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.73,
+            margin: EdgeInsets.only(left: 5, right: 5),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+                    spreadRadius: 0.05,
+                    blurRadius: 20,
+                  )
+                ]
+            ),
+            padding: const EdgeInsets.all(7),
+            child: ChatPage(),
+            ),
+        ],
       ),
     );
   }

@@ -15,10 +15,10 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomeScreen createState() => _HomeScreen();
 }
 
-class _HomePageState extends State<HomeScreen> {
+class _HomeScreen extends State<HomeScreen> {
 
   late PageController _tabPageController;
   late StreamSubscription<bool> keyboardSubscription;
