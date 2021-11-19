@@ -18,8 +18,8 @@ class Searchpage extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.only(
-                top: 15,
-                left: 18,
+                top: 5,
+                left: 24,
                 right: 24,
                 bottom: 24,
               ),
@@ -28,8 +28,7 @@ class Searchpage extends StatelessWidget {
                 children: [
                   Text(AppLocalizations.of(context)!.searchTitle, style: constants.titleText,),
                   Container(
-                    height: 75,
-                    padding: const EdgeInsets.only(top: 10,),
+                    height: 65,
                       child: CustomImageButton(image: 'lib/assets/icons/burgerIcon.png', outlined: true,)),
                 ],
               ),

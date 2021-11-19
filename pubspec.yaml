@@ -45,6 +45,10 @@ dependencies:
   twitter_login: ^4.0.1
   flutter_keyboard_visibility: ^5.1.0
 
+#messaging dependencies:
+  flutter_bloc: ^8.0.0
+  shared_preferences: ^2.0.8
+
 
 
 

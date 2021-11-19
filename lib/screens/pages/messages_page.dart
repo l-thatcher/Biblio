@@ -1,4 +1,5 @@
 import 'package:biblio_files/widgets/chat_pages/chat_page.dart';
+import 'package:biblio_files/widgets/chat_pages/contacts_page.dart';
 import 'package:biblio_files/widgets/custom_image_button.dart';
 import 'package:biblio_files/widgets/custom_input_field.dart';
 import 'package:biblio_files/widgets/post_rows.dart';
@@ -40,7 +41,7 @@ class Messagespage extends StatelessWidget {
                 ]
             ),
             padding: const EdgeInsets.all(7),
-            child: ChatPage(),
+            child: ContactsPage(),
             ),
         ],
       ),

@@ -16,7 +16,7 @@ class Homepage extends StatelessWidget {
           Container(
           padding: const EdgeInsets.only(
             top: 15,
-            left: 18,
+            left: 24,
             right: 24,
             bottom: 24,
           ),
