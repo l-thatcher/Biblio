@@ -47,7 +47,7 @@
   "@registerHeading": {
     "description": "Register"
   },
-  "existingUserTxt": "Already a user? Sign In here",
+  "existingUserTxt": "Sign In here",
   "@existingUserTxt": {
     "description": "pre-existing user text"
   },
@@ -59,8 +59,12 @@
   "@alternateSignUp": {
     "description": "alternate sign up options"
   },
-  "newAccountPrompt": "Not a user yet?",
+  "newAccountPrompt": "Already a user? ",
   "@newAccountPrompt": {
+    "description": "prompt for button"
+  },
+  "logInPrompt": "Not a user yet?",
+  "@logInPrompt": {
     "description": "title for new user button"
   },
   "googleClosedError": "Google Sign in closed early",

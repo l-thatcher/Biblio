@@ -33,7 +33,6 @@ class CustomInput extends StatelessWidget {
         vertical: 5,
       ),
       child: TextField(
-        maxLines: null,
         obscureText: _hiddenText,
         focusNode: focusNode,
         onChanged: onChanged,

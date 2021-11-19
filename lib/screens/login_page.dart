@@ -139,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     Column(
                       children: [
-                        Text(AppLocalizations.of(context)!.newAccountPrompt,style: constants.fadedText,),
+                        Text(AppLocalizations.of(context)!.logInPrompt,style: constants.fadedText,),
                         CustomButton(
                           text: AppLocalizations.of(context)!.createAccountTxt,
                           onPressed: () {
