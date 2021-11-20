@@ -218,12 +218,13 @@ class _RegisterPage extends State<RegisterPage> {
                       ),
                       Container(
                         margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.26
+                          top: MediaQuery.of(context).size.height * 0.22
                         ),
                         child: Visibility(
                           visible: btnVisible,
                           child: Column(
                             children: [
+                              Text(AppLocalizations.of(context)!.newAccountPrompt,style: constants.fadedText,),
                               CustomButton(
                                 text: AppLocalizations.of(context)!.existingUserTxt,
                                 onPressed: () {
