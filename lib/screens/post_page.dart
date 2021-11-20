@@ -1,3 +1,4 @@
+import 'package:biblio_files/widgets/image_carousel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,11 @@ class _PostPageState extends State<PostPage> {
                 }
 
                 if (snapshot.connectionState == ConnectionState.done) {
+
                   Map<String, dynamic> documentData = snapshot.data!.data()!;
+
+                  List imageList = documentData["images"];
+
                   return SafeArea(
                     child: Column(
                       children: [
@@ -64,16 +69,28 @@ class _PostPageState extends State<PostPage> {
                                 ),
                               ),
                               Text(documentData["name"], style: constants.subtitleText,),
-                              Container(
-                                width: 28,
-                                height: 28,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage("lib/assets/defaultProfilePic.png"),
-                                    fit: BoxFit.contain,
+                              Row(
+                                children: [
+                                  Container(
+                                      width: 45,
+                                      height: 45,
+                                      child: Image(
+                                        image: AssetImage("lib/assets/savePost.png"),
+                                        fit: BoxFit.contain,
+                                        color: Theme.of(context).colorScheme.secondary,
+                                      )
                                   ),
-                                ),
-                              ),
+                                  Container(
+                                      width: 32,
+                                      height: 32,
+                                      child: Image(
+                                        image: AssetImage("lib/assets/sendMessage.png"),
+                                        fit: BoxFit.contain,
+                                        color: Theme.of(context).colorScheme.secondary,
+                                      )
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),
@@ -81,29 +98,12 @@ class _PostPageState extends State<PostPage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                height: MediaQuery.of(context).size.height * 0.5,
-                                width: MediaQuery.of(context).size.width * 1,
-                                margin: EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(15),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
-                                        spreadRadius: 0.05,
-                                        blurRadius: 20,
-                                      )
-                                    ]
-                                ),
-                                child: Image.network(
-                                    "${documentData["images"][0]}"
-                                ),
-                              ),
+                              ImageCarousel(imageList: imageList,),
                               Expanded(
                                 child: Container(
                                   width: MediaQuery.of(context).size.width * 1,
                                   margin: EdgeInsets.all(5),
+                                  padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(15),
@@ -115,14 +115,57 @@ class _PostPageState extends State<PostPage> {
                                         )
                                       ]
                                   ),
-                                  child: Column(
+                                  child: Stack(
                                     children: [
-                                      Text("PRoduct name"),
-                                      Text("Description"),
-                                      Text("Produict price"),
-                                      Text("Condition"),
-                                      Text("COurse"),
-                                      Text("Location")
+                                      Container(
+                                          alignment: Alignment(-1, -1),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text("Description", style: constants.regularText,),
+                                              Expanded(
+                                                child: Container(
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius: BorderRadius.circular(15),
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: Theme.of(context).colorScheme.primary.withOpacity(0.25),
+                                                            spreadRadius: 0.05,
+                                                            blurRadius: 20,
+                                                          )
+                                                        ]
+                                                    ),
+                                                    width: MediaQuery.of(context).size.width * 1,
+                                                    padding: EdgeInsets.all(15),
+                                                    margin: EdgeInsets.only(
+                                                      top: 5,
+                                                      left: 5,
+                                                      right: 5,
+                                                      bottom: 25,
+                                                    ),
+                                                    child: Text("${documentData["description"]}")
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                      ),
+                                      Container(
+                                          alignment: Alignment(-0.9, 1),
+                                          child: Text("£${documentData["price"]}", style: constants.regularText,),
+                                      ),
+                                      Container(
+                                        alignment: Alignment(1, -1),
+                                        child: Text("Condition: ${documentData["condition"]}", style: constants.regularText,),
+                                      ),
+                                      Container(
+                                        alignment: Alignment(0, 1),
+                                        child: Text("Course: ", style: constants.regularText,),
+                                      ),
+                                      Container(
+                                        alignment: Alignment(1, 1),
+                                        child: Text("Location: ", style: constants.regularText,),
+                                      ),
                                     ],
                                   ),
                                 ),
