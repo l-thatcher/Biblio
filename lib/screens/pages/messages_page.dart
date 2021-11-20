@@ -27,7 +27,7 @@ class Messagespage extends StatelessWidget {
             child: Text(AppLocalizations.of(context)!.messagesTitle, style: constants.titleText,),
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.73,
+            height: MediaQuery.of(context).size.height * 0.72,
             margin: EdgeInsets.only(left: 5, right: 5),
             decoration: BoxDecoration(
                 color: Colors.white,

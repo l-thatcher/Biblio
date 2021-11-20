@@ -47,7 +47,7 @@ class Searchpage extends StatelessWidget {
                     primaryInput: false,
                   ),
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.6,
+                    height: MediaQuery.of(context).size.height * 0.61,
                     margin: EdgeInsets.only(top: 20),
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -64,11 +64,16 @@ class Searchpage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(15)),
+                              color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+                            ),
+                            width: double.infinity,
                             padding: const EdgeInsets.only(
                               top: 10,
                               bottom: 10,
                             ),
-                            child: Text(AppLocalizations.of(context)!.searchSubTitle)
+                            child: Center(child: Text(AppLocalizations.of(context)!.searchSubTitle))
                         ),
                         Expanded(
                           child: ListView(

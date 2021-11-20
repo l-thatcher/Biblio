@@ -46,7 +46,7 @@ class UserListingsPage extends StatelessWidget {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.78,
+              height: MediaQuery.of(context).size.height * 0.785,
               padding: const EdgeInsets.only(
                 top: 45,
                 left: 15,
@@ -76,11 +76,16 @@ class UserListingsPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+                              ),
+                              width: double.infinity,
                               padding: const EdgeInsets.only(
                                 top: 10,
                                 bottom: 10,
                               ),
-                              child: Text(AppLocalizations.of(context)!.listingsSubTitle)
+                              child: Center(child: Text(AppLocalizations.of(context)!.listingsSubTitle))
                           ),
                           Expanded(
                             child: ListView(

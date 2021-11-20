@@ -98,7 +98,7 @@
   "@messagesTitle": {
     "description": "title text for messaging page"
   },
-  "listingsTitle": "My Posts",
+  "listingsTitle": "Posts",
   "@listingsTitle": {
     "description": "title text for my listings page"
   },
