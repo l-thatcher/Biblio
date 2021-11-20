@@ -68,7 +68,7 @@ class Searchpage extends StatelessWidget {
                               top: 10,
                               bottom: 10,
                             ),
-                            child: Text("Search history")
+                            child: Text(AppLocalizations.of(context)!.searchSubTitle)
                         ),
                         Expanded(
                           child: ListView(

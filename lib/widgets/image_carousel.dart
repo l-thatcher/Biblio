@@ -58,7 +58,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
               children: [
                 for(var i = 0; i < widget.imageList!.length; i++)
                   AnimatedContainer(
-                    duration: Duration(milliseconds: 700),
+                    duration: Duration(milliseconds: 300),
                     curve: Curves.easeOutCubic,
                     margin: EdgeInsets.symmetric(
                       horizontal: 5,

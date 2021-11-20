@@ -97,5 +97,17 @@
   "messagesTitle": "Messages",
   "@messagesTitle": {
     "description": "title text for messaging page"
+  },
+  "listingsTitle": "My Posts",
+  "@listingsTitle": {
+    "description": "title text for my listings page"
+  },
+  "searchSubTitle": "Search history",
+  "@searchSubTitle": {
+    "description": "subtitle text for search page"
+  },
+  "listingsSubTitle": "My Posts",
+  "@listingsSubTitle": {
+    "description": "subtitle text for my listings page"
   }
 }

@@ -4,7 +4,8 @@ import 'package:biblio_files/screens/pages/home_page.dart';
 import 'package:biblio_files/screens/pages/messages_page.dart';
 import 'package:biblio_files/screens/pages/profile_page.dart';
 import 'package:biblio_files/screens/pages/search_page.dart';
-import 'package:biblio_files/screens/pages/new_post_page.dart';
+import 'package:biblio_files/screens/new_post_page.dart';
+import 'package:biblio_files/screens/pages/user_listings_page.dart';
 import 'package:biblio_files/widgets/bottom_navbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,7 @@ class _HomeScreen extends State<HomeScreen> {
                   children: [
                     Homepage(),
                     Searchpage(),
-                    Postpage(),
+                    UserListingsPage(),
                     Messagespage(),
                     Profilepage()
                   ],
@@ -78,7 +79,7 @@ class _HomeScreen extends State<HomeScreen> {
                   selectedTab: selectedPage,
                   changePage: (num) {
                     _tabPageController.animateToPage(num,
-                        duration: Duration(milliseconds: 700),
+                        duration: Duration(milliseconds: 300),
                         curve: Curves.easeInOutQuart);
                   },
                 ),

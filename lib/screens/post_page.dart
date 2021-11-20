@@ -130,7 +130,7 @@ class _PostPageState extends State<PostPage> {
                                                         borderRadius: BorderRadius.circular(15),
                                                         boxShadow: [
                                                           BoxShadow(
-                                                            color: Theme.of(context).colorScheme.primary.withOpacity(0.25),
+                                                            color: Colors.black.withOpacity(0.25),
                                                             spreadRadius: 0.05,
                                                             blurRadius: 20,
                                                           )
