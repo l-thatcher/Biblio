@@ -78,11 +78,12 @@ class _PostPageState extends State<PostPage> {
                           ),
                         ),
                         Expanded(
-                          child: ListView(
-                            physics: NeverScrollableScrollPhysics(),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
                                 height: MediaQuery.of(context).size.height * 0.5,
+                                width: MediaQuery.of(context).size.width * 1,
                                 margin: EdgeInsets.all(5),
                                 decoration: BoxDecoration(
                                     color: Colors.white,
@@ -99,29 +100,31 @@ class _PostPageState extends State<PostPage> {
                                     "${documentData["images"][0]}"
                                 ),
                               ),
-                              Container(
-                                height: MediaQuery.of(context).size.height * 0.32,
-                                margin: EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(15),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
-                                        spreadRadius: 0.05,
-                                        blurRadius: 20,
-                                      )
-                                    ]
-                                ),
-                                child: Column(
-                                  children: [
-                                    Text("PRoduct name"),
-                                    Text("Description"),
-                                    Text("Produict price"),
-                                    Text("Condition"),
-                                    Text("COurse"),
-                                    Text("Location")
-                                  ],
+                              Expanded(
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width * 1,
+                                  margin: EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(15),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
+                                          spreadRadius: 0.05,
+                                          blurRadius: 20,
+                                        )
+                                      ]
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Text("PRoduct name"),
+                                      Text("Description"),
+                                      Text("Produict price"),
+                                      Text("Condition"),
+                                      Text("COurse"),
+                                      Text("Location")
+                                    ],
+                                  ),
                                 ),
                               )
                             ],
