@@ -47,6 +47,10 @@
   "@registerHeading": {
     "description": "Register"
   },
+  "messageHint": "Message...",
+  "@messageHint": {
+    "description": "Message"
+  },
   "existingUserTxt": "Already a user? Sign In here",
   "@existingUserTxt": {
     "description": "pre-existing user text"

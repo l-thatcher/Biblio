@@ -26,98 +26,119 @@ class _ChatPageState extends State<ChatPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              Navigator.pop(context);
-                            });
-                          },
-                          child: Container(
-                            width: 25,
-                            height: 25,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage("lib/assets/backArrow.png"),
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Text("data", style: constants.titleText,),
-                        Container(
-                          width: 32,
-                          height: 32,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("lib/assets/defaultProfilePic.png"),
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                height: 25,
                 child: Stack(
                   children: [
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(
+                        height: 30,
                         color: Theme.of(context).colorScheme.secondary,
                       ),
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25), bottomRight: Radius.circular(25)),
+                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
                         color: Colors.white,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    Navigator.pop(context);
+                                  });
+                                },
+                                child: Container(
+                                  width: 25,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage("lib/assets/backArrow.png"),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Text("data", style: constants.titleText,),
+                              Container(
+                                width: 32,
+                                height: 32,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage("lib/assets/defaultProfilePic.png"),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
+              Container(
+                height: 5,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: Container(
-                  padding: EdgeInsets.only(
-                    right: 25,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Container(
-                              constraints: BoxConstraints(
-                                minHeight: MediaQuery.of(context).size.height * 0.05,
-                                maxHeight: MediaQuery.of(context).size.height * 0.15,
-                              ),
-                              child: CustomInput()),
-                        ),
-                        Container(
-                          width: 10,
-                          height: 10,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("lib/assets/frontArrow.png"),
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ),
-                      ],
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: 30,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
                     ),
-                  ),
+                    Container(
+                      padding: EdgeInsets.only(
+                        right: 25,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.white.withOpacity(0.5),
+                              spreadRadius: 0.05,
+                              blurRadius: 20,
+                            )
+                          ]
+                      ),
+                      child: Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                  constraints: BoxConstraints(
+                                    minHeight: MediaQuery.of(context).size.height * 0.09,
+                                    maxHeight: MediaQuery.of(context).size.height * 0.15,
+                                  ),
+                                  child: CustomInput(text : AppLocalizations.of(context)!.messageHint,)),
+                            ),
+                            Container(
+                              width: 10,
+                              height: 10,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage("lib/assets/frontArrow.png"),
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
