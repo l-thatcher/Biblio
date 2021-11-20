@@ -4,7 +4,7 @@ import 'package:biblio_files/screens/pages/home_page.dart';
 import 'package:biblio_files/screens/pages/messages_page.dart';
 import 'package:biblio_files/screens/pages/profile_page.dart';
 import 'package:biblio_files/screens/pages/search_page.dart';
-import 'package:biblio_files/screens/pages/post_page.dart';
+import 'package:biblio_files/screens/pages/new_post_page.dart';
 import 'package:biblio_files/widgets/bottom_navbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
