@@ -14,7 +14,7 @@ class NewPostpage extends StatefulWidget {
 
 class _NewPostpageState extends State<NewPostpage> {
 
-
+  String dropdownValue = "Good";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,20 +155,48 @@ class _NewPostpageState extends State<NewPostpage> {
                                     )
                                 ),
                                 Container(
-                                  alignment: Alignment(-0.9, 1),
-                                  child: Text("price", style: constants.regularText,),
+                                  alignment: Alignment(-0.9, 1.05),
+                                  child: Text("Price: "),
                                 ),
                                 Container(
-                                  alignment: Alignment(1, -1),
-                                  child: Text("condition", style: constants.regularText,),
+                                  alignment: Alignment(-0.65, 1.05),
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width * 0.1,
+                                    height: MediaQuery.of(context).size.height * 0.02,
+                                    child: TextField(
+                                      keyboardType: TextInputType.number,
+                                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
                                 ),
                                 Container(
-                                  alignment: Alignment(0, 1),
+                                  alignment: Alignment(0.4, -1),
+                                  child: Text("Condition:"),
+                                ),
+                                Container(
+                                  alignment: Alignment(1, -1.18),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton<String>(
+                                      value: dropdownValue,
+                                      style: TextStyle(fontSize: 15, color: Colors.black),
+                                      onChanged: (String? newValue) {
+                                        setState(() {
+                                          dropdownValue = newValue!;
+                                        });
+                                      },
+                                      items: <String>['Bad', 'Okay', 'Good', 'Perfect']
+                                          .map<DropdownMenuItem<String>>((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment(0.5, 1),
                                   child: Text("Course: ", style: constants.regularText,),
-                                ),
-                                Container(
-                                  alignment: Alignment(1, 1),
-                                  child: Text("Location: ", style: constants.regularText,),
                                 ),
                               ],
                             ),
