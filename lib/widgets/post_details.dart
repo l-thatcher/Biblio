@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
-
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 
 class PostDetails extends StatefulWidget {
@@ -14,6 +14,8 @@ class PostDetails extends StatefulWidget {
 class _PostDetailsState extends State<PostDetails> {
 
   String dropdownValue = "Good";
+  var priceController = new MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',', leftSymbol: '\£ ');
+
 
   @override
   Widget build(BuildContext context) {
@@ -68,11 +70,14 @@ class _PostDetailsState extends State<PostDetails> {
                 children: [
                   Text("Price: ", style: constants.regularText,),
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.1,
-                    height: MediaQuery.of(context).size.height * 0.02,
+                    width: MediaQuery.of(context).size.width * 0.3,
                     child: TextField(
-                      keyboardType: TextInputType.number,
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                        controller: priceController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                     ),
                   ),
                 ],
@@ -101,12 +106,6 @@ class _PostDetailsState extends State<PostDetails> {
                   ),
                 ],
               ),
-
-              Row(
-                children: [
-                  Text("Course: ", style: constants.regularText,),
-                ],
-              )
 
             ],
           ),
