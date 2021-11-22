@@ -5,4 +5,12 @@ class DatabaseMethods{
   uploadUserInfo(userMap){
     FirebaseFirestore.instance.collection('users').add(userMap);
   }
+
+  newUserPost(postMap){
+    FirebaseFirestore.instance.collection('posts').add(postMap);
+  }
+
+  newUserPostAccountLink(postUserMap){
+    FirebaseFirestore.instance.collection('users').add(postUserMap);
+  }
 }

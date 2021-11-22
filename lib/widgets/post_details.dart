@@ -4,19 +4,11 @@ import 'package:biblio_files/Styles/constants.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 
-class PostDetails extends StatefulWidget {
-  const PostDetails({Key? key}) : super(key: key);
+class PostDetails extends StatelessWidget {
 
-  @override
-  _PostDetailsState createState() => _PostDetailsState();
-}
+  final Function(String)? onChanged;
 
-class _PostDetailsState extends State<PostDetails> {
-
-  String dropdownValue = "Good";
-  var priceController = new MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',', leftSymbol: '\£ ');
-
-
+  PostDetails({this.onChanged});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,63 +43,15 @@ class _PostDetailsState extends State<PostDetails> {
               top: 5,
               left: 5,
               right: 5,
-              bottom: 8,
             ),
             child: TextField(
+              onChanged: onChanged,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: "Aa...",
               ),
               style: constants.regularText,
             ),
-          ),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-
-              Row(
-                children: [
-                  Text("Price: ", style: constants.regularText,),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    child: TextField(
-                        controller: priceController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                        ),
-                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                ],
-              ),
-
-              Row(
-                children: [
-                  Text("Condition: ", style: constants.regularText,),
-                  DropdownButtonHideUnderline(
-                    child: DropdownButton<String>(
-                      value: dropdownValue,
-                      style: TextStyle(fontSize: 15, color: Colors.black),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownValue = newValue!;
-                        });
-                      },
-                      items: <String>['Bad', 'Okay', 'Good', 'Perfect']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ],
-              ),
-
-            ],
           ),
         ],
       ),

@@ -9,11 +9,22 @@ class UploadImage extends StatefulWidget {
 }
 
 class _UploadImageState extends State<UploadImage> {
+
+  final String image = "lib/assets/uploadImage.png";
+
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text("IMAGES"),
+        child: GestureDetector(
+          child: Image(
+            image: AssetImage(image),
+            fit: BoxFit.contain,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+        ),
       ),
     );
   }

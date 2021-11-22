@@ -41,7 +41,7 @@ class _PostPageState extends State<PostPage> {
 
                   Map<String, dynamic> documentData = snapshot.data!.data()!;
 
-                  List imageList = documentData["images"];
+                  List imageList = [documentData["image1"], documentData["image2"], documentData["image3"], documentData["image4"]];
 
                   return SafeArea(
                     child: Column(
@@ -152,7 +152,7 @@ class _PostPageState extends State<PostPage> {
                                       ),
                                       Container(
                                           alignment: Alignment(-0.9, 1),
-                                          child: Text("£${documentData["price"]}", style: constants.regularText,),
+                                          child: Text("${documentData["price"]}", style: constants.regularText,),
                                       ),
                                       Container(
                                         alignment: Alignment(1, -1),

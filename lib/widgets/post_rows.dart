@@ -72,7 +72,7 @@ class PostRows extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(3),
                               child: Image.network(
-                                  "${document["images"][0]}"
+                                  "${document["image1"]}"
                               ),
                             ),
                           ),

@@ -1,7 +1,7 @@
 import 'package:biblio_files/screens/new_post_page.dart';
 import 'package:biblio_files/widgets/custom_image_button.dart';
 import 'package:biblio_files/widgets/custom_input_field.dart';
-import 'package:biblio_files/widgets/postListPreview.dart';
+import 'package:biblio_files/widgets/post_list_preview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
