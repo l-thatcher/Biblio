@@ -156,7 +156,7 @@ class _NewPostpageState extends State<NewPostpage> {
                                 ),
                                 Container(
                                   alignment: Alignment(-0.9, 1.05),
-                                  child: Text("Price: "),
+                                  child: Text("Price: ", style: constants.regularText,),
                                 ),
                                 Container(
                                   alignment: Alignment(-0.65, 1.05),
@@ -171,7 +171,7 @@ class _NewPostpageState extends State<NewPostpage> {
                                 ),
                                 Container(
                                   alignment: Alignment(0.4, -1),
-                                  child: Text("Condition:"),
+                                  child: Text("Condition:", style: constants.regularText,),
                                 ),
                                 Container(
                                   alignment: Alignment(1, -1.18),
