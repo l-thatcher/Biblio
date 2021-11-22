@@ -26,23 +26,24 @@ class Messagespage extends StatelessWidget {
             ),
             child: Text(AppLocalizations.of(context)!.messagesTitle, style: constants.titleText,),
           ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.72,
-            margin: EdgeInsets.only(left: 5, right: 5),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
-                    spreadRadius: 0.05,
-                    blurRadius: 20,
-                  )
-                ]
-            ),
-            padding: const EdgeInsets.all(7),
-            child: ContactsPage(),
-            ),
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.only(left: 15, right: 15, bottom: 13),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+                      spreadRadius: 0.05,
+                      blurRadius: 20,
+                    )
+                  ]
+              ),
+              padding: const EdgeInsets.all(7),
+              child: ContactsPage(),
+              ),
+          ),
         ],
       ),
     );

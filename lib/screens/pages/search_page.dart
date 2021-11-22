@@ -14,95 +14,94 @@ class Searchpage extends StatelessWidget {
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
       child: SafeArea(
-        child: Stack(
-          children: [
-            Container(
-              padding: const EdgeInsets.only(
-                top: 5,
-                left: 24,
-                right: 24,
-                bottom: 24,
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.925,
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.only(
+                  top: 15,
+                  left: 18,
+                  right: 24,
+                  bottom: 10,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(AppLocalizations.of(context)!.searchTitle, style: constants.titleText,),
+                    Container(
+                      height: 63,
+                        child: CustomImageButton(image: 'lib/assets/icons/burgerIcon.png', outlined: true,)),
+                  ],
+                ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(AppLocalizations.of(context)!.searchTitle, style: constants.titleText,),
-                  Container(
-                    height: 65,
-                      child: CustomImageButton(image: 'lib/assets/icons/burgerIcon.png', outlined: true,)),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(
-                top: 80,
-                left: 15,
-                right: 15,
-              ),
-              child : Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomInput(
-                    text : ((AppLocalizations.of(context)!.searchTitle) + "..."),
-                    primaryInput: false,
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.61,
-                    margin: EdgeInsets.only(top: 20),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
-                            spreadRadius: 0.05,
-                            blurRadius: 20,
-                          )
-                        ]
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomInput(
+                      text : ((AppLocalizations.of(context)!.searchTitle) + "..."),
+                      primaryInput: false,
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(15),
-                                topLeft: Radius.circular(15),
-                              ),
-                              color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
-                            ),
-                            width: double.infinity,
-                            padding: const EdgeInsets.only(
-                              top: 10,
-                              bottom: 10,
-                            ),
-                            child: Center(child: Text(AppLocalizations.of(context)!.searchSubTitle))
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(left: 15, right: 15, bottom: 89),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+                                spreadRadius: 0.05,
+                                blurRadius: 20,
+                              )
+                            ]
                         ),
-                        Expanded(
-                          child: ListView(
-                            children: const <Widget>[
-                              ListTile(
-                                leading: Icon(Icons.map),
-                                title: Text('Map'),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(15),
+                                    topLeft: Radius.circular(15),
+                                  ),
+                                  color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+                                ),
+                                width: double.infinity,
+                                padding: const EdgeInsets.only(
+                                  top: 10,
+                                  bottom: 10,
+                                ),
+                                child: Center(child: Text(AppLocalizations.of(context)!.searchSubTitle))
+                            ),
+                            Expanded(
+                              child: ListView(
+                                children: const <Widget>[
+                                  ListTile(
+                                    leading: Icon(Icons.map),
+                                    title: Text('Map'),
+                                  ),
+                                  ListTile(
+                                    leading: Icon(Icons.photo_album),
+                                    title: Text('Album'),
+                                  ),
+                                  ListTile(
+                                    leading: Icon(Icons.phone),
+                                    title: Text('Phone'),
+                                  ),
+                                ],
                               ),
-                              ListTile(
-                                leading: Icon(Icons.photo_album),
-                                title: Text('Album'),
-                              ),
-                              ListTile(
-                                leading: Icon(Icons.phone),
-                                title: Text('Phone'),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
