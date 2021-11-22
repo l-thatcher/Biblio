@@ -28,7 +28,7 @@ class Messagespage extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              margin: EdgeInsets.only(left: 15, right: 15, bottom: 13),
+              margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15),
