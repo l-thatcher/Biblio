@@ -45,6 +45,7 @@ dependencies:
   twitter_login: ^4.0.1
   flutter_keyboard_visibility: ^5.1.0
   flutter_masked_text2: ^0.9.1
+  dropdown_plus: ^0.0.9
 
 #messaging dependencies:
   flutter_bloc: ^8.0.0

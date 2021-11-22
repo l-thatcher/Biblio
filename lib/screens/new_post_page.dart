@@ -3,6 +3,7 @@ import 'package:biblio_files/widgets/image_carousel.dart';
 import 'package:biblio_files/widgets/post_details.dart';
 import 'package:biblio_files/widgets/uploadImage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dropdown_plus/dropdown_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
@@ -15,6 +16,9 @@ class NewPostpage extends StatefulWidget {
 
 class _NewPostpageState extends State<NewPostpage> {
 
+
+
+  final courseOptions = ['Physics', 'Chemestry', 'Computer Science', 'Maths', 'Engineering'];
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +53,19 @@ class _NewPostpageState extends State<NewPostpage> {
                           ),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.65,
+                          width: MediaQuery.of(context).size.width * 0.3,
                             child: CustomInput(text: "Name",)
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.3,
+                            child: TextDropdownFormField(
+                              options: courseOptions,
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  suffixIcon: Icon(Icons.arrow_drop_down),
+                                  labelText: "Course"),
+                              dropdownHeight: 120,
+                            ),
                         ),
                         Container(
                             padding: EdgeInsets.all(5),
