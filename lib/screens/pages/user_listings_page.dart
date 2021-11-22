@@ -77,7 +77,10 @@ class UserListingsPage extends StatelessWidget {
                         children: [
                           Container(
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(15),
+                                  topLeft: Radius.circular(15),
+                                ),
                                 color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
                               ),
                               width: double.infinity,

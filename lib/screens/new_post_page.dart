@@ -48,8 +48,8 @@ class _NewPostpageState extends State<NewPostpage> {
                           ),
                         ),
                         Container(
-                          width: 200,
-                            child: CustomInput(text: "Name", primaryInput: true,)
+                          width: MediaQuery.of(context).size.width * 0.65,
+                            child: CustomInput(text: "Name",)
                         ),
                         Container(
                             padding: EdgeInsets.all(5),
@@ -124,7 +124,7 @@ class _NewPostpageState extends State<NewPostpage> {
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text("Description", style: constants.regularText,),
+                                        Text("Description...", style: constants.regularText,),
                                         Expanded(
                                           child: Container(
                                             decoration: BoxDecoration(
@@ -145,7 +145,7 @@ class _NewPostpageState extends State<NewPostpage> {
                                               child: TextField(
                                                 decoration: InputDecoration(
                                                   border: InputBorder.none,
-                                                  hintText: "Description",
+                                                  hintText: "Aa...",
                                                 ),
                                                 style: constants.regularText,
                                               ),
