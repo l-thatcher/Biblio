@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CourseSelector extends StatelessWidget {
 
   final Function(dynamic)? onChanged;
-  final courseOptions = ['Physics', 'Chemestry', 'Computer Science', 'Maths', 'Engineering'];
+  final courseOptions = ['Other', 'Physics', 'Chemestry', 'Computer Science', 'Maths', 'Engineering'];
 
   CourseSelector({this.onChanged});
 

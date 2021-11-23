@@ -20,33 +20,76 @@ class NewPostpage extends StatefulWidget {
 
 class _NewPostpageState extends State<NewPostpage> {
 
-  String name = "Not yet completed";
+  String? name;
   String description = "Not yet completed";
   String condition = "Good";
   String price = "Not yet completed";
-  String course = "Not yet completed";
+  String course = "Other";
 
   DatabaseMethods databaseMethods = new DatabaseMethods();
+  bool formLoading = false;
+  String errorMsg = "Something went wrong";
+
+  Future<void> _missingDetailsDialog() async {
+    return showDialog<void>(
+      context: context, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+              child: Text(errorMsg)
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Continue'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   Future<String?> _createPost() async {
-    Map<String, String> postMap = {
-      "name" : name,
-      "description" : description,
-      "condition" : condition,
-      "price" : price,
-      "course" : course,
-      "image1" : "https://firebasestorage.googleapis.com/v0/b/biblio-27537.appspot.com/o/chemestry.jpg?alt=media&token=75582cbf-0a5e-4e86-8725-57e537fd0f27",
-      "image2" : "https://firebasestorage.googleapis.com/v0/b/biblio-27537.appspot.com/o/chemestry.jpg?alt=media&token=75582cbf-0a5e-4e86-8725-57e537fd0f27",
-      "image3" : "https://firebasestorage.googleapis.com/v0/b/biblio-27537.appspot.com/o/chemestry.jpg?alt=media&token=75582cbf-0a5e-4e86-8725-57e537fd0f27",
-      "image4" : "https://firebasestorage.googleapis.com/v0/b/biblio-27537.appspot.com/o/chemestry.jpg?alt=media&token=75582cbf-0a5e-4e86-8725-57e537fd0f27",
-    };
+    if (name == null) {
+      return "Please give this listing a name to upload it.";
+    } else {
+      try {
+        String _name = name!;
+        Map<String, String> postMap = {
+          "name" : _name,
+          "description" : description,
+          "condition" : condition,
+          "price" : price,
+          "course" : course,
+          "image1" : "https://firebasestorage.googleapis.com/v0/b/biblio-27537.appspot.com/o/chemestry.jpg?alt=media&token=75582cbf-0a5e-4e86-8725-57e537fd0f27",
+          "image2" : "https://firebasestorage.googleapis.com/v0/b/biblio-27537.appspot.com/o/chemestry.jpg?alt=media&token=75582cbf-0a5e-4e86-8725-57e537fd0f27",
+          "image3" : "https://firebasestorage.googleapis.com/v0/b/biblio-27537.appspot.com/o/chemestry.jpg?alt=media&token=75582cbf-0a5e-4e86-8725-57e537fd0f27",
+          "image4" : "https://firebasestorage.googleapis.com/v0/b/biblio-27537.appspot.com/o/chemestry.jpg?alt=media&token=75582cbf-0a5e-4e86-8725-57e537fd0f27",
+        };
+        databaseMethods.newUserPost(postMap);
 
-
-    databaseMethods.newUserPost(postMap);
+        return null;
+      } on Exception catch (e) {
+        return (e.toString());
+      }
+    }
   }
 
   void submitForm() async {
-    _createPost();
+    formLoading = true;
+    String? createPostString = await _createPost();
+    if(createPostString != null){
+      errorMsg = createPostString;
+      await _missingDetailsDialog();
+      setState(() {
+        formLoading = false;
+      });
+    } else {
+      Navigator.pop(context);
+    }
+
   }
 
   @override
@@ -87,7 +130,9 @@ class _NewPostpageState extends State<NewPostpage> {
                           },)
                       ),
                       GestureDetector(
-                        onTap: _createPost,
+                        onTap: (
+                            submitForm
+                        ),
                         child: Container(
                             padding: EdgeInsets.all(5),
                             decoration: BoxDecoration(
@@ -99,11 +144,24 @@ class _NewPostpageState extends State<NewPostpage> {
                             ),
                             width: 30,
                             height: 30,
-                            child: Image(
-                              image: AssetImage("lib/assets/plusIcon.png"),
-                              fit: BoxFit.contain,
-                              color: Theme.of(context).colorScheme.secondary,
-                            )
+                            child: Stack(
+                              children: [
+                                Visibility(
+                                  visible: formLoading ? false : true,
+                                  child: Image(
+                                    image: AssetImage("lib/assets/plusIcon.png"),
+                                    fit: BoxFit.contain,
+                                    color: Theme.of(context).colorScheme.secondary,
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: formLoading,
+                                  child:CircularProgressIndicator(
+                                    color: Colors.blueGrey,
+                                  ),
+                                ),
+                              ],
+                            ),
                         ),
                       )
                     ],
