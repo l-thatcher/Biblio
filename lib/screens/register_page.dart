@@ -30,10 +30,11 @@ class _RegisterPage extends State<RegisterPage> {
               email: newEmail,
               password: newPassword
           );
-
+          var currentUser = FirebaseAuth.instance.currentUser;
           Map<String, String> userInfoMap = {
             "email" : newEmail,
-            "name" : newName
+            "name" : newName,
+            "uuid" : currentUser!.uid
           };
 
           databaseMethods.uploadUserInfo(userInfoMap);

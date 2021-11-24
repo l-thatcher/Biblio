@@ -10,7 +10,4 @@ class DatabaseMethods{
     FirebaseFirestore.instance.collection('posts').add(postMap);
   }
 
-  newUserPostAccountLink(postUserMap){
-    FirebaseFirestore.instance.collection('users').add(postUserMap);
-  }
 }

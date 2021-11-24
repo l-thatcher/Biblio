@@ -16,6 +16,8 @@ import 'package:biblio_files/Styles/constants.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class NewPostpage extends StatefulWidget {
   @override
@@ -46,6 +48,8 @@ class _NewPostpageState extends State<NewPostpage> {
   DatabaseMethods databaseMethods = new DatabaseMethods();
   bool formLoading = false;
   String errorMsg = "Something went wrong";
+  final CollectionReference _userRef = FirebaseFirestore.instance.collection("users");
+
 
 
   @override
@@ -101,7 +105,7 @@ class _NewPostpageState extends State<NewPostpage> {
     print(uploadImg1.image);
     if (name == null) {
       return "Please give this listing a name to upload it.";
-    } else if (uploadImg1.image == null || uploadImg2.image == null || uploadImg3.image == null || uploadImg4.image == null){
+    } else if (uploadImg1.image == null && uploadImg2.image == null && uploadImg3.image == null && uploadImg4.image == null){
       return "Please give this listing at least one image to upload it.";
     }
     else {
@@ -122,7 +126,7 @@ class _NewPostpageState extends State<NewPostpage> {
           image4Url = await (uploadFile(uploadImg4.image));
         }
 
-        
+        var currentUser = FirebaseAuth.instance.currentUser;
         String _name = name!;
         Map<String, String> postMap = {
           "name" : _name,
@@ -134,6 +138,7 @@ class _NewPostpageState extends State<NewPostpage> {
           "image2" : image2Url,
           "image3" : image3Url,
           "image4" : image4Url,
+          "userUuid" : currentUser!.uid
         };
         databaseMethods.newUserPost(postMap);
 
@@ -165,135 +170,159 @@ class _NewPostpageState extends State<NewPostpage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: KeyboardDismissOnTap(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 5, bottom: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            Navigator.pop(context);
-                          });
-                        },
-                        child: Container(
-                          width: 20,
-                          height: 20,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("lib/assets/backArrow.png"),
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                          child: CustomInput(text: "Name",
-                          onChanged: (value) {
-                            name = value;
-                          },)
-                      ),
-                      GestureDetector(
-                        onTap: (
-                            submitForm
-                        ),
-                        child: Container(
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: const Color(0xff0e4c76),
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            width: 30,
-                            height: 30,
-                            child: Stack(
+        child: Stack(
+          children: [
+            FutureBuilder<QuerySnapshot>(
+              future: _userRef.get(),
+              builder: (context, snapshot) {
+                if(snapshot.hasError){
+                  return Scaffold(
+                    body: Center(
+                      child: Text("Error: ${snapshot.error}"),
+                    ),
+                  );
+                }
+
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return KeyboardDismissOnTap(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(top: 5, bottom: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Visibility(
-                                  visible: formLoading ? false : true,
-                                  child: Image(
-                                    image: AssetImage("lib/assets/plusIcon.png"),
-                                    fit: BoxFit.contain,
-                                    color: Theme.of(context).colorScheme.secondary,
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      Navigator.pop(context);
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 20,
+                                    height: 20,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage("lib/assets/backArrow.png"),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                Visibility(
-                                  visible: formLoading,
-                                  child:CircularProgressIndicator(
-                                    color: Colors.blueGrey,
-                                  ),
+                                Container(
+                                    width: MediaQuery.of(context).size.width * 0.6,
+                                    child: CustomInput(text: "Name",
+                                      onChanged: (value) {
+                                        name = value;
+                                      },)
                                 ),
+                                GestureDetector(
+                                  onTap: (
+                                      submitForm
+                                  ),
+                                  child: Container(
+                                    padding: EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: const Color(0xff0e4c76),
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    width: 30,
+                                    height: 30,
+                                    child: Stack(
+                                      children: [
+                                        Visibility(
+                                          visible: formLoading ? false : true,
+                                          child: Image(
+                                            image: AssetImage("lib/assets/plusIcon.png"),
+                                            fit: BoxFit.contain,
+                                            color: Theme.of(context).colorScheme.secondary,
+                                          ),
+                                        ),
+                                        Visibility(
+                                          visible: formLoading,
+                                          child:CircularProgressIndicator(
+                                            color: Colors.blueGrey,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
                               ],
                             ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.5,
-                      width: MediaQuery.of(context).size.width * 1,
-                      constraints: BoxConstraints( maxWidth: MediaQuery.of(context).size.height * 0.5),
-                      margin: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
-                              spreadRadius: 0.05,
-                              blurRadius: 20,
-                            )
-                          ]
-                      ),
-                      child: GridView.count(
-                        physics: NeverScrollableScrollPhysics(),
-                        crossAxisCount: 2,
-                        children: [
-                          uploadImg1,
-                          uploadImg2,
-                          uploadImg3,
-                          uploadImg4,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: MediaQuery.of(context).size.height * 0.5,
+                                width: MediaQuery.of(context).size.width * 1,
+                                constraints: BoxConstraints( maxWidth: MediaQuery.of(context).size.height * 0.5),
+                                margin: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(15),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
+                                        spreadRadius: 0.05,
+                                        blurRadius: 20,
+                                      )
+                                    ]
+                                ),
+                                child: GridView.count(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  crossAxisCount: 2,
+                                  children: [
+                                    uploadImg1,
+                                    uploadImg2,
+                                    uploadImg3,
+                                    uploadImg4,
+                                  ],
+                                ),
+                              ),
+                              CourseSelector(
+                                onChanged: (value) {
+                                  course = value.toString();
+                                },
+                              ),
+                              ConditionSelector(
+                                onChanged: (value) {
+                                  condition = value;
+                                },
+                              ),
+                              PriceSelector(
+                                onChanged: (value) {
+                                  price = value;
+                                },
+                              ),
+                              Container(
+                                  height: MediaQuery.of(context).size.height * 0.24,
+                                  child: PostDetails(
+                                    onChanged: (value) {
+                                      description = value;
+                                    },
+                                  )
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
-                    CourseSelector(
-                      onChanged: (value) {
-                        course = value.toString();
-                      },
-                    ),
-                    ConditionSelector(
-                      onChanged: (value) {
-                        condition = value;
-                      },
-                    ),
-                    PriceSelector(
-                      onChanged: (value) {
-                        price = value;
-                      },
-                    ),
-                    Container(
-                        height: MediaQuery.of(context).size.height * 0.24,
-                        child: PostDetails(
-                          onChanged: (value) {
-                            description = value;
-                          },
-                        )
-                    ),
-                  ],
-                ),
-              ],
+                  );
+                }
+                return Scaffold(
+                  body: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              },
             ),
-          ),
+          ],
         ),
       ),
     );

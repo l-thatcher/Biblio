@@ -48,7 +48,6 @@ class PostRows extends StatelessWidget {
                   Text(title ?? "", style: constants.subtitleText,),
                   Expanded(
                     child: ListView(
-                      // This next line does the trick.
                       scrollDirection: Axis.horizontal,
                       children: snapshot.data!.docs.map((document) {
                         return GestureDetector(

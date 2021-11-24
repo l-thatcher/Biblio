@@ -133,11 +133,12 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
     String? name = FirebaseAuth.instance.currentUser!.displayName;
     String _email = email!;
     String _name = name ?? email.split("@")[0];
-
+    var currentUser = FirebaseAuth.instance.currentUser;
 
     Map<String, String> userInfoMap = {
       "email": _email,
-      "name": _name
+      "name": _name,
+      "uuid" : currentUser!.uid
     };
 
     databaseMethods.uploadUserInfo(userInfoMap);
