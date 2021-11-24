@@ -41,7 +41,21 @@ class _PostPageState extends State<PostPage> {
 
                   Map<String, dynamic> documentData = snapshot.data!.data()!;
 
-                  List imageList = [documentData["image1"], documentData["image2"], documentData["image3"], documentData["image4"]];
+                  List imageList = [];
+
+                  if(documentData["image1"] != "") {
+                    imageList.add(documentData["image1"]);
+                  }
+                  if(documentData["image2"] != "") {
+                    imageList.add(documentData["image2"]);
+                  }
+                  if(documentData["image3"] != "") {
+                    imageList.add(documentData["image3"]);
+                  }
+                  if(documentData["image4"] != "") {
+                    imageList.add(documentData["image4"]);
+                  }
+
 
                   return SafeArea(
                     child: Column(
@@ -160,7 +174,7 @@ class _PostPageState extends State<PostPage> {
                                       ),
                                       Container(
                                         alignment: Alignment(0, 1),
-                                        child: Text("Course: ", style: constants.regularText,),
+                                        child: Text("Course: ${documentData["course"]}", style: constants.regularText,),
                                       ),
                                       Container(
                                         alignment: Alignment(1, 1),

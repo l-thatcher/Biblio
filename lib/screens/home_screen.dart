@@ -46,6 +46,7 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   void dispose() {
     _tabPageController = PageController();
+    keyboardSubscription.cancel();
     super.dispose();
   }
   @override

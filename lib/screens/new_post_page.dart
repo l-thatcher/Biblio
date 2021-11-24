@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:biblio_files/services/database.dart';
 import 'package:biblio_files/widgets/condition_selector.dart';
 import 'package:biblio_files/widgets/course_selector.dart';
@@ -8,10 +9,13 @@ import 'package:biblio_files/widgets/price_selector.dart';
 import 'package:biblio_files/widgets/upload_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_plus/dropdown_plus.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class NewPostpage extends StatefulWidget {
   @override
@@ -25,14 +29,42 @@ class _NewPostpageState extends State<NewPostpage> {
   String condition = "Good";
   String price = "Not yet completed";
   String course = "Other";
+  XFile? image1;
+  XFile? image2;
+  XFile? image3;
+  XFile? image4;
+  UploadImage uploadImg1 = UploadImage();
+  UploadImage uploadImg2 = UploadImage();
+  UploadImage uploadImg3 = UploadImage();
+  UploadImage uploadImg4 = UploadImage();
+  String image1Url = "";
+  String image2Url = "";
+  String image3Url = "";
+  String image4Url = "";
+
 
   DatabaseMethods databaseMethods = new DatabaseMethods();
   bool formLoading = false;
   String errorMsg = "Something went wrong";
 
+
+  @override
+  void initState() {
+    uploadImg1 = UploadImage(image: image1,);
+    uploadImg2 = UploadImage(image: image2,);
+    uploadImg3 = UploadImage(image: image3,);
+    uploadImg4 = UploadImage(image: image4,);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   Future<void> _missingDetailsDialog() async {
     return showDialog<void>(
-      context: context, // user must tap button!
+      context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           content: SingleChildScrollView(
@@ -51,11 +83,42 @@ class _NewPostpageState extends State<NewPostpage> {
     );
   }
 
+  Future<String> uploadFile(XFile? image) async {
+    File file = File(image!.path);
+    String url="";
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference ref = storage.ref().child('userImages/${image.name}');
+    UploadTask uploadTask = ref.putFile(file);
+    await uploadTask.whenComplete(() async {
+      url = await ref.getDownloadURL();
+    }).catchError((onError) {
+      print(onError);
+    });
+    return url;
+  }
+
   Future<String?> _createPost() async {
     if (name == null) {
       return "Please give this listing a name to upload it.";
     } else {
       try {
+        if (uploadImg1.image != null){
+          image1Url = await (uploadFile(uploadImg1.image));
+        }
+        if (uploadImg2.image != null){
+          uploadFile(uploadImg2.image);
+          image2Url = await (uploadFile(uploadImg2.image));
+        }
+        if (uploadImg3.image != null){
+          uploadFile(uploadImg3.image);
+          image3Url = await (uploadFile(uploadImg3.image));
+        }
+        if (uploadImg4.image != null){
+          uploadFile(uploadImg4.image);
+          image4Url = await (uploadFile(uploadImg4.image));
+        }
+
+        
         String _name = name!;
         Map<String, String> postMap = {
           "name" : _name,
@@ -63,10 +126,10 @@ class _NewPostpageState extends State<NewPostpage> {
           "condition" : condition,
           "price" : price,
           "course" : course,
-          "image1" : "https://firebasestorage.googleapis.com/v0/b/biblio-27537.appspot.com/o/chemestry.jpg?alt=media&token=75582cbf-0a5e-4e86-8725-57e537fd0f27",
-          "image2" : "https://firebasestorage.googleapis.com/v0/b/biblio-27537.appspot.com/o/chemestry.jpg?alt=media&token=75582cbf-0a5e-4e86-8725-57e537fd0f27",
-          "image3" : "https://firebasestorage.googleapis.com/v0/b/biblio-27537.appspot.com/o/chemestry.jpg?alt=media&token=75582cbf-0a5e-4e86-8725-57e537fd0f27",
-          "image4" : "https://firebasestorage.googleapis.com/v0/b/biblio-27537.appspot.com/o/chemestry.jpg?alt=media&token=75582cbf-0a5e-4e86-8725-57e537fd0f27",
+          "image1" : image1Url,
+          "image2" : image2Url,
+          "image3" : image3Url,
+          "image4" : image4Url,
         };
         databaseMethods.newUserPost(postMap);
 
@@ -78,7 +141,9 @@ class _NewPostpageState extends State<NewPostpage> {
   }
 
   void submitForm() async {
-    formLoading = true;
+    setState(() {
+      formLoading = true;
+    });
     String? createPostString = await _createPost();
     if(createPostString != null){
       errorMsg = createPostString;
@@ -190,10 +255,10 @@ class _NewPostpageState extends State<NewPostpage> {
                         physics: NeverScrollableScrollPhysics(),
                         crossAxisCount: 2,
                         children: [
-                          UploadImage(),
-                          UploadImage(),
-                          UploadImage(),
-                          UploadImage(),
+                          uploadImg1,
+                          uploadImg2,
+                          uploadImg3,
+                          uploadImg4,
                         ],
                       ),
                     ),

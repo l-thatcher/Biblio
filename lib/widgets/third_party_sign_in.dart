@@ -89,7 +89,6 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
     try {
       UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
       if (userCredential.additionalUserInfo!.isNewUser == true) {
-        print("GOT HERE");
         createDetails();
       }
       Navigator.of(context).popUntil((route) => route.isFirst);
