@@ -98,9 +98,13 @@ class _NewPostpageState extends State<NewPostpage> {
   }
 
   Future<String?> _createPost() async {
+    print(uploadImg1.image);
     if (name == null) {
       return "Please give this listing a name to upload it.";
-    } else {
+    } else if (uploadImg1.image == null || uploadImg2.image == null || uploadImg3.image == null || uploadImg4.image == null){
+      return "Please give this listing at least one image to upload it.";
+    }
+    else {
       try {
         if (uploadImg1.image != null){
           image1Url = await (uploadFile(uploadImg1.image));
