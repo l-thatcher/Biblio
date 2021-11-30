@@ -30,7 +30,6 @@ class CourseSelector extends StatelessWidget {
           ]
       ),
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.3,
         child: TextDropdownFormField(
           onChanged: onChanged,
           options: courseOptions,

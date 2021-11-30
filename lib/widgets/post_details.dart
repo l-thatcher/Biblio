@@ -7,8 +7,9 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 class PostDetails extends StatelessWidget {
 
   final Function(String)? onChanged;
+  String? writtenText;
 
-  PostDetails({this.onChanged});
+  PostDetails({this.onChanged, this.writtenText});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,7 +45,8 @@ class PostDetails extends StatelessWidget {
               left: 5,
               right: 5,
             ),
-            child: TextField(
+            child: TextFormField(
+              initialValue: writtenText,
               onChanged: onChanged,
               decoration: InputDecoration(
                 border: InputBorder.none,

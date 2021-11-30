@@ -7,7 +7,7 @@ import 'package:biblio_files/Styles/constants.dart';
 import 'custom_image_button.dart';
 
 class PostRows extends StatelessWidget {
-  final CollectionReference _productsRef = FirebaseFirestore.instance.collection("posts");
+  CollectionReference _productsRef = FirebaseFirestore.instance.collection("posts");
 
   final String? title;
 

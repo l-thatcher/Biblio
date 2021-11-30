@@ -18,6 +18,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_auth/firebase_auth.dart';
 
+//todo fix state changing for course, name and desc
 
 class NewPostpage extends StatefulWidget {
   @override
@@ -27,9 +28,9 @@ class NewPostpage extends StatefulWidget {
 class _NewPostpageState extends State<NewPostpage> {
 
   String? name;
-  String description = "Not yet completed";
   String condition = "Good";
-  String price = "Not yet completed";
+  String? description;
+  String? price;
   String course = "Other";
   XFile? image1;
   XFile? image2;
@@ -43,6 +44,11 @@ class _NewPostpageState extends State<NewPostpage> {
   String image2Url = "";
   String image3Url = "";
   String image4Url = "";
+  ConditionSelector conditionSelector = ConditionSelector();
+  String? dropDownSet;
+  CourseSelector courseSelector = CourseSelector();
+  PriceSelector priceSelector = PriceSelector();
+  PostDetails postDetails = PostDetails();
 
 
   DatabaseMethods databaseMethods = new DatabaseMethods();
@@ -54,6 +60,29 @@ class _NewPostpageState extends State<NewPostpage> {
 
   @override
   void initState() {
+    priceSelector = PriceSelector(
+      priceSet: price,
+      onChanged: (value) {
+        price = value;
+      },
+    );
+    courseSelector = CourseSelector(
+      onChanged: (value) {
+        course = value.toString();
+      },
+    );
+    conditionSelector = ConditionSelector(
+      dropDownSet: dropDownSet,
+      onChanged: (value) {
+        condition = value;
+      },
+    );
+    postDetails = PostDetails(
+      writtenText: description,
+      onChanged: (value) {
+        description = value;
+      },
+    );
     uploadImg1 = UploadImage(image: image1,);
     uploadImg2 = UploadImage(image: image2,);
     uploadImg3 = UploadImage(image: image3,);
@@ -130,9 +159,9 @@ class _NewPostpageState extends State<NewPostpage> {
         String _name = name!;
         Map<String, String> postMap = {
           "name" : _name,
-          "description" : description,
+          "description" : description ?? "",
           "condition" : condition,
-          "price" : price,
+          "price" : price ?? "Free",
           "course" : course,
           "image1" : image1Url,
           "image2" : image2Url,
@@ -285,28 +314,12 @@ class _NewPostpageState extends State<NewPostpage> {
                                   ],
                                 ),
                               ),
-                              CourseSelector(
-                                onChanged: (value) {
-                                  course = value.toString();
-                                },
-                              ),
-                              ConditionSelector(
-                                onChanged: (value) {
-                                  condition = value;
-                                },
-                              ),
-                              PriceSelector(
-                                onChanged: (value) {
-                                  price = value;
-                                },
-                              ),
+                              courseSelector,
+                              conditionSelector,
+                              priceSelector,
                               Container(
                                   height: MediaQuery.of(context).size.height * 0.24,
-                                  child: PostDetails(
-                                    onChanged: (value) {
-                                      description = value;
-                                    },
-                                  )
+                                  child: postDetails,
                               ),
                             ],
                           ),

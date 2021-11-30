@@ -5,16 +5,16 @@ import 'package:biblio_files/Styles/constants.dart';
 class ConditionSelector extends StatefulWidget {
 
   final ValueChanged<String>? onChanged;
+  String? dropDownSet;
+  ConditionSelector({Key? key, this.onChanged, this.dropDownSet}) : super(key: key);
 
-
-  ConditionSelector({this.onChanged});
 
   @override
   State<ConditionSelector> createState() => _ConditionSelectorState();
 }
 
 class _ConditionSelectorState extends State<ConditionSelector> {
-  String dropdownValue = "Good";
+  late String dropdownValue = widget.dropDownSet ?? "Good";
 
 
   @override
@@ -48,6 +48,7 @@ class _ConditionSelectorState extends State<ConditionSelector> {
               onChanged: (String? newValue) {
                 setState(() {
                   dropdownValue = newValue!;
+                  widget.dropDownSet = newValue;
                 });
                 //onChanged value adapted from https://stackoverflow.com/questions/54694169/returning-data-from-a-stateful-widget-in-flutter by user Umar Farooq accessed 22/11/21
                 widget.onChanged!(dropdownValue);

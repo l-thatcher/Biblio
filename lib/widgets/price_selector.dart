@@ -8,9 +8,10 @@ class PriceSelector extends StatelessWidget {
 
 
   final Function(String)? onChanged;
+  String? priceSet;
   var priceController = new MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',', leftSymbol: '\£ ');
 
-  PriceSelector({this.onChanged});
+  PriceSelector({this.onChanged, this.priceSet});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,8 @@ class PriceSelector extends StatelessWidget {
           Text("Price: ", style: constants.regularText,),
           Container(
             width: MediaQuery.of(context).size.width * 0.3,
-            child: TextField(
+            child: TextFormField(
+              initialValue: priceSet,
               onChanged: onChanged,
               controller: priceController,
               keyboardType: TextInputType.number,

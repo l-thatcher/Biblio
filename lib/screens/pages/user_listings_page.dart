@@ -16,13 +16,14 @@ import 'package:biblio_files/Styles/constants.dart';
 class UserListingsPage extends StatelessWidget {
   UserListingsPage({Key? key}) : super(key: key);
   final CollectionReference _productsRef = FirebaseFirestore.instance.collection("posts");
+  String uuid = FirebaseAuth.instance.currentUser!.uid.toString();
 
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: FutureBuilder<QuerySnapshot>(
-        future: _productsRef.get(),
+        future: _productsRef.where('userUuid', isEqualTo: uuid).get(),
         builder: (context, snapshot) {
           if(snapshot.hasError){
             return Scaffold(
@@ -102,7 +103,7 @@ class UserListingsPage extends StatelessWidget {
                                 Expanded(
                                   child: ListView(
                                     children: snapshot.data!.docs.map((document) {
-                                      return PostListPreview(image: document["image1"], name: document["name"],);
+                                      return PostListPreview(image: document["image1"], name: document["name"], postID: document.id,);
                                     }).toList(),
                                   ),
                                 ),
