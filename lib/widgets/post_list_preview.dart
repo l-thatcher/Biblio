@@ -1,4 +1,5 @@
 import 'package:biblio_files/screens/edit_post_page.dart';
+import 'package:biblio_files/screens/post_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 class PostListPreview extends StatelessWidget {
@@ -14,7 +15,7 @@ class PostListPreview extends StatelessWidget {
       onTap: (){
         Navigator.push(context,
           MaterialPageRoute(
-            builder: (context) => EditPostPage(postID: postID,),
+            builder:(context) => PostPage(postID: postID),
           ),
         );
       },
