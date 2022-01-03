@@ -1,13 +1,13 @@
+import 'package:biblio_files/services/database.dart';
 import 'package:biblio_files/widgets/image_carousel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
 
 
 class PostPage extends StatefulWidget {
-
-
   final String? postID;
 
   PostPage({this.postID});
@@ -18,6 +18,54 @@ class PostPage extends StatefulWidget {
 
 class _PostPageState extends State<PostPage> {
   final CollectionReference<Map<String, dynamic>> _productsRef = FirebaseFirestore.instance.collection("posts");
+  final _userRef = FirebaseFirestore.instance.collection('users');
+  DatabaseMethods databaseMethods = DatabaseMethods();
+
+
+  AssetImage saveAsset = AssetImage('lib/assets/savePost.png');
+  bool saved = false;
+  List<String> savedPosts = [];
+
+  getSaved() async {
+    await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).get().then((value){
+      savedPosts = List.from(value.data()!['savedPosts']);
+    });
+  }
+
+  @override
+  initState() {
+    getSaved();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void savePost() async {
+    setState(() {
+      saved = true;
+      saveAsset = AssetImage('lib/assets/savePostTabbed.png');
+    });
+    var currentUser = FirebaseAuth.instance.currentUser;
+    var idList = [widget.postID];
+    _userRef.doc(currentUser!.uid).update({
+      'savedPosts' : FieldValue.arrayUnion(idList)});
+    getSaved();
+  }
+
+  void unSavePost() async {
+    setState(() {
+      saved = false;
+      saveAsset = AssetImage('lib/assets/savePost.png');
+    });
+    var currentUser = FirebaseAuth.instance.currentUser;
+    var idList = [widget.postID];
+    _userRef.doc(currentUser!.uid).update({
+      'savedPosts' : FieldValue.arrayRemove(idList)});
+    getSaved();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +86,14 @@ class _PostPageState extends State<PostPage> {
                 }
 
                 if (snapshot.connectionState == ConnectionState.done) {
+
+                  if (savedPosts.contains(widget.postID)) {
+                    saved = true;
+                    saveAsset = AssetImage('lib/assets/savePostTabbed.png');
+                  } else {
+                    saved = false;
+                    saveAsset = AssetImage('lib/assets/savePost.png');
+                  }
 
                   Map<String, dynamic> documentData = snapshot.data!.data()!;
 
@@ -85,14 +141,19 @@ class _PostPageState extends State<PostPage> {
                               Text(documentData["name"], style: constants.subtitleText,),
                               Row(
                                 children: [
-                                  Container(
-                                      width: 45,
-                                      height: 45,
-                                      child: Image(
-                                        image: AssetImage("lib/assets/savePost.png"),
-                                        fit: BoxFit.contain,
-                                        color: Theme.of(context).colorScheme.secondary,
-                                      )
+                                  GestureDetector(
+                                    onTap: () {
+                                      saved ? unSavePost() : savePost();
+                                    },
+                                    child: Container(
+                                        width: 45,
+                                        height: 45,
+                                        child: Image(
+                                          image: saveAsset,
+                                          fit: BoxFit.contain,
+                                          color: Theme.of(context).colorScheme.secondary,
+                                        )
+                                    ),
                                   ),
                                   Container(
                                       width: 32,
@@ -115,7 +176,7 @@ class _PostPageState extends State<PostPage> {
                               ImageCarousel(imageList: imageList,),
                               Expanded(
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width * 1,
+                                  width: MediaQuery.of(context).size.width,
                                   margin: EdgeInsets.all(5),
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(

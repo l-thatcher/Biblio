@@ -3,13 +3,13 @@
   "@welcome": {
     "description": "Welcome to the app"
   },
-  "test": "eng test",
-  "@test": {
-    "description": "ttt"
-  },
   "createAccountTxt": "Create New Account",
   "@createAccountTxt": {
     "description": "Create new account"
+  },
+  "existingAccountPrompt": "Already a user?",
+  "@existingAccountPrompt": {
+    "description": "already a user text"
   },
   "defaultTxt": "There should be some other text here!",
   "@defaultTxt": {
@@ -51,7 +51,7 @@
   "@messageHint": {
     "description": "Message"
   },
-  "existingUserTxt": "Already a user? Sign In here",
+  "existingUserTxt": "Sign In here",
   "@existingUserTxt": {
     "description": "pre-existing user text"
   },

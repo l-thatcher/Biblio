@@ -7,11 +7,12 @@ import 'package:biblio_files/Styles/constants.dart';
 import 'custom_image_button.dart';
 
 class PostRows extends StatelessWidget {
-  CollectionReference _productsRef = FirebaseFirestore.instance.collection("posts");
+  final CollectionReference _productsRef = FirebaseFirestore.instance.collection("posts");
 
   final String? title;
+  final List<String>? postList;
 
-  PostRows({this.title});
+  PostRows({this.title, this.postList});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class PostRows extends StatelessWidget {
       padding: EdgeInsets.all(10),
       child: Container(
         child: FutureBuilder<QuerySnapshot>(
-          future: _productsRef.get(),
+          future: _productsRef.where(FieldPath.documentId, whereIn: postList).get(),
           builder: (context, snapshot) {
             if(snapshot.hasError){
               return Scaffold(

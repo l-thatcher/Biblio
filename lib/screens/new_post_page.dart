@@ -51,7 +51,7 @@ class _NewPostpageState extends State<NewPostpage> {
   PostDetails postDetails = PostDetails();
 
 
-  DatabaseMethods databaseMethods = new DatabaseMethods();
+  DatabaseMethods databaseMethods = DatabaseMethods();
   bool formLoading = false;
   String errorMsg = "Something went wrong";
   final CollectionReference _userRef = FirebaseFirestore.instance.collection("users");
@@ -131,7 +131,6 @@ class _NewPostpageState extends State<NewPostpage> {
   }
 
   Future<String?> _createPost() async {
-    print(uploadImg1.image);
     if (name == null) {
       return "Please give this listing a name to upload it.";
     } else if (uploadImg1.image == null && uploadImg2.image == null && uploadImg3.image == null && uploadImg4.image == null){

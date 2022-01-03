@@ -31,13 +31,14 @@ class _RegisterPage extends State<RegisterPage> {
               password: newPassword
           );
           var currentUser = FirebaseAuth.instance.currentUser;
-          Map<String, String> userInfoMap = {
+          Map<String, dynamic> userInfoMap = {
             "email" : newEmail,
             "name" : newName,
+            "savedPosts" : {"postID" : ""},
             "uuid" : currentUser!.uid
           };
 
-          databaseMethods.uploadUserInfo(userInfoMap);
+          databaseMethods.uploadUserInfo(userInfoMap, currentUser.uid);
 
           return null;
         } on FirebaseAuthException catch (e) {
@@ -132,17 +133,18 @@ class _RegisterPage extends State<RegisterPage> {
   Widget build(BuildContext context) {
       return KeyboardDismissOnTap(
         child: Scaffold(
-          body: SingleChildScrollView(
-            physics: NeverScrollableScrollPhysics(),
-            child: SafeArea(
-              child: Container(
-                width: double.infinity,
-                constraints: BoxConstraints(maxWidth: 600),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(AppLocalizations.of(context)!.registerHeading, style: constants.headingText,),
-                    Column(
+          resizeToAvoidBottomInset: false,
+          body: SafeArea(
+            child: Container(
+              width: double.infinity,
+              constraints: BoxConstraints(maxWidth: 600),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(AppLocalizations.of(context)!.registerHeading, style: constants.headingText,),
+                  Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(errorMsg, style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500, fontSize: 16)),
                         CustomInput(
@@ -206,33 +208,32 @@ class _RegisterPage extends State<RegisterPage> {
                           },
                           isLoading: formLoading,
                         ),
-                        Container(
-                          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
-                          child: Column(
-                            children: [
-                              Text(AppLocalizations.of(context)!.alternateSignUp,style: constants.fadedText,),
-                              ThirdPartySignIn(),
-                            ],
-                          ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Column(
+                      children: [
+                        Text(AppLocalizations.of(context)!.alternateSignUp,style: constants.fadedText,),
+                        ThirdPartySignIn(),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Column(
+                      children: [
+                        Text(AppLocalizations.of(context)!.existingAccountPrompt,style: constants.fadedText,),
+                        CustomButton(
+                          text: AppLocalizations.of(context)!.existingUserTxt,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          outlined: true,
                         ),
                       ],
                     ),
-                    Container(
-                      child: Column(
-                        children: [
-                          Text(AppLocalizations.of(context)!.newAccountPrompt,style: constants.fadedText,),
-                          CustomButton(
-                            text: AppLocalizations.of(context)!.existingUserTxt,
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            outlined: true,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

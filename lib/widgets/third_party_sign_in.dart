@@ -135,13 +135,14 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
     String _name = name ?? email.split("@")[0];
     var currentUser = FirebaseAuth.instance.currentUser;
 
-    Map<String, String> userInfoMap = {
+    Map<String, dynamic> userInfoMap = {
       "email": _email,
       "name": _name,
+      "savedPosts" : {"postID" : ""},
       "uuid" : currentUser!.uid
     };
 
-    databaseMethods.uploadUserInfo(userInfoMap);
+    databaseMethods.uploadUserInfo(userInfoMap, currentUser.uid);
   }
 
   Future<String?> signInWithGoogle() async {
