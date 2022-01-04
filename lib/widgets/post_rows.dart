@@ -6,13 +6,25 @@ import 'package:biblio_files/Styles/constants.dart';
 
 import 'custom_image_button.dart';
 
-class PostRows extends StatelessWidget {
-  final CollectionReference _productsRef = FirebaseFirestore.instance.collection("posts");
-
+class PostRows extends StatefulWidget {
   final String? title;
   final List<String>? postList;
 
   PostRows({this.title, this.postList});
+
+  @override
+  State<PostRows> createState() => _PostRowsState();
+}
+
+class _PostRowsState extends State<PostRows> {
+
+  late Stream<QuerySnapshot> _productsRef;
+
+  @override
+  void initState() {
+    _productsRef = FirebaseFirestore.instance.collection("posts").where(FieldPath.documentId, whereIn: widget.postList).snapshots();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +43,9 @@ class PostRows extends StatelessWidget {
       ),
       padding: EdgeInsets.all(10),
       child: Container(
-        child: FutureBuilder<QuerySnapshot>(
-          future: _productsRef.where(FieldPath.documentId, whereIn: postList).get(),
-          builder: (context, snapshot) {
+        child: StreamBuilder<QuerySnapshot>(
+          stream: _productsRef,
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if(snapshot.hasError){
               return Scaffold(
                 body: Center(
@@ -42,51 +54,54 @@ class PostRows extends StatelessWidget {
               );
             }
 
-            if (snapshot.connectionState == ConnectionState.done) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title ?? "", style: constants.subtitleText,),
-                  Expanded(
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: snapshot.data!.docs.map((document) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(
-                                    builder: (context) => PostPage(postID: document.id)
-                                ));
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
-                                    spreadRadius: 0.05,
-                                    blurRadius: 20,
-                                  )
-                                ]
-                            ),
-                            margin: EdgeInsets.all(12),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(3),
-                              child: Image.network(
-                                  "${document["image1"]}"
-                              ),
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  )
-                ],
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
               );
             }
-            return Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
+
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(widget.title ?? "", style: constants.subtitleText,),
+                Expanded(
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(
+                                  builder: (context) => PostPage(postID: document.id)
+                              ));
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
+                                  spreadRadius: 0.05,
+                                  blurRadius: 20,
+                                )
+                              ]
+                          ),
+                          margin: EdgeInsets.all(12),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(3),
+                            child: Image.network(
+                                "${document["image1"]}"
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                )
+              ],
             );
           },
         ),
