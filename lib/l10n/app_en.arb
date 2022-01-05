@@ -62,7 +62,7 @@
   "alternateSignUp": "Or sign up with",
   "@alternateSignUp": {
     "description": "alternate sign up options"
-  },"logInPrompt": "Already a user? Sign in here",
+  },"logInPrompt": "Not a user yet? Sign up here",
   "@logInPrompt": {
     "description": "text for new log in page button"
   },

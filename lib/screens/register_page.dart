@@ -34,7 +34,8 @@ class _RegisterPage extends State<RegisterPage> {
           Map<String, dynamic> userInfoMap = {
             "email" : newEmail,
             "name" : newName,
-            "savedPosts" : {"postID" : ""},
+            "course" : 'Other',
+            "savedPosts" : [],
             "uuid" : currentUser!.uid
           };
 
@@ -135,105 +136,107 @@ class _RegisterPage extends State<RegisterPage> {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           body: SafeArea(
-            child: Container(
-              width: double.infinity,
-              constraints: BoxConstraints(maxWidth: 600),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(AppLocalizations.of(context)!.registerHeading, style: constants.headingText,),
-                  Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(errorMsg, style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500, fontSize: 16)),
-                        CustomInput(
-                          text : AppLocalizations.of(context)!.nameHint, primaryInput: false,
-                          onChanged: (value) {
-                            newName = value;
-                          },
-                          onSubmitted: (value) {
-                            EmailFocusNode.requestFocus();
-                          },
-                          textInputAction: TextInputAction.next,),
-                        CustomInput(
-                          text : AppLocalizations.of(context)!.emailHint, primaryInput: false,
-                          onChanged: (value) {
-                            newEmail = value;
-                          },
-                          onSubmitted: (value) {
-                            confEmailFocusNode.requestFocus();
-                          },
-                          focusNode: EmailFocusNode,
-                          textInputAction: TextInputAction.next,),
+            child: Center(
+              child: Container(
+                width: double.infinity,
+                constraints: BoxConstraints(maxWidth: 600),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(AppLocalizations.of(context)!.registerHeading, style: constants.headingText,),
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(errorMsg, style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500, fontSize: 16)),
+                          CustomInput(
+                            text : AppLocalizations.of(context)!.nameHint, primaryInput: false,
+                            onChanged: (value) {
+                              newName = value;
+                            },
+                            onSubmitted: (value) {
+                              EmailFocusNode.requestFocus();
+                            },
+                            textInputAction: TextInputAction.next,),
+                          CustomInput(
+                            text : AppLocalizations.of(context)!.emailHint, primaryInput: false,
+                            onChanged: (value) {
+                              newEmail = value;
+                            },
+                            onSubmitted: (value) {
+                              confEmailFocusNode.requestFocus();
+                            },
+                            focusNode: EmailFocusNode,
+                            textInputAction: TextInputAction.next,),
 
-                        CustomInput(
-                          text : AppLocalizations.of(context)!.emailConfHint, primaryInput: false,
-                          onChanged: (value) {
-                            confEmail = value;
-                          },
-                          onSubmitted: (value) {
-                            passwordFocusNode.requestFocus();
-                          },
-                          focusNode: confEmailFocusNode,
-                          textInputAction: TextInputAction.next,),
+                          CustomInput(
+                            text : AppLocalizations.of(context)!.emailConfHint, primaryInput: false,
+                            onChanged: (value) {
+                              confEmail = value;
+                            },
+                            onSubmitted: (value) {
+                              passwordFocusNode.requestFocus();
+                            },
+                            focusNode: confEmailFocusNode,
+                            textInputAction: TextInputAction.next,),
 
-                        CustomInput(
-                          text : AppLocalizations.of(context)!.passwordHint, primaryInput: false,
-                          hiddenText: true,
-                          onChanged: (value) {
-                            newPassword = value;
-                          },
-                          onSubmitted: (value) {
-                            confpasswordFocusNode.requestFocus();
-                          },
-                          focusNode: passwordFocusNode,
-                          textInputAction: TextInputAction.next,),
+                          CustomInput(
+                            text : AppLocalizations.of(context)!.passwordHint, primaryInput: false,
+                            hiddenText: true,
+                            onChanged: (value) {
+                              newPassword = value;
+                            },
+                            onSubmitted: (value) {
+                              confpasswordFocusNode.requestFocus();
+                            },
+                            focusNode: passwordFocusNode,
+                            textInputAction: TextInputAction.next,),
 
-                        CustomInput(
-                          text : AppLocalizations.of(context)!.passwordConfHint, primaryInput: false,
-                          hiddenText: true,
-                          onChanged: (value) {
-                            confPassword = value;
-                          },
-                          onSubmitted: (vale) {
-                            submitForm();
-                          },
-                          focusNode: confpasswordFocusNode,),
+                          CustomInput(
+                            text : AppLocalizations.of(context)!.passwordConfHint, primaryInput: false,
+                            hiddenText: true,
+                            onChanged: (value) {
+                              confPassword = value;
+                            },
+                            onSubmitted: (vale) {
+                              submitForm();
+                            },
+                            focusNode: confpasswordFocusNode,),
 
-                        CustomButton(
-                          text: AppLocalizations.of(context)!.signUpTxt,
-                          onPressed: () {
-                            submitForm();
-                          },
-                          isLoading: formLoading,
-                        ),
-                      ],
+                          CustomButton(
+                            text: AppLocalizations.of(context)!.signUpTxt,
+                            onPressed: () {
+                              submitForm();
+                            },
+                            isLoading: formLoading,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    child: Column(
-                      children: [
-                        Text(AppLocalizations.of(context)!.alternateSignUp,style: constants.fadedText,),
-                        ThirdPartySignIn(),
-                      ],
+                    Container(
+                      child: Column(
+                        children: [
+                          Text(AppLocalizations.of(context)!.alternateSignUp,style: constants.fadedText,),
+                          ThirdPartySignIn(),
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    child: Column(
-                      children: [
-                        Text(AppLocalizations.of(context)!.existingAccountPrompt,style: constants.fadedText,),
-                        CustomButton(
-                          text: AppLocalizations.of(context)!.existingUserTxt,
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          outlined: true,
-                        ),
-                      ],
+                    Container(
+                      child: Column(
+                        children: [
+                          Text(AppLocalizations.of(context)!.existingAccountPrompt,style: constants.fadedText,),
+                          CustomButton(
+                            text: AppLocalizations.of(context)!.existingUserTxt,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            outlined: true,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

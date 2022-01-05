@@ -1,30 +1,25 @@
 import 'package:biblio_files/screens/post_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
 
 import 'custom_image_button.dart';
 
-class PostRows extends StatefulWidget {
+class CourseRows extends StatefulWidget {
   final String? title;
-  final List<String>? postList;
+  final String? userCourse;
 
-  PostRows({this.title, this.postList});
+  CourseRows({this.title, this.userCourse});
 
   @override
-  State<PostRows> createState() => _PostRowsState();
+  State<CourseRows> createState() => _CourseRowsState();
 }
 
-class _PostRowsState extends State<PostRows> {
+class _CourseRowsState extends State<CourseRows> {
 
-  late Stream<QuerySnapshot> _productsRef;
-
-  @override
-  void initState() {
-    _productsRef = FirebaseFirestore.instance.collection("posts").where(FieldPath.documentId, whereIn: widget.postList).snapshots();
-    super.initState();
-  }
+  final CollectionReference _productsRef = FirebaseFirestore.instance.collection("posts");
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +38,10 @@ class _PostRowsState extends State<PostRows> {
       ),
       padding: EdgeInsets.all(10),
       child: Container(
-        child: StreamBuilder<QuerySnapshot>(
-          stream: _productsRef,
-          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        child: FutureBuilder<QuerySnapshot>(
+          future: _productsRef.where('course', isEqualTo: widget.userCourse!)
+              .get(),
+          builder: (context, snapshot) {
             if(snapshot.hasError){
               return Scaffold(
                 body: Center(
@@ -54,24 +50,16 @@ class _PostRowsState extends State<PostRows> {
               );
             }
 
-
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
-            }
-
-
-            return Column(
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(widget.title ?? "", style: constants.subtitleText,),
                 Expanded(
                   child: ListView(
                     scrollDirection: Axis.horizontal,
-                    children: snapshot.data!.docs.map((document) {
+                    children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(context,
@@ -102,6 +90,12 @@ class _PostRowsState extends State<PostRows> {
                   ),
                 )
               ],
+            );
+            }
+            return Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
             );
           },
         ),

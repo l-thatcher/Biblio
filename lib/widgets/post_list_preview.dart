@@ -44,6 +44,7 @@ class PostListPreview extends StatelessWidget {
                 child: Image.network(image!)
             ),
             Container(
+              width: MediaQuery.of(context).size.width * 0.5,
               child: Text(name!),
             ),
           ],

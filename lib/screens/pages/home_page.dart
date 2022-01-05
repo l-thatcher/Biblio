@@ -1,3 +1,4 @@
+import 'package:biblio_files/widgets/course_rows.dart';
 import 'package:biblio_files/widgets/post_rows.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,7 +17,6 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
 
-  List<String> savedPosts = [];
 
   final Stream<DocumentSnapshot> _userRef =  FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).snapshots();
 
@@ -26,16 +26,17 @@ class _HomepageState extends State<Homepage> {
     return SafeArea(
       child: StreamBuilder<DocumentSnapshot>(
         stream: _userRef,
-        builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          if(snapshot.hasError){
+        builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> streamSnapshot) {
+
+          if(streamSnapshot.hasError){
             return Scaffold(
               body: Center(
-                child: Text("Error: ${snapshot.error}"),
+                child: Text("Error: ${streamSnapshot.error}"),
               ),
             );
           }
 
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if (streamSnapshot.connectionState == ConnectionState.waiting) {
             return Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
@@ -43,7 +44,8 @@ class _HomepageState extends State<Homepage> {
             );
           }
 
-          savedPosts = List.from(snapshot.data!.get('savedPosts'));
+          List<String>? savedPosts = List.from(streamSnapshot.data!.get('savedPosts'));
+
 
           return SafeArea(
             child: Stack(
@@ -67,9 +69,9 @@ class _HomepageState extends State<Homepage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      PostRows(title: "Recently Viewed",),
-                      PostRows(title: "Saved posts", postList: savedPosts),
-                      PostRows(title: "Your course nearby",),
+                      CourseRows(title: "Books from your course", userCourse: streamSnapshot.data!.get('course'),),
+                      PostRows(title: "Saved posts", postList: savedPosts.isEmpty ? ["W3QAC1m7CO1GOxlyJXxe"] : savedPosts),
+                      PostRows(title: "New listings",),
                     ],
                   ),
                 )
