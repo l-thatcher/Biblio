@@ -10,5 +10,7 @@ class constants {
 
   static const subtitleText = TextStyle( fontSize: 18, fontWeight: FontWeight.w600, color: Colors.blueGrey);
 
+  static const secondSubtitleText = TextStyle( fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black38);
+
   static const fadedText = TextStyle( fontSize: 14.0, fontWeight: FontWeight.w600, color: Colors.blueGrey);
 }

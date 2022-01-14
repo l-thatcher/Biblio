@@ -49,6 +49,7 @@ class _HomeScreen extends State<HomeScreen> {
     keyboardSubscription.cancel();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return KeyboardDismissOnTap(

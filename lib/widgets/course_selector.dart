@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CourseSelector extends StatelessWidget {
 
   final Function(dynamic)? onChanged;
-  final courseOptions = ['Other', 'Physics', 'Chemestry', 'Computer Science', 'Maths', 'Engineering'];
+  final courseOptions = ['Other', 'Physics', 'Chemistry', 'Computer Science', 'Maths', 'Engineering'];
 
   CourseSelector({this.onChanged});
 
@@ -17,17 +17,6 @@ class CourseSelector extends StatelessWidget {
       padding: EdgeInsets.only(
           left: 15,
           right: 15
-      ),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
-              spreadRadius: 0.05,
-              blurRadius: 20,
-            )
-          ]
       ),
       child: Container(
         child: TextDropdownFormField(

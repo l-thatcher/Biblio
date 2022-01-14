@@ -1,3 +1,5 @@
+import 'package:biblio_files/screens/edit_details.dart';
+import 'package:biblio_files/widgets/condition_selector.dart';
 import 'package:biblio_files/widgets/custom_button.dart';
 import 'package:biblio_files/widgets/custom_input_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,13 +12,21 @@ import 'package:biblio_files/Styles/constants.dart';
 
 
 
-class Profilepage extends StatelessWidget {
+class Profilepage extends StatefulWidget {
   const Profilepage({Key? key}) : super(key: key);
 
+  @override
+  State<Profilepage> createState() => _ProfilepageState();
+}
 
+class _ProfilepageState extends State<Profilepage> {
   @override
   Widget build(BuildContext context) {
     final DocumentReference _userRef =  FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid);
+
+    String newCourse = "";
+    final courseOptions = ['Other', 'Physics', 'Chemestry', 'Computer Science', 'Maths', 'Engineering'];
+
 
     return Container(
       child: SafeArea(
@@ -35,23 +45,36 @@ class Profilepage extends StatelessWidget {
 
               Map<String, dynamic> documentData = snapshot.data!.data() as Map<String, dynamic>;
 
-              return SafeArea(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text("${documentData["name"]}", style: constants.titleText),
-                    Text("Email - ${documentData["email"]}", style: constants.headingText),
-                    Text("Course - ${documentData["course"]}", style: constants.headingText),
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("${documentData["name"]}", style: constants.titleText),
+                  Text("Email - ${documentData["email"]}", style: constants.headingText),
+                  Text("Course - ${documentData["course"]}", style: constants.headingText),
 
-                    CustomButton(
-                      text: "Sign out",
-                      onPressed: () {
-                        FirebaseAuth.instance.signOut();
-                      },
-                      outlined: true,
-                    ),
-                  ],
-                ),
+                  Column(
+                    children: [
+                      CustomButton(
+                        text: "Change Course",
+                        onPressed: () {
+                          Navigator.push(context,
+                            MaterialPageRoute(
+                              builder: (context) => EditDetails(),
+                            ),
+                          );
+                        },
+                        outlined: true,
+                      ),
+                      CustomButton(
+                        text: "Sign out",
+                        onPressed: () {
+                          FirebaseAuth.instance.signOut();
+                        },
+                        outlined: false,
+                      ),
+                    ],
+                  ),
+                ],
               );
             }
             return Scaffold(

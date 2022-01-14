@@ -70,7 +70,7 @@ class _HomepageState extends State<Homepage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CourseRows(title: "Books from your course", userCourse: streamSnapshot.data!.get('course'),),
-                      PostRows(title: "Saved posts", postList: savedPosts.isEmpty ? ["W3QAC1m7CO1GOxlyJXxe"] : savedPosts),
+                      savedPosts.isEmpty ? CourseRows(title: "Saved posts", userCourse: "") : PostRows(title: "Saved posts", postList: savedPosts),
                       PostRows(title: "New listings",),
                     ],
                   ),

@@ -36,19 +36,20 @@ dependencies:
   # firebase dependencies
   firebase_core: ^1.10.0
   firebase_auth: ^3.2.0
-  cloud_firestore: ^3.1.0
+  cloud_firestore: ^3.1.6
   firebase_storage: ^10.1.0
   image_picker: ^0.8.4+4
   after_layout: ^1.1.0
 
 #other dependencies
   google_fonts: ^2.1.0
-  google_sign_in: ^5.2.1
-  flutter_facebook_auth: ^3.5.0
+  google_sign_in: ^5.2.2
+  flutter_facebook_auth: ^4.0.1
   twitter_login: ^4.0.1
   flutter_keyboard_visibility: ^5.1.0
   flutter_masked_text2: ^0.9.1
   dropdown_plus: ^0.0.9
+  firestore_search: ^0.1.9
 
 #messaging dependencies:
   flutter_bloc: ^8.0.0

@@ -1,5 +1,8 @@
+import 'package:biblio_files/services/data_model.dart';
 import 'package:biblio_files/widgets/custom_image_button.dart';
 import 'package:biblio_files/widgets/custom_input_field.dart';
+import 'package:biblio_files/widgets/post_list_preview.dart';
+import 'package:firestore_search/firestore_search.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,6 +16,7 @@ class Searchpage extends StatelessWidget {
     //single child scroll view used to allow the keyboard to cover the screen, from https://stackoverflow.com/questions/46551268/when-the-keyboard-appears-the-flutter-widgets-resize-how-to-prevent-this by user Duncan Jones accessed 17/11/21
     return SafeArea(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             padding: const EdgeInsets.only(
@@ -21,29 +25,17 @@ class Searchpage extends StatelessWidget {
               right: 24,
               bottom: 10,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(AppLocalizations.of(context)!.searchTitle, style: constants.titleText,),
-                Container(
-                  height: 63,
-                    child: CustomImageButton(image: 'lib/assets/icons/burgerIcon.png', outlined: true,)),
-              ],
-            ),
+            child: Text(AppLocalizations.of(context)!.searchTitle, style: constants.titleText,),
           ),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomInput(
-                  text : ((AppLocalizations.of(context)!.searchTitle) + "..."),
-                  primaryInput: false,
-                ),
                 Expanded(
                   child: Container(
                     margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Colors.transparent,
                         borderRadius: BorderRadius.circular(15),
                         boxShadow: [
                           BoxShadow(
@@ -56,38 +48,63 @@ class Searchpage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(15),
-                                topLeft: Radius.circular(15),
-                              ),
-                              color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
-                            ),
-                            width: double.infinity,
-                            padding: const EdgeInsets.only(
-                              top: 10,
-                              bottom: 10,
-                            ),
-                            child: Center(child: Text(AppLocalizations.of(context)!.searchSubTitle))
-                        ),
                         Expanded(
-                          child: ListView(
-                            children: const <Widget>[
-                              ListTile(
-                                leading: Icon(Icons.map),
-                                title: Text('Map'),
+                            child: FirestoreSearchScaffold(
+                              firestoreCollectionName: 'posts',
+                              searchBy: 'name',
+                              scaffoldBody: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(15),
+                                      bottomLeft: Radius.circular(15),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+                                        spreadRadius: 0.05,
+                                        blurRadius: 20,
+                                      )
+                                    ]
+                                ),
                               ),
-                              ListTile(
-                                leading: Icon(Icons.photo_album),
-                                title: Text('Album'),
-                              ),
-                              ListTile(
-                                leading: Icon(Icons.phone),
-                                title: Text('Phone'),
-                              ),
-                            ],
-                          ),
+                              dataListFromSnapshot: DataModel().dataListFromSnapshot,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  final List<DataModel>? dataList = snapshot.data;
+                                  if (dataList!.isEmpty) {
+                                    return const Center(
+                                      child: Text('No Results Returned'),
+                                    );
+                                  }
+                                  return ListView.builder(
+                                      itemCount: dataList.length,
+                                      itemBuilder: (context, index) {
+                                        final DataModel data = dataList[index];
+
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            PostListPreview(image: data.image1, name: data.name, postID: data.postID, course: data.course,)
+                                          ],
+                                        );
+                                      });
+                                }
+
+                                if (snapshot.connectionState == ConnectionState.done) {
+                                  if (!snapshot.hasData) {
+                                    return const Center(
+                                      child: Text('No Results Returned'),
+                                    );
+                                  }
+                                }
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              },
+                            )
                         ),
                       ],
                     ),

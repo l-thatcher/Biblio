@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:biblio_files/Styles/constants.dart';
 import 'package:biblio_files/services/database.dart';
+import 'package:biblio_files/widgets/course_selector.dart';
 import 'package:biblio_files/widgets/custom_button.dart';
 import 'package:biblio_files/widgets/custom_input_field.dart';
 import 'package:biblio_files/widgets/third_party_sign_in.dart';
+import 'package:dropdown_plus/dropdown_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,7 +36,7 @@ class _RegisterPage extends State<RegisterPage> {
           Map<String, dynamic> userInfoMap = {
             "email" : newEmail,
             "name" : newName,
-            "course" : 'Other',
+            "course" : newCourse,
             "savedPosts" : [],
             "uuid" : currentUser!.uid
           };
@@ -81,6 +83,7 @@ class _RegisterPage extends State<RegisterPage> {
 
   String newName = "";
   String newEmail = "";
+  String newCourse = "";
   String newPassword = "";
   String confEmail = "";
   String confPassword = "";
@@ -89,10 +92,6 @@ class _RegisterPage extends State<RegisterPage> {
   bool facebookLoading = false;
   bool twitterLoading = false;
   bool btnVisible = true;
-
-  String name = "";
-  String email = "";
-  String password = "";
 
   late FocusNode EmailFocusNode;
   late FocusNode confEmailFocusNode;
@@ -107,7 +106,7 @@ class _RegisterPage extends State<RegisterPage> {
     confEmailFocusNode = FocusNode();
     passwordFocusNode = FocusNode();
     confpasswordFocusNode = FocusNode();
-    super.initState();
+
 
     var keyboardVisibilityController = KeyboardVisibilityController();
 
@@ -118,6 +117,7 @@ class _RegisterPage extends State<RegisterPage> {
       });
     });
 
+    super.initState();
   }
 
   @override
@@ -149,6 +149,20 @@ class _RegisterPage extends State<RegisterPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(errorMsg, style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500, fontSize: 16)),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(0),
+                              color: Colors.transparent,
+                            ),
+                            margin: EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 5,
+                            ),
+                            child: CourseSelector(onChanged: (value) {
+                              newCourse = value;
+                            },),
+                          ),
+
                           CustomInput(
                             text : AppLocalizations.of(context)!.nameHint, primaryInput: false,
                             onChanged: (value) {

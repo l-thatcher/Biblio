@@ -166,7 +166,7 @@ class _NewPostpageState extends State<NewPostpage> {
           "image2" : image2Url,
           "image3" : image3Url,
           "image4" : image4Url,
-          "userUuid" : currentUser!.uid
+          "userUuid" : currentUser!.uid,
         };
         databaseMethods.newUserPost(postMap);
 
@@ -313,7 +313,20 @@ class _NewPostpageState extends State<NewPostpage> {
                                   ],
                                 ),
                               ),
-                              courseSelector,
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(15),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
+                                        spreadRadius: 0.05,
+                                        blurRadius: 20,
+                                      )
+                                    ]
+                                ),
+                                child: courseSelector,
+                              ),
                               conditionSelector,
                               priceSelector,
                               Container(

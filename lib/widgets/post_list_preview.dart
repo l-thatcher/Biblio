@@ -2,12 +2,17 @@ import 'package:biblio_files/screens/edit_post_page.dart';
 import 'package:biblio_files/screens/post_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:biblio_files/Styles/constants.dart';
+
+
+
 class PostListPreview extends StatelessWidget {
   String? image;
   String? name;
   String? postID;
+  String? course;
 
-  PostListPreview({Key? key, this.image, this.name, this.postID}) : super(key: key);
+  PostListPreview({Key? key, this.image, this.name, this.postID, this.course}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +50,13 @@ class PostListPreview extends StatelessWidget {
             ),
             Container(
               width: MediaQuery.of(context).size.width * 0.5,
-              child: Text(name!),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(name!, style: constants.subtitleText,),
+                  Text(course!),
+                ],
+              ),
             ),
           ],
         ),

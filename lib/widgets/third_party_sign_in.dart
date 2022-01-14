@@ -138,7 +138,8 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
     Map<String, dynamic> userInfoMap = {
       "email": _email,
       "name": _name,
-      "savedPosts" : {"postID" : ""},
+      "course" : "Other",
+      "savedPosts" : [],
       "uuid" : currentUser!.uid
     };
 
