@@ -87,7 +87,7 @@ class Searchpage extends StatelessWidget {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            PostListPreview(image: data.image1, name: data.name, postID: data.postID, course: data.course,)
+                                            PostListPreview(image: data.image1, name: data.name, postID: data.postID, course: data.course, userUuid: data.userUuid,)
                                           ],
                                         );
                                       });

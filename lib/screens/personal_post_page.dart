@@ -1,4 +1,6 @@
+import 'package:biblio_files/screens/home_screen.dart';
 import 'package:biblio_files/services/database.dart';
+import 'package:biblio_files/widgets/custom_button.dart';
 import 'package:biblio_files/widgets/image_carousel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,19 +8,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
 
-import 'home_screen.dart';
 
-
-class PostPage extends StatefulWidget {
+class PersonalPostPage extends StatefulWidget {
   final String? postID;
 
-  PostPage({this.postID});
+  PersonalPostPage({this.postID});
 
   @override
-  _PostPageState createState() => _PostPageState();
+  _PersonalPostPageState createState() => _PersonalPostPageState();
 }
 
-class _PostPageState extends State<PostPage> {
+class _PersonalPostPageState extends State<PersonalPostPage> {
   final CollectionReference<Map<String, dynamic>> _productsRef = FirebaseFirestore.instance.collection("posts");
   final _userRef = FirebaseFirestore.instance.collection('users');
   DatabaseMethods databaseMethods = DatabaseMethods();
@@ -55,6 +55,41 @@ class _PostPageState extends State<PostPage> {
     _userRef.doc(currentUser!.uid).update({
       'savedPosts' : FieldValue.arrayUnion(idList)});
     getSaved();
+  }
+
+  Future<void> _deleteConfirm() async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+              child: Text("Are you sure you want to delete this post?")
+          ),
+          actions: <Widget>[
+            Row(
+              children: [
+                CustomButton(text: "No", width: MediaQuery.of(context).size.width * 0.25, outlined: true, onPressed: () {
+                  Navigator.of(context).pop();
+                },),
+                CustomButton(text: "Yes", width: MediaQuery.of(context).size.width * 0.25, onPressed: () {
+                  CollectionReference posts = FirebaseFirestore.instance.collection('posts');
+                  posts
+                      .doc(widget.postID)
+                      .delete()
+                      .then((value) => print("Post Deleted"))
+                      .catchError((error) => print("Failed to delete user: $error"));
+                  Navigator.push(context,
+                    MaterialPageRoute(
+                      builder:(context) => HomeScreen(selectedPage: 3,),
+                    ),
+                  );
+                },),
+              ],
+            )
+          ],
+        );
+      },
+    );
   }
 
   void unSavePost() async {
@@ -126,11 +161,7 @@ class _PostPageState extends State<PostPage> {
                               GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    Navigator.push(context,
-                                      MaterialPageRoute(
-                                        builder:(context) => HomeScreen(),
-                                      ),
-                                    );
+                                    Navigator.pop(context);
                                   });
                                 },
                                 child: Container(
@@ -161,14 +192,19 @@ class _PostPageState extends State<PostPage> {
                                         )
                                     ),
                                   ),
-                                  Container(
-                                      width: 32,
-                                      height: 32,
-                                      child: Image(
-                                        image: AssetImage("lib/assets/sendMessage.png"),
-                                        fit: BoxFit.contain,
-                                        color: Theme.of(context).colorScheme.secondary,
-                                      )
+                                  GestureDetector(
+                                    onTap: () {
+                                      _deleteConfirm();
+                                    },
+                                    child: Container(
+                                        width: 25,
+                                        height: 25,
+                                        child: Image(
+                                          image: AssetImage("lib/assets/deletePost.png"),
+                                          fit: BoxFit.contain,
+                                          color: Theme.of(context).colorScheme.secondary,
+                                        )
+                                    ),
                                   ),
                                 ],
                               )

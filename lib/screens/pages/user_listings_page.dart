@@ -110,7 +110,7 @@ class UserListingsPage extends StatelessWidget {
                               Expanded(
                                 child: ListView(
                                   children: snapshot.data!.docs.map((document) {
-                                    return PostListPreview(image: document["image1"], name: document["name"], postID: document.id, course: document["course"],);
+                                    return PostListPreview(image: document["image1"], name: document["name"], postID: document.id, course: document["course"], userUuid: document["userUuid"],);
                                   }).toList(),
                                 ),
                               ),

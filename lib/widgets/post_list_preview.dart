@@ -1,5 +1,7 @@
 import 'package:biblio_files/screens/edit_post_page.dart';
+import 'package:biblio_files/screens/personal_post_page.dart';
 import 'package:biblio_files/screens/post_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
@@ -11,18 +13,27 @@ class PostListPreview extends StatelessWidget {
   String? name;
   String? postID;
   String? course;
+  String? userUuid;
 
-  PostListPreview({Key? key, this.image, this.name, this.postID, this.course}) : super(key: key);
+  PostListPreview({Key? key, this.image, this.name, this.postID, this.course, this.userUuid}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Navigator.push(context,
-          MaterialPageRoute(
-            builder:(context) => PostPage(postID: postID),
-          ),
-        );
+        if(userUuid == FirebaseAuth.instance.currentUser!.uid){
+          Navigator.push(context,
+            MaterialPageRoute(
+              builder:(context) => PersonalPostPage(postID: postID),
+            ),
+          );
+        } else {
+          Navigator.push(context,
+            MaterialPageRoute(
+              builder:(context) => PostPage(postID: postID),
+            ),
+          );
+        }
       },
       child: Container(
         padding: EdgeInsets.only(

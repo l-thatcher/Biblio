@@ -13,7 +13,9 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final int? selectedPage;
+
+  const HomeScreen({Key? key, this.selectedPage}) : super(key: key);
 
   @override
   _HomeScreen createState() => _HomeScreen();
@@ -24,7 +26,7 @@ class _HomeScreen extends State<HomeScreen> {
   late PageController _tabPageController;
   late StreamSubscription<bool> keyboardSubscription;
 
-  int selectedPage = 0;
+  int _selectedPage = 0;
   bool barVisible = true;
 
   @override
@@ -63,7 +65,7 @@ class _HomeScreen extends State<HomeScreen> {
                   controller: _tabPageController,
                   onPageChanged: (num) {
                     setState(() {
-                      selectedPage = num;
+                      _selectedPage = num;
                     });
                   },
                   children: [
@@ -78,7 +80,7 @@ class _HomeScreen extends State<HomeScreen> {
               Visibility(
                 visible: barVisible,
                 child: BottomNavbar(
-                  selectedTab: selectedPage,
+                  selectedTab: widget.selectedPage != null ? widget.selectedPage : _selectedPage,
                   changePage: (num) {
                     _tabPageController.animateToPage(num,
                         duration: Duration(milliseconds: 300),
