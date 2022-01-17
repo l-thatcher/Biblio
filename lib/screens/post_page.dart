@@ -73,7 +73,7 @@ class _PostPageState extends State<PostPage> {
   createChatRoom(String postUuid, String postID, bookName, image1){
     var currentUser = FirebaseAuth.instance.currentUser;
     List<String> users = [postUuid, currentUser!.uid];
-    String chatroomID = postID + "_" + postUuid;
+    String chatroomID = postID + "_" + currentUser.uid;
 
     Map<String, dynamic> chatRoomMap = {
       "users" : users,
@@ -145,11 +145,7 @@ class _PostPageState extends State<PostPage> {
                               GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    Navigator.push(context,
-                                      MaterialPageRoute(
-                                        builder:(context) => HomeScreen(),
-                                      ),
-                                    );
+                                    Navigator.pop(context);
                                   });
                                 },
                                 child: Container(
@@ -256,7 +252,7 @@ class _PostPageState extends State<PostPage> {
                                           )
                                       ),
                                       Container(
-                                          alignment: Alignment(-0.9, 1),
+                                          alignment: Alignment(-1, 1),
                                           child: Text("${documentData["price"]}", style: constants.regularText,),
                                       ),
                                       Container(
@@ -264,12 +260,8 @@ class _PostPageState extends State<PostPage> {
                                         child: Text("Condition: ${documentData["condition"]}", style: constants.regularText,),
                                       ),
                                       Container(
-                                        alignment: Alignment(0, 1),
-                                        child: Text("Course: ${documentData["course"]}", style: constants.regularText,),
-                                      ),
-                                      Container(
                                         alignment: Alignment(1, 1),
-                                        child: Text("Location: ", style: constants.regularText,),
+                                        child: Text("Course: ${documentData["course"]}", style: constants.regularText,),
                                       ),
                                     ],
                                   ),

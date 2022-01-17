@@ -38,4 +38,13 @@ class DatabaseMethods{
   getChatRooms(userID){
     return FirebaseFirestore.instance.collection("chatroom").where("users", arrayContains: userID).snapshots();
   }
+
+  deleteChatsWithUid(String postID) async {
+    //delete functrion adapted from https://stackoverflow.com/questions/53089517/how-to-delete-all-documents-in-collection-in-firestore-with-flutter by user copsOnRoad accessed 17/01/22
+    var chatrooms = FirebaseFirestore.instance.collection("chatroom").where("chatroomID", arrayContains: postID);
+    var snapshots = await chatrooms.get();
+    for (var doc in snapshots.docs) {
+      print(doc.id);
+    }
+  }
 }

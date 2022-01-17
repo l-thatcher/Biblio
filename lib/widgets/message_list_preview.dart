@@ -75,8 +75,8 @@ class _MessageListPreviewState extends State<MessageListPreview> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(widget.chatName!, style: constants.subtitleText,),
-                      Text(documentData['name']),
+                      Text(documentData['name'], style: constants.subtitleText,),
+                      Text(widget.chatName!),
                     ],
                   ),
                 ),

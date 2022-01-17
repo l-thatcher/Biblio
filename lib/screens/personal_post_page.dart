@@ -78,11 +78,8 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
                       .delete()
                       .then((value) => print("Post Deleted"))
                       .catchError((error) => print("Failed to delete user: $error"));
-                  Navigator.push(context,
-                    MaterialPageRoute(
-                      builder:(context) => HomeScreen(selectedPage: 3,),
-                    ),
-                  );
+                  databaseMethods.deleteChatsWithUid(widget.postID!);
+                  Navigator.pop(context);
                 },),
               ],
             )

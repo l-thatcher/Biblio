@@ -1,3 +1,4 @@
+import 'package:biblio_files/screens/personal_post_page.dart';
 import 'package:biblio_files/screens/post_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -59,13 +60,21 @@ class _CourseRowsState extends State<CourseRows> {
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
                       return GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,
+                        onTap: (){
+                          if(FirebaseAuth.instance.currentUser!.uid == FirebaseAuth.instance.currentUser!.uid){
+                            Navigator.push(context,
                               MaterialPageRoute(
-                                  builder: (context) => PostPage(postID: document.id)
-                              ));
+                                builder:(context) => PersonalPostPage(postID: document.id),
+                              ),
+                            );
+                          } else {
+                            Navigator.push(context,
+                              MaterialPageRoute(
+                                builder:(context) => PostPage(postID: document.id),
+                              ),
+                            );
+                          }
                         },
                         child: Container(
                           decoration: BoxDecoration(

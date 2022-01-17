@@ -12,7 +12,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 
-//chat functionality adapted from https://www.youtube.com/watch?v=X00Xv7blBo0 by youtube user Sanskar Tiwari- first accessed 17/11/21
+//chat functionality adapted from https://www.youtube.com/watch?v=X00Xv7blBo0 by Sanskar Tiwari - first accessed 17/11/21
 class ChatPage extends StatefulWidget {
   String chatroomID;
   String bookName;
