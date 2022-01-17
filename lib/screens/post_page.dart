@@ -1,3 +1,4 @@
+import 'package:biblio_files/screens/chat_pages/chat_page.dart';
 import 'package:biblio_files/services/database.dart';
 import 'package:biblio_files/widgets/image_carousel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -67,6 +68,24 @@ class _PostPageState extends State<PostPage> {
     _userRef.doc(currentUser!.uid).update({
       'savedPosts' : FieldValue.arrayRemove(idList)});
     getSaved();
+  }
+
+  createChatRoom(String postUuid, String postID, bookName, image1){
+    var currentUser = FirebaseAuth.instance.currentUser;
+    List<String> users = [postUuid, currentUser!.uid];
+    String chatroomID = postID + "_" + postUuid;
+
+    Map<String, dynamic> chatRoomMap = {
+      "users" : users,
+      "chatroomID" : chatroomID,
+      "image" : image1,
+      "chatName" : bookName
+    };
+    databaseMethods.createChatRoom(chatroomID, chatRoomMap);
+
+    Navigator.push(context, MaterialPageRoute(
+        builder: (context) => ChatPage(chatroomID, bookName, image1)
+    ));
   }
 
   @override
@@ -161,14 +180,19 @@ class _PostPageState extends State<PostPage> {
                                         )
                                     ),
                                   ),
-                                  Container(
-                                      width: 32,
-                                      height: 32,
-                                      child: Image(
-                                        image: AssetImage("lib/assets/sendMessage.png"),
-                                        fit: BoxFit.contain,
-                                        color: Theme.of(context).colorScheme.secondary,
-                                      )
+                                  GestureDetector(
+                                    onTap: () {
+                                      createChatRoom(documentData["userUuid"], snapshot.data!.id, documentData["name"], documentData["image1"]);
+                                    },
+                                    child: Container(
+                                        width: 32,
+                                        height: 32,
+                                        child: Image(
+                                          image: AssetImage("lib/assets/sendMessage.png"),
+                                          fit: BoxFit.contain,
+                                          color: Theme.of(context).colorScheme.secondary,
+                                        )
+                                    ),
                                   ),
                                 ],
                               )

@@ -1,5 +1,4 @@
-import 'package:biblio_files/widgets/chat_pages/chat_page.dart';
-import 'package:biblio_files/widgets/chat_pages/contacts_page.dart';
+import 'package:biblio_files/screens/chat_pages/contacts_page.dart';
 import 'package:biblio_files/widgets/custom_image_button.dart';
 import 'package:biblio_files/widgets/custom_input_field.dart';
 import 'package:biblio_files/widgets/post_rows.dart';
@@ -10,6 +9,7 @@ import 'package:biblio_files/Styles/constants.dart';
 
 class Messagespage extends StatelessWidget {
   const Messagespage({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +41,9 @@ class Messagespage extends StatelessWidget {
                   ]
               ),
               padding: const EdgeInsets.all(7),
-              child: ContactsPage(),
+              child: ContactsPage()
               ),
-          ),
+            ),
         ],
       ),
     );

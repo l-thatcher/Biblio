@@ -10,6 +10,8 @@ import 'package:biblio_files/widgets/course_selector.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:biblio_files/Styles/constants.dart';
 
+import '../login_page.dart';
+
 
 
 class Profilepage extends StatefulWidget {
@@ -69,6 +71,11 @@ class _ProfilepageState extends State<Profilepage> {
                         text: "Sign out",
                         onPressed: () {
                           FirebaseAuth.instance.signOut();
+                          Navigator.push(context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ),
+                          );
                         },
                         outlined: false,
                       ),

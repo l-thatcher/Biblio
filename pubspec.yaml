@@ -52,8 +52,6 @@ dependencies:
   firestore_search: ^0.1.9
 
 #messaging dependencies:
-  flutter_bloc: ^8.0.0
-  shared_preferences: ^2.0.8
 
 
 
