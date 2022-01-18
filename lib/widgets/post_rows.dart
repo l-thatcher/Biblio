@@ -76,7 +76,7 @@ class _PostRowsState extends State<PostRows> {
                     children: snapshot.data!.docs.map((document) {
                       return GestureDetector(
                         onTap: (){
-                          if(FirebaseAuth.instance.currentUser!.uid == FirebaseAuth.instance.currentUser!.uid){
+                          if(FirebaseAuth.instance.currentUser!.uid == document["userUuid"]){
                             Navigator.push(context,
                               MaterialPageRoute(
                                 builder:(context) => PersonalPostPage(postID: document.id),

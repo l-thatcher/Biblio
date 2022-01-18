@@ -40,11 +40,24 @@ class DatabaseMethods{
   }
 
   deleteChatsWithUid(String postID) async {
-    //delete functrion adapted from https://stackoverflow.com/questions/53089517/how-to-delete-all-documents-in-collection-in-firestore-with-flutter by user copsOnRoad accessed 17/01/22
-    var chatrooms = FirebaseFirestore.instance.collection("chatroom").where("chatroomID", arrayContains: postID);
-    var snapshots = await chatrooms.get();
-    for (var doc in snapshots.docs) {
-      print(doc.id);
-    }
+    //delete function adapted from https://stackoverflow.com/questions/53089517/how-to-delete-all-documents-in-collection-in-firestore-with-flutter by user copsOnRoad accessed 17/01/22
+    print(postID);
+    var chatrooms = FirebaseFirestore.instance.collection("chatroom").where("postID", isEqualTo: postID);
+    chatrooms.get().then((snapshot) {
+      for(DocumentSnapshot ds in snapshot.docs)
+      {
+        ds.reference.delete();
+        print("${ds.reference} DELETED");
+      }
+    });
+  }
+
+  deletePost(String postID) async {
+    CollectionReference posts = FirebaseFirestore.instance.collection('posts');
+    posts
+        .doc(postID)
+        .delete()
+        .then((value) => print("Post Deleted"))
+        .catchError((error) => print("Failed to delete user: $error"));
   }
 }

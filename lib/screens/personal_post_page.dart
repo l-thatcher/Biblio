@@ -1,4 +1,5 @@
 import 'package:biblio_files/screens/home_screen.dart';
+import 'package:biblio_files/screens/pages/home_page.dart';
 import 'package:biblio_files/services/database.dart';
 import 'package:biblio_files/widgets/custom_button.dart';
 import 'package:biblio_files/widgets/image_carousel.dart';
@@ -72,14 +73,13 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
                   Navigator.of(context).pop();
                 },),
                 CustomButton(text: "Yes", width: MediaQuery.of(context).size.width * 0.25, onPressed: () {
-                  CollectionReference posts = FirebaseFirestore.instance.collection('posts');
-                  posts
-                      .doc(widget.postID)
-                      .delete()
-                      .then((value) => print("Post Deleted"))
-                      .catchError((error) => print("Failed to delete user: $error"));
                   databaseMethods.deleteChatsWithUid(widget.postID!);
-                  Navigator.pop(context);
+                  databaseMethods.deletePost(widget.postID!);
+                  Navigator.push(context,
+                    MaterialPageRoute(
+                      builder:(context) => HomeScreen(),
+                    ),
+                  );
                 },),
               ],
             )

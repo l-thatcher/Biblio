@@ -62,7 +62,7 @@ class _CourseRowsState extends State<CourseRows> {
                     children: snapshot.data!.docs.map((DocumentSnapshot document) {
                       return GestureDetector(
                         onTap: (){
-                          if(FirebaseAuth.instance.currentUser!.uid == FirebaseAuth.instance.currentUser!.uid){
+                          if(FirebaseAuth.instance.currentUser!.uid == document["userUuid"]){
                             Navigator.push(context,
                               MaterialPageRoute(
                                 builder:(context) => PersonalPostPage(postID: document.id),

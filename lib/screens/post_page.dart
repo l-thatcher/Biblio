@@ -79,7 +79,8 @@ class _PostPageState extends State<PostPage> {
       "users" : users,
       "chatroomID" : chatroomID,
       "image" : image1,
-      "chatName" : bookName
+      "chatName" : bookName,
+      "postID" : postID
     };
     databaseMethods.createChatRoom(chatroomID, chatRoomMap);
 
