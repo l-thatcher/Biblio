@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -13,7 +12,7 @@ class CustomButton extends StatelessWidget {
   final bool? isLoading;
   final double? width;
 
-  CustomButton({this.text, this.onPressed, this.outlined, this.isLoading, this.width});
+  const CustomButton({Key? key, this.text, this.onPressed, this.outlined, this.isLoading, this.width}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +35,7 @@ class CustomButton extends StatelessWidget {
           ),
          borderRadius: BorderRadius.circular(30),
         ),
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
           horizontal: 24,
           vertical: 16,
         ),
@@ -54,7 +53,7 @@ class CustomButton extends StatelessWidget {
             ),
             Visibility(
               visible: _isLoading,
-              child: SizedBox(
+              child: const SizedBox(
                 height: 20,
                 width: 20,
                 child:CircularProgressIndicator(

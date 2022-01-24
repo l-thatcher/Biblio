@@ -73,8 +73,8 @@ class _HomepageState extends State<Homepage> {
                     children: [
                       //populate the page with rows bassed of the users course, saved and new listings to the app
                       CourseRows(title: "Books from your course", userCourse: streamSnapshot.data!.get('course'),),
-                      savedPosts.isEmpty ? CourseRows(title: "Saved posts", userCourse: "") : PostRows(title: "Saved posts", postList: savedPosts),
-                      PostRows(title: "New listings",),
+                      savedPosts.isEmpty ? const CourseRows(title: "Saved posts", userCourse: "") : PostRows(title: "Saved posts", postList: savedPosts),
+                      const PostRows(title: "New listings",),
                     ],
                   ),
                 )

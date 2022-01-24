@@ -48,7 +48,7 @@ class _EditPostPageState extends State<EditPostPage> {
   String? dropDownSet;
   CourseSelector courseSelector = CourseSelector();
   PriceSelector priceSelector = PriceSelector();
-  PostDetails postDetails = PostDetails();
+  PostDetails postDetails = const PostDetails();
 
 
   DatabaseMethods databaseMethods = DatabaseMethods();

@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 //these are my commonly used database features, there are still some within widgets that could be moved here for better code readability.
 class DatabaseMethods{
@@ -18,21 +16,16 @@ class DatabaseMethods{
   }
   
   createChatRoom(String chatRoomID, chatRoomMap){
-    FirebaseFirestore.instance.collection("chatroom").doc(chatRoomID).set(chatRoomMap).catchError((e){
-      print(e.toString());
-    });
+    FirebaseFirestore.instance.collection("chatroom").doc(chatRoomID).set(chatRoomMap);
   }
 
   addMessages(String chatroomID, messageMap) {
     FirebaseFirestore.instance.collection("chatroom").doc(chatroomID)
-        .collection("chats").add(messageMap)
-        .catchError((e) {
-          print(e.toString());
-    });
+        .collection("chats").add(messageMap);
   }
 
   getMessages(String chatroomID) async {
-    return await FirebaseFirestore.instance.collection("chatroom").doc(chatroomID)
+    return FirebaseFirestore.instance.collection("chatroom").doc(chatroomID)
         .collection("chats").snapshots();
   }
 
@@ -42,13 +35,11 @@ class DatabaseMethods{
 
   deleteChatsWithUid(String postID) async {
     //delete function adapted from https://stackoverflow.com/questions/53089517/how-to-delete-all-documents-in-collection-in-firestore-with-flutter by user copsOnRoad accessed 17/01/22
-    print(postID);
     var chatrooms = FirebaseFirestore.instance.collection("chatroom").where("postID", isEqualTo: postID);
     chatrooms.get().then((snapshot) {
       for(DocumentSnapshot ds in snapshot.docs)
       {
         ds.reference.delete();
-        print("${ds.reference} DELETED");
       }
     });
   }
@@ -57,8 +48,6 @@ class DatabaseMethods{
     CollectionReference posts = FirebaseFirestore.instance.collection('posts');
     posts
         .doc(postID)
-        .delete()
-        .then((value) => print("Post Deleted"))
-        .catchError((error) => print("Failed to delete user: $error"));
+        .delete();
   }
 }

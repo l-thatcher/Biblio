@@ -47,7 +47,7 @@ class _NewPostpageState extends State<NewPostpage> {
   String? dropDownSet;
   CourseSelector courseSelector = CourseSelector();
   PriceSelector priceSelector = PriceSelector();
-  PostDetails postDetails = PostDetails();
+  PostDetails postDetails = const PostDetails();
 
 
   DatabaseMethods databaseMethods = DatabaseMethods();

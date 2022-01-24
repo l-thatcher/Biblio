@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -9,17 +8,17 @@ class PriceSelector extends StatelessWidget {
   //the price input for the new post page, the MoneyMaskedTextController library makes it easy to take money values as a user input rather than try and format the numbers myself
 
   final Function(String)? onChanged;
-  String? priceSet;
-  var priceController = new MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',', leftSymbol: '\£ ');
+  final String? priceSet;
+  var priceController = MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',', leftSymbol: '£');
 
-  PriceSelector({this.onChanged, this.priceSet});
+  PriceSelector({Key? key, this.onChanged, this.priceSet}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.all(5),
-      padding: EdgeInsets.only(
+      margin: const EdgeInsets.all(5),
+      padding: const EdgeInsets.only(
           left: 15,
           right: 15
       ),
@@ -37,18 +36,18 @@ class PriceSelector extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text("Price: ", style: Constants.regularText,),
-          Container(
+          const Text("Price: ", style: Constants.regularText,),
+          SizedBox(
             width: MediaQuery.of(context).size.width * 0.3,
             child: TextFormField(
               initialValue: priceSet,
               onChanged: onChanged,
               controller: priceController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: InputBorder.none,
               ),
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
             ),
           ),
         ],

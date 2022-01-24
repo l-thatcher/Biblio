@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
@@ -8,7 +7,7 @@ class BottomNavbar extends StatefulWidget {
   final int? selectedTab;
   final Function(int)? changePage;
 
-  BottomNavbar({this.selectedTab, this.changePage});
+  const BottomNavbar({Key? key, this.selectedTab, this.changePage}) : super(key: key);
 
   @override
   State<BottomNavbar> createState() => _BottomNavbarState();
@@ -25,7 +24,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
         boxShadow: [
           BoxShadow(
             color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
@@ -86,19 +85,18 @@ class BottomNavbarBtn extends StatelessWidget {
   final bool? selected;
   final VoidCallback? onPressed;
 
-  BottomNavbarBtn({this.image, this.selected, this.onPressed});
+  const BottomNavbarBtn({Key? key, this.image, this.selected, this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
     String _image = image ?? 'lib/assets/exclamation.png';
     bool _selected = selected ?? false;
-    bool _onPressed = selected ?? false;
 
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
         decoration: BoxDecoration(
           border: Border(
             top: BorderSide(

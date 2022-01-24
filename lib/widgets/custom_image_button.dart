@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 //very similar to the custom button but this uses images rather than text
@@ -12,7 +10,7 @@ class CustomImageButton extends StatelessWidget {
   final String? image;
   final double? width;
 
-  CustomImageButton({this.onPressed, this.outlined, this.isLoading, this.image, this.width});
+  const CustomImageButton({Key? key, this.onPressed, this.outlined, this.isLoading, this.image, this.width}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +34,7 @@ class CustomImageButton extends StatelessWidget {
           ),
          borderRadius: BorderRadius.circular(15),
         ),
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
           horizontal: 10,
           vertical: 16,
         ),
@@ -47,7 +45,7 @@ class CustomImageButton extends StatelessWidget {
                 visible: _isLoading ? false : true,
                 child: Container(
                   width: 50,
-                  margin: EdgeInsets.fromLTRB(3, 10, 3, 10),
+                  margin: const EdgeInsets.fromLTRB(3, 10, 3, 10),
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(_image),
@@ -59,8 +57,8 @@ class CustomImageButton extends StatelessWidget {
             Visibility(
               visible: _isLoading,
               child: Container(
-                margin: EdgeInsets.only(left: 18, right: 18),
-                child: SizedBox(
+                margin: const EdgeInsets.only(left: 18, right: 18),
+                child: const SizedBox(
                   height: 20,
                   width: 20,
                   child:CircularProgressIndicator(

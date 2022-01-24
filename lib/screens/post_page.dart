@@ -10,7 +10,7 @@ import 'package:biblio_files/Styles/constants.dart';
 class PostPage extends StatefulWidget {
   final String? postID;
 
-  const PostPage({this.postID});
+  const PostPage({Key? key, this.postID}) : super(key: key);
 
   @override
   _PostPageState createState() => _PostPageState();
@@ -206,8 +206,8 @@ class _PostPageState extends State<PostPage> {
                               Expanded(
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
-                                  margin: EdgeInsets.all(5),
-                                  padding: EdgeInsets.all(10),
+                                  margin: const EdgeInsets.all(5),
+                                  padding: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(15),

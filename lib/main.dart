@@ -7,14 +7,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
-bool USE_FIRESTORE_EMULATOR = false;
+bool useFirestoreEmulator = false;
 
 
 void main() async {
   //initializing from https://stackoverflow.com/questions/63492211/no-firebase-app-default-has-been-created-call-firebase-initializeapp-in by user Peter Haddad accessed 13/11/21
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  if (USE_FIRESTORE_EMULATOR) {
+  if (useFirestoreEmulator) {
     FirebaseFirestore.instance.settings = const Settings(
         host: 'localhost:8080', sslEnabled: false, persistenceEnabled: false);
   }

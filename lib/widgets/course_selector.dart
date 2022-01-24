@@ -1,5 +1,4 @@
 import 'package:dropdown_plus/dropdown_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
@@ -10,29 +9,26 @@ class CourseSelector extends StatelessWidget {
   //the courses are loaded from a list so can easily be added to or taken away
   final courseOptions = ['Other', 'Physics', 'Chemistry', 'Computer Science', 'Maths', 'Engineering'];
 
-  CourseSelector({this.onChanged});
+  CourseSelector({Key? key, this.onChanged}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.all(5),
-      padding: EdgeInsets.only(
+      margin: const EdgeInsets.all(5),
+      padding: const EdgeInsets.only(
           left: 15,
           right: 15
       ),
-      child: Container(
-        //the text drop down field allowed for user to search or scroll to find their course
-        child: TextDropdownFormField(
-          onChanged: onChanged,
-          options: courseOptions,
-          decoration: InputDecoration(
-            constraints: BoxConstraints(maxHeight: 60),
-            border: InputBorder.none,
-            suffixIcon: Icon(Icons.arrow_drop_down),
-            labelText: "Course",),
-          dropdownHeight: 200,
-        ),
+      child: TextDropdownFormField(
+        onChanged: onChanged,
+        options: courseOptions,
+        decoration: const InputDecoration(
+          constraints: BoxConstraints(maxHeight: 60),
+          border: InputBorder.none,
+          suffixIcon: Icon(Icons.arrow_drop_down),
+          labelText: "Course",),
+        dropdownHeight: 200,
       ),
     );
   }

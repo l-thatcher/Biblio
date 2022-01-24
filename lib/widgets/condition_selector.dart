@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
 
@@ -22,8 +21,8 @@ class _ConditionSelectorState extends State<ConditionSelector> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.all(5),
-      padding: EdgeInsets.only(
+      margin: const EdgeInsets.all(5),
+      padding: const EdgeInsets.only(
           left: 15,
           right: 15
       ),
@@ -41,11 +40,11 @@ class _ConditionSelectorState extends State<ConditionSelector> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("Condition: ", style: Constants.regularText,),
+          const Text("Condition: ", style: Constants.regularText,),
           DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               value: dropdownValue,
-              style: TextStyle(fontSize: 15, color: Colors.black),
+              style: const TextStyle(fontSize: 15, color: Colors.black),
               onChanged: (String? newValue) {
                 setState(() {
                   dropdownValue = newValue!;

@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ImageCarousel extends StatefulWidget {
   final List? imageList;
 
-  ImageCarousel({this.imageList});
+  const ImageCarousel({Key? key, this.imageList}) : super(key: key);
 
   @override
   _ImageCarouselState createState() => _ImageCarouselState();
@@ -21,7 +20,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
     return Container(
       height: MediaQuery.of(context).size.height * 0.5,
       width: MediaQuery.of(context).size.width * 1,
-      margin: EdgeInsets.all(5),
+      margin: const EdgeInsets.all(5),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
@@ -36,17 +35,15 @@ class _ImageCarouselState extends State<ImageCarousel> {
       child: Stack(
         children: [
           PageView(
-            onPageChanged: (num) {
+            onPageChanged: (number) {
               setState(() {
-                _selectedPage = num;
+                _selectedPage = number;
               });
             },
             children: [
               for(var i = 0; i < widget.imageList!.length; i++)
-                Container(
-                  child: Image.network(
-                      "${widget.imageList![i]}"
-                  ),
+                Image.network(
+                    "${widget.imageList![i]}"
                 )
             ],
           ),
@@ -60,9 +57,9 @@ class _ImageCarouselState extends State<ImageCarousel> {
               children: [
                 for(var i = 0; i < widget.imageList!.length; i++)
                   AnimatedContainer(
-                    duration: Duration(milliseconds: 300),
+                    duration: const Duration(milliseconds: 300),
                     curve: Curves.easeOutCubic,
-                    margin: EdgeInsets.symmetric(
+                    margin: const EdgeInsets.symmetric(
                       horizontal: 5,
                     ),
                     width: _selectedPage == i ? 30 : 10,

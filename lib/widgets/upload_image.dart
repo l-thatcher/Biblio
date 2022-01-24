@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -26,26 +25,26 @@ class _UploadImageState extends State<UploadImage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Choose option",style: TextStyle(color: Colors.blue),),
+          title: const Text("Choose option",style: TextStyle(color: Colors.blue),),
           content: SingleChildScrollView(
             child: ListBody(
               children: [
-                Divider(height: 1,color: Colors.blue,),
+                const Divider(height: 1,color: Colors.blue,),
                 ListTile(
                   onTap: (){
                     _openGallery(context);
                   },
-                  title: Text("Gallery"),
-                  leading: Icon(Icons.account_box,color: Colors.blue,),
+                  title: const Text("Gallery"),
+                  leading: const Icon(Icons.account_box,color: Colors.blue,),
                 ),
 
-                Divider(height: 1,color: Colors.blue,),
+                const Divider(height: 1,color: Colors.blue,),
                 ListTile(
                   onTap: (){
                     _openCamera(context);
                   },
-                  title: Text("Camera"),
-                  leading: Icon(Icons.camera,color: Colors.blue,),
+                  title: const Text("Camera"),
+                  leading: const Icon(Icons.camera,color: Colors.blue,),
                 ),
               ],
             ),
@@ -85,7 +84,7 @@ class _UploadImageState extends State<UploadImage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
       child: Center(
         child: GestureDetector(
           onTap: _getInputMethod,

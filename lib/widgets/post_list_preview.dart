@@ -1,20 +1,19 @@
 import 'package:biblio_files/screens/personal_post_page.dart';
 import 'package:biblio_files/screens/post_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
 
 
 //this returns a list of the users posts and displays them within tiles
 class PostListPreview extends StatelessWidget {
-  String? image;
-  String? name;
-  String? postID;
-  String? course;
-  String? userUuid;
+  final String? image;
+  final String? name;
+  final String? postID;
+  final String? course;
+  final String? userUuid;
 
-  PostListPreview({Key? key, this.image, this.name, this.postID, this.course, this.userUuid}) : super(key: key);
+  const PostListPreview({Key? key, this.image, this.name, this.postID, this.course, this.userUuid}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +36,11 @@ class PostListPreview extends StatelessWidget {
         }
       },
       child: Container(
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
             top: 5,
             bottom: 5,
         ),
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         height: MediaQuery.of(context).size.height * 0.1,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -57,10 +56,8 @@ class PostListPreview extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Container(
-                child: Image.network(image!)
-            ),
-            Container(
+            Image.network(image!),
+            SizedBox(
               width: MediaQuery.of(context).size.width * 0.5,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

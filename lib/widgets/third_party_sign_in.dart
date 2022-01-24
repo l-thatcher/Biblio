@@ -1,14 +1,12 @@
 import 'package:biblio_files/functions/account_linker.dart';
 import 'package:biblio_files/widgets/custom_image_button.dart';
 import 'package:biblio_files/widgets/custom_input_field.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:twitter_login/entity/auth_result.dart';
 import 'package:twitter_login/twitter_login.dart';
 import 'package:flutter/foundation.dart';
 import 'package:biblio_files/services/database.dart';
@@ -25,7 +23,7 @@ class ThirdPartySignIn extends StatefulWidget {
 
 class _ThirdPartySignInState extends State<ThirdPartySignIn> {
 
-  DatabaseMethods databaseMethods = new DatabaseMethods();
+  DatabaseMethods databaseMethods = DatabaseMethods();
   final String method = "";
 
 
@@ -119,7 +117,6 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
             // Link the pending credential with the existing account
             await userCredential.user!.linkWithCredential(pendingCredential!);
           } catch (e) {
-            print(e.toString());
             signInMaster(credential);
           }
         } else {

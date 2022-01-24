@@ -1,5 +1,4 @@
 import 'package:biblio_files/Styles/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 //messages in the chat screen are shown within these widgets
@@ -13,17 +12,17 @@ class MessageTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.4,
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       alignment: fromMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
             color: fromMe ? Colors.white : Colors.blueGrey,
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
-                bottomLeft: fromMe ? Radius.circular(12) : Radius.circular(0),
-                bottomRight: fromMe ? Radius.circular(0) : Radius.circular(12),),
+                topLeft: const Radius.circular(12),
+                topRight: const Radius.circular(12),
+                bottomLeft: fromMe ? const Radius.circular(12) : const Radius.circular(0),
+                bottomRight: fromMe ? const Radius.circular(0) : const Radius.circular(12),),
             boxShadow: [
               BoxShadow(
                 color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),

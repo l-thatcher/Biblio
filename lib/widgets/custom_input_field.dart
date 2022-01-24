@@ -1,5 +1,4 @@
 import 'package:biblio_files/Styles/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -14,7 +13,7 @@ class CustomInput extends StatelessWidget {
   final TextInputAction? textInputAction;
   final bool? hiddenText;
 
-  CustomInput({this.text, this.primaryInput, this.onChanged, this.onSubmitted, this.focusNode, this.textInputAction, this.hiddenText});
+  const CustomInput({Key? key, this.text, this.primaryInput, this.onChanged, this.onSubmitted, this.focusNode, this.textInputAction, this.hiddenText}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +25,9 @@ class CustomInput extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: _primaryInput ? BorderRadius.circular(5) : BorderRadius.circular(0),
-        color: _primaryInput ? Color(0xff2C3F576F) : Colors.transparent,
+        color: _primaryInput ? const Color(0xff2C3F576F) : Colors.transparent,
       ),
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: 24,
         vertical: 5,
       ),
@@ -41,7 +40,7 @@ class CustomInput extends StatelessWidget {
         decoration: InputDecoration(
           border: _primaryInput ? InputBorder.none : null,
           hintText: text ?? AppLocalizations.of(context)!.defaultTxt,
-          contentPadding: EdgeInsets.symmetric(
+          contentPadding: const EdgeInsets.symmetric(
             horizontal: 24,
             vertical: 8,
           ),

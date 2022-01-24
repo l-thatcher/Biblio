@@ -11,7 +11,7 @@ import 'package:biblio_files/Styles/constants.dart';
 class PersonalPostPage extends StatefulWidget {
   final String? postID;
 
-  const PersonalPostPage({this.postID});
+  const PersonalPostPage({Key? key, this.postID}) : super(key: key);
 
   @override
   _PersonalPostPageState createState() => _PersonalPostPageState();

@@ -1,20 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 //the text on the new post page is done here
 class PostDetails extends StatelessWidget {
 
   final Function(String)? onChanged;
-  String? writtenText;
+  final String? writtenText;
 
-  PostDetails({this.onChanged, this.writtenText});
+  const PostDetails({Key? key, this.onChanged, this.writtenText}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(5),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
@@ -27,20 +26,20 @@ class PostDetails extends StatelessWidget {
           ]
       ),
       child: ListView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: [
-          Text("Description...", style: Constants.regularText,),
+          const Text("Description...", style: Constants.regularText,),
           Container(
             height: MediaQuery.of(context).size.height * 0.2,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                color: Color(0xff2C3F576F)
+                color: const Color(0xff2C3F576F)
             ),
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
                 left: 15,
                 right: 15
             ),
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               top: 5,
               left: 5,
               right: 5,
@@ -48,7 +47,7 @@ class PostDetails extends StatelessWidget {
             child: TextFormField(
               initialValue: writtenText,
               onChanged: onChanged,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: InputBorder.none,
                 hintText: "Aa...",
               ),
