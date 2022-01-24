@@ -10,6 +10,7 @@ class ImageCarousel extends StatefulWidget {
   _ImageCarouselState createState() => _ImageCarouselState();
 }
 
+//this shows the users the images from a post and allows them to swipe through them
 class _ImageCarouselState extends State<ImageCarousel> {
 
   int _selectedPage = 0;
@@ -49,6 +50,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
                 )
             ],
           ),
+          //the small dots at the bottom of the carousel are controlled here
           Positioned(
             bottom: 20,
             left: 0,

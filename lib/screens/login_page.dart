@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
-
+//the log in page for the app
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -21,7 +21,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
+  //the sign in function
   Future<String?> signIn() async {
+    //take in variables and create an account with firestore
     try {
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
@@ -29,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
       );
       return null;
     } on FirebaseAuthException catch (e) {
-
+      //return cutom error messages for common issues
       if (e.code == 'user-not-found') {
         return('No user found for that email.');
       } else if (e.code == 'unknown') {
@@ -44,10 +46,12 @@ class _LoginPageState extends State<LoginPage> {
       }
       return e.message;
     } catch (e) {
+      //if it is not one of those errors the user will be given the full error message
       return e.toString();
     }
   }
 
+  //a function to handle signing up and display the loading buttom
   void submitForm() async {
     setState(() {
       formLoading = true;
@@ -105,12 +109,15 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         Text(errorMsg, style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500, fontSize: 16), textAlign: TextAlign.center,),
                         CustomInput(
+                          //use custom designed input widgets
                           text : AppLocalizations.of(context)!.emailHint,
                           primaryInput: true,
+                          //set the email var to the string in the input
                           onChanged: (value) {
                             email = value;
                           },
                           onSubmitted: (value) {
+                            //lead to the next input field rather than closing the keyboard on next
                             passwordFocusNode.requestFocus();
                           },
                           textInputAction: TextInputAction.next,),

@@ -2,8 +2,10 @@ import 'package:biblio_files/Styles/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+//messages in the chat screen are shown within these widgets
 class MessageTile extends StatelessWidget {
   final String message;
+  //options are set depending on if the user has sent or recieved the message
   final bool fromMe;
   const MessageTile({Key? key, required this.message, required this.fromMe}) : super(key: key);
 

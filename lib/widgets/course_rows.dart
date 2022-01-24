@@ -18,6 +18,7 @@ class CourseRows extends StatefulWidget {
   State<CourseRows> createState() => _CourseRowsState();
 }
 
+//this loads rows of posts based on the course that the user is currently set to
 class _CourseRowsState extends State<CourseRows> {
 
   final CollectionReference _productsRef = FirebaseFirestore.instance.collection("posts");
@@ -39,6 +40,7 @@ class _CourseRowsState extends State<CourseRows> {
       ),
       padding: EdgeInsets.all(10),
       child: Container(
+        //get a snapshot of all the books that have the same course as the user
         child: FutureBuilder<QuerySnapshot>(
           future: _productsRef.where('course', isEqualTo: widget.userCourse!)
               .get(),
@@ -58,6 +60,7 @@ class _CourseRowsState extends State<CourseRows> {
                 Text(widget.title ?? "", style: constants.subtitleText,),
                 Expanded(
                   child: ListView(
+                    //a list view with as many children as the snapshot has, which then shows the listings within the rows.
                     scrollDirection: Axis.horizontal,
                     children: snapshot.data!.docs.map((DocumentSnapshot document) {
                       return GestureDetector(

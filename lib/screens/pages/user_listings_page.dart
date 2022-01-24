@@ -18,10 +18,11 @@ class UserListingsPage extends StatelessWidget {
   final Stream<QuerySnapshot> _productsRef = FirebaseFirestore.instance.collection("posts").where('userUuid', isEqualTo: FirebaseAuth.instance.currentUser!.uid).snapshots();
 
 
-
+  //this shows the user a list of thier own posts on the app.
   @override
   Widget build(BuildContext context) {
     return Container(
+      //a stream is made checking the database for users posts
       child: StreamBuilder<QuerySnapshot>(
         stream: _productsRef,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -110,6 +111,7 @@ class UserListingsPage extends StatelessWidget {
                               Expanded(
                                 child: ListView(
                                   children: snapshot.data!.docs.map((document) {
+                                    //a postListPreview widget is used to show each of the posts.
                                     return PostListPreview(image: document["image1"], name: document["name"], postID: document.id, course: document["course"], userUuid: document["userUuid"],);
                                   }).toList(),
                                 ),

@@ -19,6 +19,7 @@ class RegisterPage extends StatefulWidget {
   _RegisterPage createState() => _RegisterPage();
 }
 
+//register users and upload thier information into the database
 class _RegisterPage extends State<RegisterPage> {
 
   DatabaseMethods databaseMethods = new DatabaseMethods();

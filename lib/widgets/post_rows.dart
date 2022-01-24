@@ -8,6 +8,8 @@ import 'package:biblio_files/Styles/constants.dart';
 
 import 'custom_image_button.dart';
 
+
+//these are the same as course rows but instead show new listings, and the saved posts from the user by taking in a list of posts
 class PostRows extends StatefulWidget {
   final String? title;
   final List<String>? postList;

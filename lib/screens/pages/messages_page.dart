@@ -11,10 +11,12 @@ class Messagespage extends StatelessWidget {
   const Messagespage({Key? key}) : super(key: key);
 
 
+  //this page shows the users open chats with other users
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
+        //there is some basic decoration done, then the page shows the "contacts page" in the center
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(

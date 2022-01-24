@@ -21,7 +21,9 @@ class _ContactsPageState extends State<ContactsPage> {
   DatabaseMethods databaseMethods = new DatabaseMethods();
   var currentUser = FirebaseAuth.instance.currentUser;
 
+  //widget to show the user a list of open chats
   Widget chatRoomList(){
+    //stream of the users chats from database
     final Stream<QuerySnapshot> chatRoomStream = FirebaseFirestore.instance.collection("chatroom").where("users", arrayContains: currentUser!.uid).snapshots();
     return StreamBuilder<QuerySnapshot>(
         stream: chatRoomStream,
@@ -42,9 +44,11 @@ class _ContactsPageState extends State<ContactsPage> {
             );
           }
 
+          //return a list view of MessageListPreview widgets
           return ListView(
             children: snapshot.data!.docs.map((document) {
               return GestureDetector(
+                //link to the chat tapped on
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(
                       builder: (context) => ChatPage(document["chatroomID"], document["chatName"], document["image"])

@@ -16,6 +16,9 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:after_layout/after_layout.dart';
 
+
+//this page was disigned to edit posts however I was unable to achieve this due to time constraints as I was having issues with the page and decided to focus elsewhere as a user can
+//delete and remake a post.
 class EditPostPage extends StatefulWidget {
   final String? postID;
 

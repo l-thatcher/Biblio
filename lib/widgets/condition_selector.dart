@@ -13,6 +13,7 @@ class ConditionSelector extends StatefulWidget {
   State<ConditionSelector> createState() => _ConditionSelectorState();
 }
 
+//a widget to select the condition of the book when making a new listing
 class _ConditionSelectorState extends State<ConditionSelector> {
   late String dropdownValue = widget.dropDownSet ?? "Good";
 
@@ -53,8 +54,10 @@ class _ConditionSelectorState extends State<ConditionSelector> {
                 //onChanged value adapted from https://stackoverflow.com/questions/54694169/returning-data-from-a-stateful-widget-in-flutter by user Umar Farooq accessed 22/11/21
                 widget.onChanged!(dropdownValue);
               },
+              //the options are loaded from a list so this can be easily changed if ever needed
               items: <String>['Bad', 'Okay', 'Good', 'Perfect']
                   .map<DropdownMenuItem<String>>((String value) {
+                    //using the dropdown menu library made development much smoother
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),

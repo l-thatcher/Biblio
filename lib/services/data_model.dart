@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+//this data model is used for the search feature in the database and returns a list of documents from the search
 class DataModel {
   final String? condition;
   final String? course;

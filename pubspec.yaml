@@ -50,8 +50,9 @@ dependencies:
   flutter_masked_text2: ^0.9.1
   dropdown_plus: ^0.0.9
   firestore_search: ^0.1.9
-
-#messaging dependencies:
+  fake_cloud_firestore: ^1.2.0
+  firebase_auth_mocks: ^0.8.2
+  google_sign_in_mocks: ^0.2.1
 
 
 

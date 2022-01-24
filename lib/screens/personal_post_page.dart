@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
 
-
+//this is a near copy of the normal post page except you are given a bin option rather than a message option in the top corner.
 class PersonalPostPage extends StatefulWidget {
   final String? postID;
 

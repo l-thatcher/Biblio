@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+//these are my commonly used database features, there are still some within widgets that could be moved here for better code readability.
 class DatabaseMethods{
 
   uploadUserInfo(userMap, uuid){

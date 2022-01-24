@@ -30,7 +30,9 @@ class _ChatPageState extends State<ChatPage> {
   var currentUser = FirebaseAuth.instance.currentUser;
 
 
+  //function to send a message to the chat database
   sendMessage(){
+    //if the text box isn't empty create a map and send to the database, then clear the text
     if(messageController.text.isNotEmpty){
       Map<String, dynamic> messageMap = {
         "message" : messageController.text,
@@ -42,9 +44,12 @@ class _ChatPageState extends State<ChatPage> {
     }
   }
 
+  //returns a list of the users chats with one another
   Widget chatMessageList(){
+    //get a list of both users chats from the database, ordered by time sent
     final Stream<QuerySnapshot> chatMessageStream = FirebaseFirestore.instance.collection("chatroom").doc(widget.chatroomID)
         .collection("chats").orderBy("time", descending: false).snapshots();
+    //start a stream of the messages for live updates
     return StreamBuilder<QuerySnapshot>(
         stream: chatMessageStream,
         builder: (context, snapshot){
@@ -56,6 +61,7 @@ class _ChatPageState extends State<ChatPage> {
             );
           }
 
+          //show loading until connected to the stream
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Scaffold(
               body: Center(
@@ -64,6 +70,7 @@ class _ChatPageState extends State<ChatPage> {
             );
           }
 
+          //return a list view of the message bubbles
           return ListView(
             children: snapshot.data!.docs.map((document) {
               return MessageTile(message: document["message"], fromMe: document["sentBy"] == currentUser!.uid,);
@@ -98,6 +105,7 @@ class _ChatPageState extends State<ChatPage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          //the header for the page
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -126,6 +134,7 @@ class _ChatPageState extends State<ChatPage> {
                               ),
                             ],
                           ),
+                          //the contents of the chat
                           Expanded(child: chatMessageList()),
                         ],
                       ),
@@ -138,6 +147,7 @@ class _ChatPageState extends State<ChatPage> {
                 color: Theme.of(context).colorScheme.secondary,
               ),
               Align(
+                //text input and sending
                 alignment: Alignment.bottomCenter,
                 child: Stack(
                   children: [

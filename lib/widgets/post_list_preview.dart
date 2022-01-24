@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
 
 
-
+//this returns a list of the users posts and displays them within tiles
 class PostListPreview extends StatelessWidget {
   String? image;
   String? name;
@@ -19,6 +19,8 @@ class PostListPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //link to the post that is being shown, the logic checks if the current user is the owner of the listing and although this should always be true it was simple to impliment from other pages and adds an extra
+    //layer of security
     return GestureDetector(
       onTap: (){
         if(userUuid == FirebaseAuth.instance.currentUser!.uid){

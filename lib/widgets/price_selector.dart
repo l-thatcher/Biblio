@@ -7,6 +7,8 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 class PriceSelector extends StatelessWidget {
 
 
+  //the price input for the new post page, the MoneyMaskedTextController library makes it easy to take money values as a user input rather than try and format the numbers myself
+
   final Function(String)? onChanged;
   String? priceSet;
   var priceController = new MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',', leftSymbol: '\£ ');

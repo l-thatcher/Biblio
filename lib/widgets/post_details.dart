@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
-
+//the text on the new post page is done here
 class PostDetails extends StatelessWidget {
 
   final Function(String)? onChanged;

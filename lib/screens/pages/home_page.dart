@@ -17,6 +17,7 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
 
+  //this is the main home page of the app where the user will normally land
 
   final Stream<DocumentSnapshot> _userRef =  FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).snapshots();
 
@@ -24,6 +25,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      //use a stream builder to get details on the current user from the db
       child: StreamBuilder<DocumentSnapshot>(
         stream: _userRef,
         builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> streamSnapshot) {
@@ -44,6 +46,7 @@ class _HomepageState extends State<Homepage> {
             );
           }
 
+          //create a list of the users saved posts from the stream snapshot
           List<String>? savedPosts = List.from(streamSnapshot.data!.get('savedPosts'));
 
 
@@ -69,6 +72,7 @@ class _HomepageState extends State<Homepage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      //populate the page with rows bassed of the users course, saved and new listings to the app
                       CourseRows(title: "Books from your course", userCourse: streamSnapshot.data!.get('course'),),
                       savedPosts.isEmpty ? CourseRows(title: "Saved posts", userCourse: "") : PostRows(title: "Saved posts", postList: savedPosts),
                       PostRows(title: "New listings",),

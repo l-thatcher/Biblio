@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+//these are the text styles I used for the app to provide a consistent user experience.
 class constants {
   static const regularText = TextStyle( fontSize: 14.0, fontWeight: FontWeight.w600, color: Colors.black);
 

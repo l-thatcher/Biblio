@@ -1,4 +1,5 @@
 import 'package:biblio_files/screens/landing_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,10 +7,17 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
+bool USE_FIRESTORE_EMULATOR = false;
+
+
 void main() async {
   //initializing from https://stackoverflow.com/questions/63492211/no-firebase-app-default-has-been-created-call-firebase-initializeapp-in by user Peter Haddad accessed 13/11/21
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  if (USE_FIRESTORE_EMULATOR) {
+    FirebaseFirestore.instance.settings = const Settings(
+        host: 'localhost:8080', sslEnabled: false, persistenceEnabled: false);
+  }
   runApp(const MyApp());
 }
 

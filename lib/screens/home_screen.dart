@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 
+//this page provides the base for each of the home widgets, and displays the custom bottom nav bar at the bottom
 class HomeScreen extends StatefulWidget {
   final int? selectedPage;
 
@@ -69,6 +70,7 @@ class _HomeScreen extends State<HomeScreen> {
                     });
                   },
                   children: [
+                    //each page used to populate the content of this one
                     Homepage(),
                     Searchpage(),
                     UserListingsPage(),

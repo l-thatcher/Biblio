@@ -19,6 +19,7 @@ class PostPage extends StatefulWidget {
   _PostPageState createState() => _PostPageState();
 }
 
+//this page displays other users posts, and allows the user to start a chat with the original poster
 class _PostPageState extends State<PostPage> {
   final CollectionReference<Map<String, dynamic>> _productsRef = FirebaseFirestore.instance.collection("posts");
   final _userRef = FirebaseFirestore.instance.collection('users');
@@ -35,6 +36,7 @@ class _PostPageState extends State<PostPage> {
     });
   }
 
+  //init state is used to check if the post is already saved by the user on opening to accurately show the save tab
   @override
   initState() {
     getSaved();
@@ -46,6 +48,7 @@ class _PostPageState extends State<PostPage> {
     super.dispose();
   }
 
+  //function to add the post to saved
   void savePost() async {
     setState(() {
       saved = true;
@@ -58,6 +61,7 @@ class _PostPageState extends State<PostPage> {
     getSaved();
   }
 
+  //and to take it off saved
   void unSavePost() async {
     setState(() {
       saved = false;
@@ -70,6 +74,7 @@ class _PostPageState extends State<PostPage> {
     getSaved();
   }
 
+  //create a chat room between the users named after the post and the user messaging so that each chat is unique to the post and users it relates too.
   createChatRoom(String postUuid, String postID, bookName, image1){
     var currentUser = FirebaseAuth.instance.currentUser;
     List<String> users = [postUuid, currentUser!.uid];

@@ -49,6 +49,8 @@ class Searchpage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
+                          //this uses the FirestoreSearchScaffold library to search the database for books using a stream. Future development could allow for users to change search by
+                          //course or condition.
                             child: FirestoreSearchScaffold(
                               firestoreCollectionName: 'posts',
                               searchBy: 'name',

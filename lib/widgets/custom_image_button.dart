@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
+//very similar to the custom button but this uses images rather than text
 class CustomImageButton extends StatelessWidget {
 
   final VoidCallback? onPressed;
@@ -18,6 +19,7 @@ class CustomImageButton extends StatelessWidget {
 
     bool _outlined = outlined ?? false;
     bool _isLoading = isLoading ?? false;
+    //default image in case no image is provided
     String _image = image ?? 'lib/assets/exclamation.png';
 
     return GestureDetector(

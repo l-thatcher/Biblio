@@ -13,11 +13,14 @@ class UploadImage extends StatefulWidget {
   _UploadImageState createState() => _UploadImageState();
 }
 
+
+//allows the user to upload images to the new post page
 class _UploadImageState extends State<UploadImage> {
 
   final uploadImage = "lib/assets/uploadImage.png";
   //image upload adapted from https://rrtutors.com/tutorials/imagepicker-flutter accessed 24/11/21
 
+  //pop up to allow the user to choose gallery or camera for the image upload
   Future<void> _getInputMethod() async {
     return showDialog<void>(
       context: context,
@@ -51,6 +54,7 @@ class _UploadImageState extends State<UploadImage> {
     );
   }
 
+  //functions to upload images from the camera or gallery depending on the users choice
   void _openGallery(BuildContext context) async{
     final XFile? pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     setState(() {

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
+
 class BottomNavbar extends StatefulWidget {
 
   final int? selectedTab;
@@ -11,6 +13,8 @@ class BottomNavbar extends StatefulWidget {
   @override
   State<BottomNavbar> createState() => _BottomNavbarState();
 }
+
+//this is the bottom navbar that displays at the bottom of the home screen
 
 class _BottomNavbarState extends State<BottomNavbar> {
   int _selectedTab = 0;
@@ -31,6 +35,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
         ]
       ),
       child: Row(
+        //this is each of the symbols which change depending on if they are selected or not
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           BottomNavbarBtn(
@@ -74,6 +79,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   }
 }
 
+//each button is made using this widget
 class BottomNavbarBtn extends StatelessWidget {
 
   final String? image;

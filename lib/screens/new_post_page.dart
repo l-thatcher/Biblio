@@ -25,8 +25,10 @@ class NewPostpage extends StatefulWidget {
   State<NewPostpage> createState() => _NewPostpageState();
 }
 
+//this page allows users to make a new post
 class _NewPostpageState extends State<NewPostpage> {
 
+  //define each of the variables that is needed for the page
   String? name;
   String condition = "Good";
   String? description;
@@ -57,6 +59,7 @@ class _NewPostpageState extends State<NewPostpage> {
   final CollectionReference _userRef = FirebaseFirestore.instance.collection("users");
 
 
+  //set up each of the fields in the init state
 
   @override
   void initState() {
@@ -95,6 +98,7 @@ class _NewPostpageState extends State<NewPostpage> {
     super.dispose();
   }
 
+  //a pop up for if the user has missed anythig important
   Future<void> _missingDetailsDialog() async {
     return showDialog<void>(
       context: context,
@@ -116,6 +120,7 @@ class _NewPostpageState extends State<NewPostpage> {
     );
   }
 
+  //this function uploads a user image to the cloud storage, and returns the url to find it
   Future<String> uploadFile(XFile? image) async {
     File file = File(image!.path);
     String url="";
@@ -130,6 +135,7 @@ class _NewPostpageState extends State<NewPostpage> {
     return url;
   }
 
+  //create the post map and uplooad it to the database
   Future<String?> _createPost() async {
     if (name == null || name == "") {
       return "Please give this listing a name to upload it.";
@@ -177,6 +183,7 @@ class _NewPostpageState extends State<NewPostpage> {
     }
   }
 
+  //function to start the post in progress
   void submitForm() async {
     setState(() {
       formLoading = true;

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 class LandingPage extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
+  //this is the page that is opened by the main function, it checks if the user is authenticated and sends them to the correct page accordingly, it is also where firestore initialization takes place
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(

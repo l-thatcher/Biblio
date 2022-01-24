@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
 
 
-
+//each of the users chats are shown here, it was adapted from the post list preview and works in a similar way
 class MessageListPreview extends StatefulWidget {
   String? image;
   String? chatName;
@@ -32,6 +32,7 @@ class _MessageListPreviewState extends State<MessageListPreview> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DocumentSnapshot>(
+      //check if the current user is user one or two then get the correct stream accordingly
       future: _userRef.doc((currentUserID==widget.user1) ? widget.user2 : widget.user1).get(),
       builder: (context, snapshot) {
         if(snapshot.hasError){

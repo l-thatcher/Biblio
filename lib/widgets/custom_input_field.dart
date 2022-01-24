@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
+//similar to the buttons this is a custom text input which is used through the app
 class CustomInput extends StatelessWidget {
 
   final String? text;

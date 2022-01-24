@@ -22,9 +22,11 @@ class EditDetails extends StatefulWidget {
 
 class _EditDetails extends State<EditDetails> {
 
+  //this page is used to change the users email. it uses a collection reference to get the user
   CollectionReference _users = FirebaseFirestore.instance.collection('users');
 
-  Future<String?> _createAccount() async {
+  Future<String?> _changeEmail() async {
+    //a funtion to change the email in the users account
     var currentUserUid = FirebaseAuth.instance.currentUser!.uid;
     _users
         .doc(currentUserUid)
@@ -37,7 +39,7 @@ class _EditDetails extends State<EditDetails> {
     setState(() {
       formLoading = true;
     });
-    String? createAccountString = await _createAccount();
+    String? createAccountString = await _changeEmail();
     if(createAccountString != null){
       setState(() {
         formLoading = false;

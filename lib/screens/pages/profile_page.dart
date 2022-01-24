@@ -26,8 +26,7 @@ class _ProfilepageState extends State<Profilepage> {
   Widget build(BuildContext context) {
     final DocumentReference _userRef =  FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid);
 
-    String newCourse = "";
-    final courseOptions = ['Other', 'Physics', 'Chemestry', 'Computer Science', 'Maths', 'Engineering'];
+    //profile page for the user, it allows them to check their details and change the course they are on. In future development this page could incorporate profile pictures
 
 
     return Container(

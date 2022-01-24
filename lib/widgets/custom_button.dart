@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
+
+//custom designed buttons that are used throughout the application for a constant style.
 class CustomButton extends StatelessWidget {
 
   final String? text;
@@ -16,6 +18,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    //two different design options are possible
     bool _outlined = outlined ?? false;
     bool _isLoading = isLoading ?? false;
 

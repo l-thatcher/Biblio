@@ -13,7 +13,8 @@ import 'package:twitter_login/twitter_login.dart';
 import 'package:flutter/foundation.dart';
 import 'package:biblio_files/services/database.dart';
 
-
+//this is shown on the user sign in and register screen, and allows the users to use google, facebook, or twitter to sign in, apple will also need to be added to be released on iphone,
+//but this requires payment to be implemented
 
 class ThirdPartySignIn extends StatefulWidget {
   const ThirdPartySignIn({Key? key}) : super(key: key);
@@ -27,6 +28,8 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
   DatabaseMethods databaseMethods = new DatabaseMethods();
   final String method = "";
 
+
+  //this popup is used when a user tries to sign into an account with a third party service but they already have an account to link them
   Future<void> _showPasswordReq() async {
     return showDialog<void>(
       context: context,
@@ -61,6 +64,7 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
     );
   }
 
+  //this popup is used when a user tries to sign into an account with a third party service but they already have an account from another provider, then lto link them
   Future<void> _linkAccountDialog() async {
     return showDialog<void>(
       context: context,
@@ -128,6 +132,7 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
     }
   }
 
+  //upload the information on the new user to the database
   Future<String?> createDetails() async {
     String? email = FirebaseAuth.instance.currentUser!.email;
     String? name = FirebaseAuth.instance.currentUser!.displayName;
