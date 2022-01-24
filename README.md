@@ -1,16 +1,21 @@
-# biblio_files
+How to build/run
+Android
+- set up flutter on your pc
+- open an android emulator
+- clone the project and run "flutter run" in the folder from terminal
+- the application will open in the connected emulator
 
-Online local book exchange
+IOS
+- set up flutter on your Mac
+- clone the project and run "flutter create ." in the folder from terminal
+- open the runner.xcodeworkspace file from within the IOS folder
+- right click on runner and click add file, add the googleservices.plist from the biblio folder
+- in the Runner folder replace the info.plist with the one from the biblio folder
+- open an IOS simulator
+- run "flutter run" in the folder from terminal
+- the application will open in the connected simulator
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Chrome
+- set up flutter on your pc
+- clone the project and run "flutter run" in the folder from terminal
+- the application will open in your preferred browser

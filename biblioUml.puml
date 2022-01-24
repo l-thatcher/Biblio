@@ -1,0 +1,661 @@
+@startuml
+set namespaceSeparator ::
+
+class "biblio_files::screens::register_page.dart::RegisterPage" {
+  +_RegisterPage createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::screens::register_page.dart::RegisterPage"
+
+class "biblio_files::screens::register_page.dart::_RegisterPage" {
+  +DatabaseMethods databaseMethods
+  +bool formLoading
+  +String errorMsg
+  +String newName
+  +String newEmail
+  +String newCourse
+  +String newPassword
+  +String confEmail
+  +String confPassword
+  +bool googleLoading
+  +bool facebookLoading
+  +bool twitterLoading
+  +bool btnVisible
+  +FocusNode EmailFocusNode
+  +FocusNode confEmailFocusNode
+  +FocusNode passwordFocusNode
+  +FocusNode confpasswordFocusNode
+  +StreamSubscription<bool> keyboardSubscription
+  -Future<String?> _createAccount()
+  +void submitForm()
+  +void initState()
+  +void dispose()
+  +Widget build()
+}
+
+"biblio_files::screens::register_page.dart::_RegisterPage" o-- "biblio_files::services::database.dart::DatabaseMethods"
+"biblio_files::screens::register_page.dart::_RegisterPage" o-- "flutter::src::widgets::focus_manager.dart::FocusNode"
+"biblio_files::screens::register_page.dart::_RegisterPage" o-- "dart::async::StreamSubscription<bool>"
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::screens::register_page.dart::_RegisterPage"
+
+class "biblio_files::screens::post_page.dart::PostPage" {
+  +String? postID
+  +_PostPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::screens::post_page.dart::PostPage"
+
+class "biblio_files::screens::post_page.dart::_PostPageState" {
+  -CollectionReference<Map<String, dynamic>> _productsRef
+  -CollectionReference<Map<String, dynamic>> _userRef
+  +DatabaseMethods databaseMethods
+  +AssetImage saveAsset
+  +bool saved
+  +List<String> savedPosts
+  +dynamic getSaved()
+  +void initState()
+  +void dispose()
+  +void savePost()
+  +void unSavePost()
+  +dynamic createChatRoom()
+  +Widget build()
+}
+
+"biblio_files::screens::post_page.dart::_PostPageState" o-- "cloud_firestore::cloud_firestore.dart::CollectionReference<Map<String, dynamic>>"
+"biblio_files::screens::post_page.dart::_PostPageState" o-- "biblio_files::services::database.dart::DatabaseMethods"
+"biblio_files::screens::post_page.dart::_PostPageState" o-- "flutter::src::painting::image_resolution.dart::AssetImage"
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::screens::post_page.dart::_PostPageState"
+
+class "biblio_files::screens::login_page.dart::LoginPage" {
+  +_LoginPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::screens::login_page.dart::LoginPage"
+
+class "biblio_files::screens::login_page.dart::_LoginPageState" {
+  +bool formLoading
+  +bool googleLoading
+  +bool facebookLoading
+  +bool twitterLoading
+  +String email
+  +String password
+  +String errorMsg
+  +FocusNode passwordFocusNode
+  +Future<String?> signIn()
+  +void submitForm()
+  +void initState()
+  +void dispose()
+  +Widget build()
+}
+
+"biblio_files::screens::login_page.dart::_LoginPageState" o-- "flutter::src::widgets::focus_manager.dart::FocusNode"
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::screens::login_page.dart::_LoginPageState"
+
+class "biblio_files::screens::edit_post_page.dart::EditPostPage" {
+  +String? postID
+  +_EditPostPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::screens::edit_post_page.dart::EditPostPage"
+
+class "biblio_files::screens::edit_post_page.dart::_EditPostPageState" {
+  +String? name
+  +String condition
+  +String? description
+  +String? price
+  +String course
+  +XFile? image1
+  +XFile? image2
+  +XFile? image3
+  +XFile? image4
+  +UploadImage uploadImg1
+  +UploadImage uploadImg2
+  +UploadImage uploadImg3
+  +UploadImage uploadImg4
+  +String image1Url
+  +String image2Url
+  +String image3Url
+  +String image4Url
+  +ConditionSelector conditionSelector
+  +String? dropDownSet
+  +CourseSelector courseSelector
+  +PriceSelector priceSelector
+  +PostDetails postDetails
+  +DatabaseMethods databaseMethods
+  +bool formLoading
+  +String errorMsg
+  -CollectionReference<Map<String, dynamic>> _productsRef
+  +void initState()
+  +void dispose()
+  -Future<void> _missingDetailsDialog()
+  +Future<String> uploadFile()
+  -Future<String?> _createPost()
+  +void submitForm()
+  +dynamic updatepage()
+  +Widget build()
+}
+
+"biblio_files::screens::edit_post_page.dart::_EditPostPageState" o-- "cross_file::src::types::interface.dart::XFile"
+"biblio_files::screens::edit_post_page.dart::_EditPostPageState" o-- "biblio_files::widgets::upload_image.dart::UploadImage"
+"biblio_files::screens::edit_post_page.dart::_EditPostPageState" o-- "biblio_files::widgets::condition_selector.dart::ConditionSelector"
+"biblio_files::screens::edit_post_page.dart::_EditPostPageState" o-- "biblio_files::widgets::course_selector.dart::CourseSelector"
+"biblio_files::screens::edit_post_page.dart::_EditPostPageState" o-- "biblio_files::widgets::price_selector.dart::PriceSelector"
+"biblio_files::screens::edit_post_page.dart::_EditPostPageState" o-- "biblio_files::widgets::post_details.dart::PostDetails"
+"biblio_files::screens::edit_post_page.dart::_EditPostPageState" o-- "biblio_files::services::database.dart::DatabaseMethods"
+"biblio_files::screens::edit_post_page.dart::_EditPostPageState" o-- "cloud_firestore::cloud_firestore.dart::CollectionReference<Map<String, dynamic>>"
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::screens::edit_post_page.dart::_EditPostPageState"
+
+class "biblio_files::screens::landing_page.dart::LandingPage" {
+  -Future<FirebaseApp> _initialization
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biblio_files::screens::landing_page.dart::LandingPage"
+
+class "biblio_files::screens::personal_post_page.dart::PersonalPostPage" {
+  +String? postID
+  +_PersonalPostPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::screens::personal_post_page.dart::PersonalPostPage"
+
+class "biblio_files::screens::personal_post_page.dart::_PersonalPostPageState" {
+  -CollectionReference<Map<String, dynamic>> _productsRef
+  -CollectionReference<Map<String, dynamic>> _userRef
+  +DatabaseMethods databaseMethods
+  +AssetImage saveAsset
+  +bool saved
+  +List<String> savedPosts
+  +dynamic getSaved()
+  +void initState()
+  +void dispose()
+  +void savePost()
+  -Future<void> _deleteConfirm()
+  +void unSavePost()
+  +Widget build()
+}
+
+"biblio_files::screens::personal_post_page.dart::_PersonalPostPageState" o-- "cloud_firestore::cloud_firestore.dart::CollectionReference<Map<String, dynamic>>"
+"biblio_files::screens::personal_post_page.dart::_PersonalPostPageState" o-- "biblio_files::services::database.dart::DatabaseMethods"
+"biblio_files::screens::personal_post_page.dart::_PersonalPostPageState" o-- "flutter::src::painting::image_resolution.dart::AssetImage"
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::screens::personal_post_page.dart::_PersonalPostPageState"
+
+class "biblio_files::screens::edit_details.dart::EditDetails" {
+  +_EditDetails createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::screens::edit_details.dart::EditDetails"
+
+class "biblio_files::screens::edit_details.dart::_EditDetails" {
+  -CollectionReference<Object?> _users
+  +bool formLoading
+  +String errorMsg
+  +String newCourse
+  +bool btnVisible
+  +StreamSubscription<bool> keyboardSubscription
+  -Future<String?> _createAccount()
+  +void submitForm()
+  +void initState()
+  +void dispose()
+  +Widget build()
+}
+
+"biblio_files::screens::edit_details.dart::_EditDetails" o-- "cloud_firestore::cloud_firestore.dart::CollectionReference<Object>"
+"biblio_files::screens::edit_details.dart::_EditDetails" o-- "dart::async::StreamSubscription<bool>"
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::screens::edit_details.dart::_EditDetails"
+
+class "biblio_files::screens::chat_pages::chat_page.dart::ChatPage" {
+  +String chatroomID
+  +String bookName
+  +String image
+  +_ChatPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::screens::chat_pages::chat_page.dart::ChatPage"
+
+class "biblio_files::screens::chat_pages::chat_page.dart::_ChatPageState" {
+  +DatabaseMethods databaseMethods
+  +TextEditingController messageController
+  +User? currentUser
+  +dynamic sendMessage()
+  +Widget chatMessageList()
+  +Widget build()
+}
+
+"biblio_files::screens::chat_pages::chat_page.dart::_ChatPageState" o-- "biblio_files::services::database.dart::DatabaseMethods"
+"biblio_files::screens::chat_pages::chat_page.dart::_ChatPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"biblio_files::screens::chat_pages::chat_page.dart::_ChatPageState" o-- "firebase_auth::firebase_auth.dart::User"
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::screens::chat_pages::chat_page.dart::_ChatPageState"
+
+class "biblio_files::screens::chat_pages::contacts_page.dart::ContactsPage" {
+  +State<ContactsPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::screens::chat_pages::contacts_page.dart::ContactsPage"
+
+class "biblio_files::screens::chat_pages::contacts_page.dart::_ContactsPageState" {
+  +DatabaseMethods databaseMethods
+  +User? currentUser
+  +Widget chatRoomList()
+  +Widget build()
+}
+
+"biblio_files::screens::chat_pages::contacts_page.dart::_ContactsPageState" o-- "biblio_files::services::database.dart::DatabaseMethods"
+"biblio_files::screens::chat_pages::contacts_page.dart::_ContactsPageState" o-- "firebase_auth::firebase_auth.dart::User"
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::screens::chat_pages::contacts_page.dart::_ContactsPageState"
+
+class "biblio_files::screens::pages::messages_page.dart::Messagespage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biblio_files::screens::pages::messages_page.dart::Messagespage"
+
+class "biblio_files::screens::pages::user_listings_page.dart::UserListingsPage" {
+  -Stream<QuerySnapshot<Object?>> _productsRef
+  +Widget build()
+}
+
+"biblio_files::screens::pages::user_listings_page.dart::UserListingsPage" o-- "dart::async::Stream<QuerySnapshot<Object>>"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biblio_files::screens::pages::user_listings_page.dart::UserListingsPage"
+
+class "biblio_files::screens::pages::home_page.dart::Homepage" {
+  +State<Homepage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::screens::pages::home_page.dart::Homepage"
+
+class "biblio_files::screens::pages::home_page.dart::_HomepageState" {
+  -Stream<DocumentSnapshot<Object?>> _userRef
+  +Widget build()
+}
+
+"biblio_files::screens::pages::home_page.dart::_HomepageState" o-- "dart::async::Stream<DocumentSnapshot<Object>>"
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::screens::pages::home_page.dart::_HomepageState"
+
+class "biblio_files::screens::pages::search_page.dart::Searchpage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biblio_files::screens::pages::search_page.dart::Searchpage"
+
+class "biblio_files::screens::pages::profile_page.dart::Profilepage" {
+  +State<Profilepage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::screens::pages::profile_page.dart::Profilepage"
+
+class "biblio_files::screens::pages::profile_page.dart::_ProfilepageState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::screens::pages::profile_page.dart::_ProfilepageState"
+
+class "biblio_files::screens::home_screen.dart::HomeScreen" {
+  +int? selectedPage
+  +_HomeScreen createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::screens::home_screen.dart::HomeScreen"
+
+class "biblio_files::screens::home_screen.dart::_HomeScreen" {
+  -PageController _tabPageController
+  +StreamSubscription<bool> keyboardSubscription
+  -int _selectedPage
+  +bool barVisible
+  +void initState()
+  +void dispose()
+  +Widget build()
+}
+
+"biblio_files::screens::home_screen.dart::_HomeScreen" o-- "flutter::src::widgets::page_view.dart::PageController"
+"biblio_files::screens::home_screen.dart::_HomeScreen" o-- "dart::async::StreamSubscription<bool>"
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::screens::home_screen.dart::_HomeScreen"
+
+class "biblio_files::screens::new_post_page.dart::NewPostpage" {
+  +State<NewPostpage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::screens::new_post_page.dart::NewPostpage"
+
+class "biblio_files::screens::new_post_page.dart::_NewPostpageState" {
+  +String? name
+  +String condition
+  +String? description
+  +String? price
+  +String course
+  +XFile? image1
+  +XFile? image2
+  +XFile? image3
+  +XFile? image4
+  +UploadImage uploadImg1
+  +UploadImage uploadImg2
+  +UploadImage uploadImg3
+  +UploadImage uploadImg4
+  +String image1Url
+  +String image2Url
+  +String image3Url
+  +String image4Url
+  +ConditionSelector conditionSelector
+  +String? dropDownSet
+  +CourseSelector courseSelector
+  +PriceSelector priceSelector
+  +PostDetails postDetails
+  +DatabaseMethods databaseMethods
+  +bool formLoading
+  +String errorMsg
+  -CollectionReference<Object?> _userRef
+  +void initState()
+  +void dispose()
+  -Future<void> _missingDetailsDialog()
+  +Future<String> uploadFile()
+  -Future<String?> _createPost()
+  +void submitForm()
+  +Widget build()
+}
+
+"biblio_files::screens::new_post_page.dart::_NewPostpageState" o-- "cross_file::src::types::interface.dart::XFile"
+"biblio_files::screens::new_post_page.dart::_NewPostpageState" o-- "biblio_files::widgets::upload_image.dart::UploadImage"
+"biblio_files::screens::new_post_page.dart::_NewPostpageState" o-- "biblio_files::widgets::condition_selector.dart::ConditionSelector"
+"biblio_files::screens::new_post_page.dart::_NewPostpageState" o-- "biblio_files::widgets::course_selector.dart::CourseSelector"
+"biblio_files::screens::new_post_page.dart::_NewPostpageState" o-- "biblio_files::widgets::price_selector.dart::PriceSelector"
+"biblio_files::screens::new_post_page.dart::_NewPostpageState" o-- "biblio_files::widgets::post_details.dart::PostDetails"
+"biblio_files::screens::new_post_page.dart::_NewPostpageState" o-- "biblio_files::services::database.dart::DatabaseMethods"
+"biblio_files::screens::new_post_page.dart::_NewPostpageState" o-- "cloud_firestore::cloud_firestore.dart::CollectionReference<Object>"
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::screens::new_post_page.dart::_NewPostpageState"
+
+class "biblio_files::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biblio_files::main.dart::MyApp"
+
+class "biblio_files::Styles::constants.dart::constants" {
+  {static} +TextStyle regularText
+  {static} +TextStyle headingText
+  {static} +TextStyle titleText
+  {static} +TextStyle subtitleText
+  {static} +TextStyle secondSubtitleText
+  {static} +TextStyle fadedText
+  {static} +TextStyle myMsg
+  {static} +TextStyle otherMsg
+}
+
+"biblio_files::Styles::constants.dart::constants" o-- "flutter::src::painting::text_style.dart::TextStyle"
+
+class "biblio_files::services::database.dart::DatabaseMethods" {
+  +dynamic uploadUserInfo()
+  +dynamic newUserPost()
+  +dynamic getUserByUid()
+  +dynamic createChatRoom()
+  +dynamic addMessages()
+  +dynamic getMessages()
+  +dynamic getChatRooms()
+  +dynamic deleteChatsWithUid()
+  +dynamic deletePost()
+}
+
+class "biblio_files::services::data_model.dart::DataModel" {
+  +String? condition
+  +String? course
+  +String? description
+  +String? image1
+  +String? image2
+  +String? image3
+  +String? image4
+  +String? name
+  +String? price
+  +String? userUuid
+  +String? postID
+  +List<DataModel> dataListFromSnapshot()
+}
+
+class "biblio_files::widgets::post_details.dart::PostDetails" {
+  +dynamic Function(String)? onChanged
+  +String? writtenText
+  +Widget build()
+}
+
+"biblio_files::widgets::post_details.dart::PostDetails" o-- "null::dynamic Function(String)"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biblio_files::widgets::post_details.dart::PostDetails"
+
+class "biblio_files::widgets::message_tile.dart::MessageTile" {
+  +String message
+  +bool fromMe
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biblio_files::widgets::message_tile.dart::MessageTile"
+
+class "biblio_files::widgets::course_selector.dart::CourseSelector" {
+  +dynamic Function(dynamic)? onChanged
+  +List<String> courseOptions
+  +Widget build()
+}
+
+"biblio_files::widgets::course_selector.dart::CourseSelector" o-- "null::dynamic Function(dynamic)"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biblio_files::widgets::course_selector.dart::CourseSelector"
+
+class "biblio_files::widgets::post_rows.dart::PostRows" {
+  +String? title
+  +List<String>? postList
+  +State<PostRows> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::widgets::post_rows.dart::PostRows"
+
+class "biblio_files::widgets::post_rows.dart::_PostRowsState" {
+  -Stream<QuerySnapshot<Object?>> _productsRef
+  +void initState()
+  +Widget build()
+}
+
+"biblio_files::widgets::post_rows.dart::_PostRowsState" o-- "dart::async::Stream<QuerySnapshot<Object>>"
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::widgets::post_rows.dart::_PostRowsState"
+
+class "biblio_files::widgets::message_list_preview.dart::MessageListPreview" {
+  +String? image
+  +String? chatName
+  +String? user1
+  +String? user2
+  +State<MessageListPreview> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::widgets::message_list_preview.dart::MessageListPreview"
+
+class "biblio_files::widgets::message_list_preview.dart::_MessageListPreviewState" {
+  +String currentUserID
+  +DatabaseMethods databaseMethods
+  -CollectionReference<Object?> _userRef
+  +Widget build()
+}
+
+"biblio_files::widgets::message_list_preview.dart::_MessageListPreviewState" o-- "biblio_files::services::database.dart::DatabaseMethods"
+"biblio_files::widgets::message_list_preview.dart::_MessageListPreviewState" o-- "cloud_firestore::cloud_firestore.dart::CollectionReference<Object>"
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::widgets::message_list_preview.dart::_MessageListPreviewState"
+
+class "biblio_files::widgets::image_carousel.dart::ImageCarousel" {
+  +List<dynamic>? imageList
+  +_ImageCarouselState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::widgets::image_carousel.dart::ImageCarousel"
+
+class "biblio_files::widgets::image_carousel.dart::_ImageCarouselState" {
+  -int _selectedPage
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::widgets::image_carousel.dart::_ImageCarouselState"
+
+class "biblio_files::widgets::third_party_sign_in.dart::ThirdPartySignIn" {
+  +_ThirdPartySignInState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::widgets::third_party_sign_in.dart::ThirdPartySignIn"
+
+class "biblio_files::widgets::third_party_sign_in.dart::_ThirdPartySignInState" {
+  +DatabaseMethods databaseMethods
+  +String method
+  +bool formLoading
+  +bool googleLoading
+  +bool facebookLoading
+  +bool twitterLoading
+  +String email
+  +String password
+  +String errorMsg
+  -Future<void> _showPasswordReq()
+  -Future<void> _linkAccountDialog()
+  +Future<String?> signInMaster()
+  +Future<String?> createDetails()
+  +Future<String?> signInWithGoogle()
+  +dynamic submitGoogle()
+  +Future<String?> signInWithFacebook()
+  +dynamic submitFacebook()
+  +Future<String?> signInWithTwitter()
+  +dynamic submitTwitter()
+  +Widget build()
+}
+
+"biblio_files::widgets::third_party_sign_in.dart::_ThirdPartySignInState" o-- "biblio_files::services::database.dart::DatabaseMethods"
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::widgets::third_party_sign_in.dart::_ThirdPartySignInState"
+
+class "biblio_files::widgets::custom_input_field.dart::CustomInput" {
+  +String? text
+  +bool? primaryInput
+  +dynamic Function(String)? onChanged
+  +dynamic Function(String)? onSubmitted
+  +FocusNode? focusNode
+  +TextInputAction? textInputAction
+  +bool? hiddenText
+  +Widget build()
+}
+
+"biblio_files::widgets::custom_input_field.dart::CustomInput" o-- "null::dynamic Function(String)"
+"biblio_files::widgets::custom_input_field.dart::CustomInput" o-- "flutter::src::widgets::focus_manager.dart::FocusNode"
+"biblio_files::widgets::custom_input_field.dart::CustomInput" o-- "flutter::src::services::text_input.dart::TextInputAction"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biblio_files::widgets::custom_input_field.dart::CustomInput"
+
+class "biblio_files::widgets::price_selector.dart::PriceSelector" {
+  +dynamic Function(String)? onChanged
+  +String? priceSet
+  +MoneyMaskedTextController priceController
+  +Widget build()
+}
+
+"biblio_files::widgets::price_selector.dart::PriceSelector" o-- "null::dynamic Function(String)"
+"biblio_files::widgets::price_selector.dart::PriceSelector" o-- "flutter_masked_text2::flutter_masked_text2.dart::MoneyMaskedTextController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biblio_files::widgets::price_selector.dart::PriceSelector"
+
+class "biblio_files::widgets::condition_selector.dart::ConditionSelector" {
+  +void Function(String)? onChanged
+  +String? dropDownSet
+  +State<ConditionSelector> createState()
+}
+
+"biblio_files::widgets::condition_selector.dart::ConditionSelector" o-- "flutter::src::foundation::basic_types.dart::void Function(String)"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::widgets::condition_selector.dart::ConditionSelector"
+
+class "biblio_files::widgets::condition_selector.dart::_ConditionSelectorState" {
+  +String dropdownValue
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::widgets::condition_selector.dart::_ConditionSelectorState"
+
+class "biblio_files::widgets::course_rows.dart::CourseRows" {
+  +String? title
+  +String? userCourse
+  +State<CourseRows> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::widgets::course_rows.dart::CourseRows"
+
+class "biblio_files::widgets::course_rows.dart::_CourseRowsState" {
+  -CollectionReference<Object?> _productsRef
+  +Widget build()
+}
+
+"biblio_files::widgets::course_rows.dart::_CourseRowsState" o-- "cloud_firestore::cloud_firestore.dart::CollectionReference<Object>"
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::widgets::course_rows.dart::_CourseRowsState"
+
+class "biblio_files::widgets::post_list_preview.dart::PostListPreview" {
+  +String? image
+  +String? name
+  +String? postID
+  +String? course
+  +String? userUuid
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biblio_files::widgets::post_list_preview.dart::PostListPreview"
+
+class "biblio_files::widgets::custom_button.dart::CustomButton" {
+  +String? text
+  +void Function()? onPressed
+  +bool? outlined
+  +bool? isLoading
+  +double? width
+  +Widget build()
+}
+
+"biblio_files::widgets::custom_button.dart::CustomButton" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biblio_files::widgets::custom_button.dart::CustomButton"
+
+class "biblio_files::widgets::upload_image.dart::UploadImage" {
+  +XFile? image
+  +_UploadImageState createState()
+}
+
+"biblio_files::widgets::upload_image.dart::UploadImage" o-- "cross_file::src::types::interface.dart::XFile"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::widgets::upload_image.dart::UploadImage"
+
+class "biblio_files::widgets::upload_image.dart::_UploadImageState" {
+  +String uploadImage
+  -Future<void> _getInputMethod()
+  -void _openGallery()
+  -void _openCamera()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::widgets::upload_image.dart::_UploadImageState"
+
+class "biblio_files::widgets::custom_image_button.dart::CustomImageButton" {
+  +void Function()? onPressed
+  +bool? outlined
+  +bool? isLoading
+  +String? image
+  +double? width
+  +Widget build()
+}
+
+"biblio_files::widgets::custom_image_button.dart::CustomImageButton" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biblio_files::widgets::custom_image_button.dart::CustomImageButton"
+
+class "biblio_files::widgets::bottom_navbar.dart::BottomNavbar" {
+  +int? selectedTab
+  +dynamic Function(int)? changePage
+  +State<BottomNavbar> createState()
+}
+
+"biblio_files::widgets::bottom_navbar.dart::BottomNavbar" o-- "null::dynamic Function(int)"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biblio_files::widgets::bottom_navbar.dart::BottomNavbar"
+
+class "biblio_files::widgets::bottom_navbar.dart::_BottomNavbarState" {
+  -int _selectedTab
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "biblio_files::widgets::bottom_navbar.dart::_BottomNavbarState"
+
+class "biblio_files::widgets::bottom_navbar.dart::BottomNavbarBtn" {
+  +String? image
+  +bool? selected
+  +void Function()? onPressed
+  +Widget build()
+}
+
+"biblio_files::widgets::bottom_navbar.dart::BottomNavbarBtn" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biblio_files::widgets::bottom_navbar.dart::BottomNavbarBtn"
+
+
+@enduml
