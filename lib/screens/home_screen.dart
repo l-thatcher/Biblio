@@ -4,10 +4,8 @@ import 'package:biblio_files/screens/pages/home_page.dart';
 import 'package:biblio_files/screens/pages/messages_page.dart';
 import 'package:biblio_files/screens/pages/profile_page.dart';
 import 'package:biblio_files/screens/pages/search_page.dart';
-import 'package:biblio_files/screens/new_post_page.dart';
 import 'package:biblio_files/screens/pages/user_listings_page.dart';
 import 'package:biblio_files/widgets/bottom_navbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
@@ -62,30 +60,30 @@ class _HomeScreen extends State<HomeScreen> {
             children: [
               Expanded(
                 child: PageView(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   controller: _tabPageController,
-                  onPageChanged: (num) {
+                  onPageChanged: (number) {
                     setState(() {
-                      _selectedPage = num;
+                      _selectedPage = number;
                     });
                   },
                   children: [
                     //each page used to populate the content of this one
-                    Homepage(),
-                    Searchpage(),
+                    const Homepage(),
+                    const Searchpage(),
                     UserListingsPage(),
-                    Messagespage(),
-                    Profilepage()
+                    const Messagespage(),
+                    const Profilepage()
                   ],
                 ),
               ),
               Visibility(
                 visible: barVisible,
                 child: BottomNavbar(
-                  selectedTab: widget.selectedPage != null ? widget.selectedPage : _selectedPage,
-                  changePage: (num) {
-                    _tabPageController.animateToPage(num,
-                        duration: Duration(milliseconds: 300),
+                  selectedTab: widget.selectedPage ?? _selectedPage,
+                  changePage: (number) {
+                    _tabPageController.animateToPage(number,
+                        duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOutQuart);
                   },
                 ),

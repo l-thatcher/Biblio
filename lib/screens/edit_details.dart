@@ -1,16 +1,10 @@
 import 'dart:async';
 import 'package:biblio_files/Styles/constants.dart';
-import 'package:biblio_files/services/database.dart';
 import 'package:biblio_files/widgets/course_selector.dart';
 import 'package:biblio_files/widgets/custom_button.dart';
-import 'package:biblio_files/widgets/custom_input_field.dart';
-import 'package:biblio_files/widgets/third_party_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dropdown_plus/dropdown_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class EditDetails extends StatefulWidget {
@@ -23,16 +17,14 @@ class EditDetails extends StatefulWidget {
 class _EditDetails extends State<EditDetails> {
 
   //this page is used to change the users email. it uses a collection reference to get the user
-  CollectionReference _users = FirebaseFirestore.instance.collection('users');
+  final CollectionReference _users = FirebaseFirestore.instance.collection('users');
 
   Future<String?> _changeEmail() async {
     //a funtion to change the email in the users account
     var currentUserUid = FirebaseAuth.instance.currentUser!.uid;
     _users
         .doc(currentUserUid)
-        .update({'course': newCourse})
-        .then((value) => print("User Updated"))
-        .catchError((error) => print("Failed to update user: $error"));
+        .update({'course': newCourse});
   }
 
   void submitForm() async {
@@ -89,13 +81,13 @@ class _EditDetails extends State<EditDetails> {
             child: Center(
               child: Container(
                 width: double.infinity,
-                constraints: BoxConstraints(maxWidth: 600),
+                constraints: const BoxConstraints(maxWidth: 600),
                 child: Column(
                   children: [
                     Column(
                       children: [
-                        Text("Change details", style: constants.headingText,),
-                        Text(errorMsg, style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500, fontSize: 16)),
+                        const Text("Change details", style: Constants.headingText,),
+                        Text(errorMsg, style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w500, fontSize: 16)),
                       ],
                     ),
 
@@ -106,7 +98,7 @@ class _EditDetails extends State<EditDetails> {
                             borderRadius: BorderRadius.circular(0),
                             color: Colors.transparent,
                           ),
-                          margin: EdgeInsets.symmetric(
+                          margin: const EdgeInsets.symmetric(
                             horizontal: 24,
                             vertical: 5,
                           ),

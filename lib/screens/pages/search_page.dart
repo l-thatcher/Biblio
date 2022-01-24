@@ -1,11 +1,8 @@
 import 'package:biblio_files/services/data_model.dart';
-import 'package:biblio_files/widgets/custom_image_button.dart';
-import 'package:biblio_files/widgets/custom_input_field.dart';
 import 'package:biblio_files/widgets/post_list_preview.dart';
 import 'package:firestore_search/firestore_search.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:biblio_files/Styles/constants.dart';
 
 class Searchpage extends StatelessWidget {
@@ -25,7 +22,7 @@ class Searchpage extends StatelessWidget {
               right: 24,
               bottom: 10,
             ),
-            child: Text(AppLocalizations.of(context)!.searchTitle, style: constants.titleText,),
+            child: Text(AppLocalizations.of(context)!.searchTitle, style: Constants.titleText,),
           ),
           Expanded(
             child: Column(
@@ -33,7 +30,7 @@ class Searchpage extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
+                    margin: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
                     decoration: BoxDecoration(
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(15),
@@ -57,7 +54,7 @@ class Searchpage extends StatelessWidget {
                               scaffoldBody: Container(
                                 decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       bottomRight: Radius.circular(15),
                                       bottomLeft: Radius.circular(15),
                                     ),

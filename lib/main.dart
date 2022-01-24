@@ -39,13 +39,13 @@ class MyApp extends StatelessWidget {
             0xff0e4c76)),
       ),
 
-      localizationsDelegates: [
+      localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
+      supportedLocales: const [
         Locale('en', ''), // English, no country code
         Locale('es', ''), // Spanish, no country code
       ],

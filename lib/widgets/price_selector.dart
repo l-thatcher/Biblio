@@ -1,4 +1,3 @@
-import 'package:dropdown_plus/dropdown_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
@@ -38,7 +37,7 @@ class PriceSelector extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text("Price: ", style: constants.regularText,),
+          Text("Price: ", style: Constants.regularText,),
           Container(
             width: MediaQuery.of(context).size.width * 0.3,
             child: TextFormField(

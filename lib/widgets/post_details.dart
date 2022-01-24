@@ -29,7 +29,7 @@ class PostDetails extends StatelessWidget {
       child: ListView(
         physics: NeverScrollableScrollPhysics(),
         children: [
-          Text("Description...", style: constants.regularText,),
+          Text("Description...", style: Constants.regularText,),
           Container(
             height: MediaQuery.of(context).size.height * 0.2,
             decoration: BoxDecoration(
@@ -52,7 +52,7 @@ class PostDetails extends StatelessWidget {
                 border: InputBorder.none,
                 hintText: "Aa...",
               ),
-              style: constants.regularText,
+              style: Constants.regularText,
             ),
           ),
         ],

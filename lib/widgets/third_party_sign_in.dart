@@ -124,7 +124,7 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
           }
         } else {
           await _linkAccountDialog();
-          AccountLinker(e.email, e.credential);
+          accountLinker(e.email, e.credential);
         }
       }
     } catch (e) {
@@ -219,7 +219,7 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {
           await _linkAccountDialog();
-          AccountLinker(e.email, e.credential);
+          accountLinker(e.email, e.credential);
         }
         return e.message;
       } catch (e){
@@ -270,7 +270,7 @@ class _ThirdPartySignInState extends State<ThirdPartySignIn> {
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {
           await _linkAccountDialog();
-          AccountLinker(e.email, e.credential);
+          accountLinker(e.email, e.credential);
         }
         return e.message;
       } catch (e) {

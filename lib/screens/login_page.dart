@@ -1,12 +1,11 @@
 import 'package:biblio_files/Styles/constants.dart';
+import 'package:biblio_files/screens/home_screen.dart';
 import 'package:biblio_files/screens/register_page.dart';
 import 'package:biblio_files/widgets/custom_button.dart';
 import 'package:biblio_files/widgets/custom_input_field.dart';
 import 'package:biblio_files/widgets/third_party_sign_in.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
@@ -25,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   Future<String?> signIn() async {
     //take in variables and create an account with firestore
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
           password: password
       );
@@ -62,6 +61,12 @@ class _LoginPageState extends State<LoginPage> {
         formLoading = false;
       });
       errorMsg = signInString;
+    } else {
+      Navigator.push(context,
+        MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        ),
+      );
     }
   }
 
@@ -97,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Center(
               child: Container(
                 width: double.infinity,
-                constraints: BoxConstraints(maxWidth: 600),
+                constraints: const BoxConstraints(maxWidth: 600),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -105,9 +110,9 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Container(
                             margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.15),
-                            child: Text(AppLocalizations.of(context)!.welcome,style: constants.headingText,)
+                            child: Text(AppLocalizations.of(context)!.welcome,style: Constants.headingText,)
                         ),
-                        Text(errorMsg, style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500, fontSize: 16), textAlign: TextAlign.center,),
+                        Text(errorMsg, style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w500, fontSize: 16), textAlign: TextAlign.center,),
                         CustomInput(
                           //use custom designed input widgets
                           text : AppLocalizations.of(context)!.emailHint,
@@ -140,19 +145,19 @@ class _LoginPageState extends State<LoginPage> {
                           isLoading: formLoading,
                         ),
 
-                        Text(AppLocalizations.of(context)!.alternateSignIn,style: constants.fadedText,),
-                        ThirdPartySignIn(),
+                        Text(AppLocalizations.of(context)!.alternateSignIn,style: Constants.fadedText,),
+                        const ThirdPartySignIn(),
                       ],
                     ),
                     Column(
                       children: [
-                        Text(AppLocalizations.of(context)!.logInPrompt,style: constants.fadedText,),
+                        Text(AppLocalizations.of(context)!.logInPrompt,style: Constants.fadedText,),
                         CustomButton(
                           text: AppLocalizations.of(context)!.createAccountTxt,
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(
-                                  builder: (context) => RegisterPage(),
+                                  builder: (context) => const RegisterPage(),
                                 ),
                             );
                           },

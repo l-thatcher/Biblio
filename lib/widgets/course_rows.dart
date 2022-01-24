@@ -57,7 +57,7 @@ class _CourseRowsState extends State<CourseRows> {
               return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(widget.title ?? "", style: constants.subtitleText,),
+                Text(widget.title ?? "", style: Constants.subtitleText,),
                 Expanded(
                   child: ListView(
                     //a list view with as many children as the snapshot has, which then shows the listings within the rows.

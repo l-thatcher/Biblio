@@ -1,11 +1,8 @@
 import 'package:biblio_files/services/database.dart';
-import 'package:biblio_files/widgets/custom_input_field.dart';
 import 'package:biblio_files/widgets/message_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -14,19 +11,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 //chat functionality adapted from https://www.youtube.com/watch?v=X00Xv7blBo0 by Sanskar Tiwari - first accessed 17/11/21
 class ChatPage extends StatefulWidget {
-  String chatroomID;
-  String bookName;
-  String image;
+  final String chatroomID;
+  final String bookName;
+  final String image;
 
-  ChatPage(this.chatroomID, this.bookName, this.image, {Key? key}) : super(key: key);
+  const ChatPage(this.chatroomID, this.bookName, this.image, {Key? key}) : super(key: key);
 
   @override
   _ChatPageState createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {
-  DatabaseMethods databaseMethods = new DatabaseMethods();
-  TextEditingController messageController = new TextEditingController();
+  DatabaseMethods databaseMethods = DatabaseMethods();
+  TextEditingController messageController = TextEditingController();
   var currentUser = FirebaseAuth.instance.currentUser;
 
 
@@ -63,7 +60,7 @@ class _ChatPageState extends State<ChatPage> {
 
           //show loading until connected to the stream
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(
+            return const Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
               ),
@@ -98,7 +95,7 @@ class _ChatPageState extends State<ChatPage> {
                       ),
                     ),
                     Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
                         color: Colors.white,
                       ),
@@ -118,7 +115,7 @@ class _ChatPageState extends State<ChatPage> {
                                 child: Container(
                                   width: 25,
                                   height: 25,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     image: DecorationImage(
                                       image: AssetImage("lib/assets/backArrow.png"),
                                       fit: BoxFit.contain,
@@ -126,8 +123,8 @@ class _ChatPageState extends State<ChatPage> {
                                   ),
                                 ),
                               ),
-                              Text(widget.bookName, style: constants.titleText,),
-                              Container(
+                              Text(widget.bookName, style: Constants.titleText,),
+                              SizedBox(
                                 width: 40,
                                 height: 40,
                                 child: Image.network(widget.image),
@@ -159,12 +156,12 @@ class _ChatPageState extends State<ChatPage> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                         right: 25,
                       ),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                        borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.white.withOpacity(0.5),
@@ -173,47 +170,45 @@ class _ChatPageState extends State<ChatPage> {
                             )
                           ]
                       ),
-                      child: Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Container(
-                                  constraints: BoxConstraints(
-                                    minHeight: MediaQuery.of(context).size.height * 0.09,
-                                    maxHeight: MediaQuery.of(context).size.height * 0.15,
-                                  ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(0),
-                                  color: Colors.transparent,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Container(
+                                constraints: BoxConstraints(
+                                  minHeight: MediaQuery.of(context).size.height * 0.09,
+                                  maxHeight: MediaQuery.of(context).size.height * 0.15,
                                 ),
-                                margin: EdgeInsets.symmetric(
-                                  horizontal: 24,
-                                  vertical: 5,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(0),
+                                color: Colors.transparent,
+                              ),
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 24,
+                                vertical: 5,
+                              ),
+                                child:TextField(
+                                  onSubmitted: sendMessage(),
+                                  controller: messageController,
                                 ),
-                                  child:TextField(
-                                    onSubmitted: sendMessage(),
-                                    controller: messageController,
-                                  ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              sendMessage();
+                            },
+                            child: Container(
+                              width: 10,
+                              height: 10,
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage("lib/assets/frontArrow.png"),
+                                  fit: BoxFit.contain,
+                                ),
                               ),
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                sendMessage();
-                              },
-                              child: Container(
-                                width: 10,
-                                height: 10,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage("lib/assets/frontArrow.png"),
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ],

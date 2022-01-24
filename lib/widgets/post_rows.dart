@@ -60,7 +60,7 @@ class _PostRowsState extends State<PostRows> {
 
 
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Scaffold(
+              return const Scaffold(
                 body: Center(
                   child: CircularProgressIndicator(),
                 ),
@@ -71,7 +71,7 @@ class _PostRowsState extends State<PostRows> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(widget.title ?? "", style: constants.subtitleText,),
+                Text(widget.title ?? "", style: Constants.subtitleText,),
                 Expanded(
                   child: ListView(
                     scrollDirection: Axis.horizontal,

@@ -1,4 +1,3 @@
-import 'package:biblio_files/screens/edit_post_page.dart';
 import 'package:biblio_files/screens/personal_post_page.dart';
 import 'package:biblio_files/screens/post_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -66,7 +65,7 @@ class PostListPreview extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(name!, style: constants.subtitleText,),
+                  Text(name!, style: Constants.subtitleText,),
                   Text(course!),
                 ],
               ),

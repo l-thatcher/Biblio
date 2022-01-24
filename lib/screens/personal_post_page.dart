@@ -1,11 +1,9 @@
 import 'package:biblio_files/screens/home_screen.dart';
-import 'package:biblio_files/screens/pages/home_page.dart';
 import 'package:biblio_files/services/database.dart';
 import 'package:biblio_files/widgets/custom_button.dart';
 import 'package:biblio_files/widgets/image_carousel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
 
@@ -13,7 +11,7 @@ import 'package:biblio_files/Styles/constants.dart';
 class PersonalPostPage extends StatefulWidget {
   final String? postID;
 
-  PersonalPostPage({this.postID});
+  const PersonalPostPage({this.postID});
 
   @override
   _PersonalPostPageState createState() => _PersonalPostPageState();
@@ -25,7 +23,7 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
   DatabaseMethods databaseMethods = DatabaseMethods();
 
 
-  AssetImage saveAsset = AssetImage('lib/assets/savePost.png');
+  AssetImage saveAsset = const AssetImage('lib/assets/savePost.png');
   bool saved = false;
   List<String> savedPosts = [];
 
@@ -49,7 +47,7 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
   void savePost() async {
     setState(() {
       saved = true;
-      saveAsset = AssetImage('lib/assets/savePostTabbed.png');
+      saveAsset = const AssetImage('lib/assets/savePostTabbed.png');
     });
     var currentUser = FirebaseAuth.instance.currentUser;
     var idList = [widget.postID];
@@ -63,7 +61,7 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: SingleChildScrollView(
+          content: const SingleChildScrollView(
               child: Text("Are you sure you want to delete this post?")
           ),
           actions: <Widget>[
@@ -77,7 +75,7 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
                   databaseMethods.deletePost(widget.postID!);
                   Navigator.push(context,
                     MaterialPageRoute(
-                      builder:(context) => HomeScreen(),
+                      builder:(context) => const HomeScreen(),
                     ),
                   );
                 },),
@@ -92,7 +90,7 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
   void unSavePost() async {
     setState(() {
       saved = false;
-      saveAsset = AssetImage('lib/assets/savePost.png');
+      saveAsset = const AssetImage('lib/assets/savePost.png');
     });
     var currentUser = FirebaseAuth.instance.currentUser;
     var idList = [widget.postID];
@@ -123,10 +121,10 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
 
                   if (savedPosts.contains(widget.postID)) {
                     saved = true;
-                    saveAsset = AssetImage('lib/assets/savePostTabbed.png');
+                    saveAsset = const AssetImage('lib/assets/savePostTabbed.png');
                   } else {
                     saved = false;
-                    saveAsset = AssetImage('lib/assets/savePost.png');
+                    saveAsset = const AssetImage('lib/assets/savePost.png');
                   }
 
                   Map<String, dynamic> documentData = snapshot.data!.data()!;
@@ -151,7 +149,7 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
                     child: Column(
                       children: [
                         Container(
-                          margin: EdgeInsets.only(top: 5, bottom: 5),
+                          margin: const EdgeInsets.only(top: 5, bottom: 5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -164,7 +162,7 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
                                 child: Container(
                                   width: 15,
                                   height: 15,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     image: DecorationImage(
                                       image: AssetImage("lib/assets/backArrow.png"),
                                       fit: BoxFit.contain,
@@ -172,14 +170,14 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
                                   ),
                                 ),
                               ),
-                              Text(documentData["name"], style: constants.subtitleText,),
+                              Text(documentData["name"], style: Constants.subtitleText,),
                               Row(
                                 children: [
                                   GestureDetector(
                                     onTap: () {
                                       saved ? unSavePost() : savePost();
                                     },
-                                    child: Container(
+                                    child: SizedBox(
                                         width: 45,
                                         height: 45,
                                         child: Image(
@@ -193,11 +191,11 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
                                     onTap: () {
                                       _deleteConfirm();
                                     },
-                                    child: Container(
+                                    child: SizedBox(
                                         width: 25,
                                         height: 25,
                                         child: Image(
-                                          image: AssetImage("lib/assets/deletePost.png"),
+                                          image: const AssetImage("lib/assets/deletePost.png"),
                                           fit: BoxFit.contain,
                                           color: Theme.of(context).colorScheme.secondary,
                                         )
@@ -216,8 +214,8 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
                               Expanded(
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
-                                  margin: EdgeInsets.all(5),
-                                  padding: EdgeInsets.all(10),
+                                  margin: const EdgeInsets.all(5),
+                                  padding: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(15),
@@ -232,11 +230,11 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
                                   child: Stack(
                                     children: [
                                       Container(
-                                          alignment: Alignment(-1, -1),
+                                          alignment: const Alignment(-1, -1),
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text("Description", style: constants.regularText,),
+                                              const Text("Description", style: Constants.regularText,),
                                               Expanded(
                                                 child: Container(
                                                     decoration: BoxDecoration(
@@ -251,8 +249,8 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
                                                         ]
                                                     ),
                                                     width: MediaQuery.of(context).size.width * 1,
-                                                    padding: EdgeInsets.all(15),
-                                                    margin: EdgeInsets.only(
+                                                    padding: const EdgeInsets.all(15),
+                                                    margin: const EdgeInsets.only(
                                                       top: 5,
                                                       left: 5,
                                                       right: 5,
@@ -265,20 +263,20 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
                                           )
                                       ),
                                       Container(
-                                          alignment: Alignment(-0.9, 1),
-                                          child: Text("${documentData["price"]}", style: constants.regularText,),
+                                          alignment: const Alignment(-0.9, 1),
+                                          child: Text("${documentData["price"]}", style: Constants.regularText,),
                                       ),
                                       Container(
-                                        alignment: Alignment(1, -1),
-                                        child: Text("Condition: ${documentData["condition"]}", style: constants.regularText,),
+                                        alignment: const Alignment(1, -1),
+                                        child: Text("Condition: ${documentData["condition"]}", style: Constants.regularText,),
                                       ),
                                       Container(
-                                        alignment: Alignment(0, 1),
-                                        child: Text("Course: ${documentData["course"]}", style: constants.regularText,),
+                                        alignment: const Alignment(0, 1),
+                                        child: Text("Course: ${documentData["course"]}", style: Constants.regularText,),
                                       ),
                                       Container(
-                                        alignment: Alignment(1, 1),
-                                        child: Text("Location: ", style: constants.regularText,),
+                                        alignment: const Alignment(1, 1),
+                                        child: const Text("Location: ", style: Constants.regularText,),
                                       ),
                                     ],
                                   ),
@@ -291,7 +289,7 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
                     ),
                   );
                 }
-                return Scaffold(
+                return const Scaffold(
                   body: Center(
                     child: CircularProgressIndicator(),
                   ),

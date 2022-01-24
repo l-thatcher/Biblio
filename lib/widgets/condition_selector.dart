@@ -41,7 +41,7 @@ class _ConditionSelectorState extends State<ConditionSelector> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("Condition: ", style: constants.regularText,),
+          Text("Condition: ", style: Constants.regularText,),
           DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               value: dropdownValue,

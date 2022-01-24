@@ -3,13 +3,14 @@ import 'package:biblio_files/screens/home_screen.dart';
 import 'package:biblio_files/screens/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LandingPage extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   //this is the page that is opened by the main function, it checks if the user is authenticated and sends them to the correct page accordingly, it is also where firestore initialization takes place
+  LandingPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -39,16 +40,16 @@ class LandingPage extends StatelessWidget {
                 Object? user = streamSnapshot.data;
 
                 if(user == null) {
-                  return LoginPage();
+                  return const LoginPage();
                 } else {
-                  return HomeScreen();
+                  return const HomeScreen();
                 }
               }
-              return Scaffold(
+              return const Scaffold(
                 body: Center(
                   child: Text(
                     "Checking Authentication...",
-                    style: constants.regularText,
+                    style: Constants.regularText,
                   ),
                 ),
               );
@@ -56,11 +57,11 @@ class LandingPage extends StatelessWidget {
           );
         }
 
-        return Scaffold(
+        return const Scaffold(
           body: Center(
             child: Text(
               "Initializing app...",
-              style: constants.regularText,
+              style: Constants.regularText,
             ),
           ),
         );

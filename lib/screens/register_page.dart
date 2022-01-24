@@ -5,7 +5,6 @@ import 'package:biblio_files/widgets/course_selector.dart';
 import 'package:biblio_files/widgets/custom_button.dart';
 import 'package:biblio_files/widgets/custom_input_field.dart';
 import 'package:biblio_files/widgets/third_party_sign_in.dart';
-import 'package:dropdown_plus/dropdown_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -144,7 +143,7 @@ class _RegisterPage extends State<RegisterPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(AppLocalizations.of(context)!.registerHeading, style: constants.headingText,),
+                    Text(AppLocalizations.of(context)!.registerHeading, style: Constants.headingText,),
                     Container(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -231,7 +230,7 @@ class _RegisterPage extends State<RegisterPage> {
                     Container(
                       child: Column(
                         children: [
-                          Text(AppLocalizations.of(context)!.alternateSignUp,style: constants.fadedText,),
+                          Text(AppLocalizations.of(context)!.alternateSignUp,style: Constants.fadedText,),
                           ThirdPartySignIn(),
                         ],
                       ),
@@ -239,7 +238,7 @@ class _RegisterPage extends State<RegisterPage> {
                     Container(
                       child: Column(
                         children: [
-                          Text(AppLocalizations.of(context)!.existingAccountPrompt,style: constants.fadedText,),
+                          Text(AppLocalizations.of(context)!.existingAccountPrompt,style: Constants.fadedText,),
                           CustomButton(
                             text: AppLocalizations.of(context)!.existingUserTxt,
                             onPressed: () {

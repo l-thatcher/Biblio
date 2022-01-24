@@ -10,11 +10,9 @@ import 'package:biblio_files/widgets/upload_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:after_layout/after_layout.dart';
 
 
 //this page was disigned to edit posts however I was unable to achieve this due to time constraints as I was having issues with the page and decided to focus elsewhere as a user can
@@ -53,7 +51,7 @@ class _EditPostPageState extends State<EditPostPage> {
   PostDetails postDetails = PostDetails();
 
 
-  DatabaseMethods databaseMethods = new DatabaseMethods();
+  DatabaseMethods databaseMethods = DatabaseMethods();
   bool formLoading = false;
   String errorMsg = "Something went wrong";
   final CollectionReference<Map<String, dynamic>> _productsRef = FirebaseFirestore.instance.collection("posts");
@@ -124,8 +122,6 @@ class _EditPostPageState extends State<EditPostPage> {
     UploadTask uploadTask = ref.putFile(file);
     await uploadTask.whenComplete(() async {
       url = await ref.getDownloadURL();
-    }).catchError((onError) {
-      print(onError);
     });
     return url;
   }
@@ -235,7 +231,7 @@ class _EditPostPageState extends State<EditPostPage> {
                       child: Column(
                         children: [
                           Container(
-                            margin: EdgeInsets.only(top: 5, bottom: 5),
+                            margin: const EdgeInsets.only(top: 5, bottom: 5),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -248,7 +244,7 @@ class _EditPostPageState extends State<EditPostPage> {
                                   child: Container(
                                     width: 20,
                                     height: 20,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       image: DecorationImage(
                                         image: AssetImage("lib/assets/backArrow.png"),
                                         fit: BoxFit.contain,
@@ -256,7 +252,7 @@ class _EditPostPageState extends State<EditPostPage> {
                                     ),
                                   ),
                                 ),
-                                Container(
+                                SizedBox(
                                     width: MediaQuery.of(context).size.width * 0.6,
                                     child: CustomInput(text: "Name",
                                       onChanged: (value) {
@@ -268,7 +264,7 @@ class _EditPostPageState extends State<EditPostPage> {
                                       submitForm
                                   ),
                                   child: Container(
-                                    padding: EdgeInsets.all(5),
+                                    padding: const EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                         color: const Color(0xff0e4c76),
@@ -283,14 +279,14 @@ class _EditPostPageState extends State<EditPostPage> {
                                         Visibility(
                                           visible: formLoading ? false : true,
                                           child: Image(
-                                            image: AssetImage("lib/assets/plusIcon.png"),
+                                            image: const AssetImage("lib/assets/plusIcon.png"),
                                             fit: BoxFit.contain,
                                             color: Theme.of(context).colorScheme.secondary,
                                           ),
                                         ),
                                         Visibility(
                                           visible: formLoading,
-                                          child:CircularProgressIndicator(
+                                          child:const CircularProgressIndicator(
                                             color: Colors.blueGrey,
                                           ),
                                         ),
@@ -308,7 +304,7 @@ class _EditPostPageState extends State<EditPostPage> {
                                 height: MediaQuery.of(context).size.height * 0.5,
                                 width: MediaQuery.of(context).size.width * 1,
                                 constraints: BoxConstraints( maxWidth: MediaQuery.of(context).size.height * 0.5),
-                                margin: EdgeInsets.all(5),
+                                margin: const EdgeInsets.all(5),
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(15),
@@ -321,7 +317,7 @@ class _EditPostPageState extends State<EditPostPage> {
                                     ]
                                 ),
                                 child: GridView.count(
-                                  physics: NeverScrollableScrollPhysics(),
+                                  physics: const NeverScrollableScrollPhysics(),
                                   crossAxisCount: 2,
                                   children: [
                                     uploadImg1,
@@ -334,7 +330,7 @@ class _EditPostPageState extends State<EditPostPage> {
                               courseSelector,
                               conditionSelector,
                               priceSelector,
-                              Container(
+                              SizedBox(
                                 height: MediaQuery.of(context).size.height * 0.24,
                                 child: postDetails,
                               ),
@@ -345,7 +341,7 @@ class _EditPostPageState extends State<EditPostPage> {
                     ),
                   );
                 }
-                return Scaffold(
+                return const Scaffold(
                   body: Center(
                     child: CircularProgressIndicator(),
                   ),

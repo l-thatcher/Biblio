@@ -1,15 +1,11 @@
 import 'package:biblio_files/screens/new_post_page.dart';
 import 'package:biblio_files/widgets/custom_image_button.dart';
-import 'package:biblio_files/widgets/custom_input_field.dart';
 import 'package:biblio_files/widgets/post_list_preview.dart';
-import 'package:biblio_files/widgets/post_rows.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:biblio_files/Styles/constants.dart';
+import 'package:biblio_files/Styles/Constants.dart';
 
 
 
@@ -34,13 +30,13 @@ class UserListingsPage extends StatelessWidget {
             );
           }
 
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
 
           return SafeArea(
             child: Column(
@@ -56,7 +52,7 @@ class UserListingsPage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(AppLocalizations.of(context)!.listingsTitle, style: constants.titleText,),
+                      Text(AppLocalizations.of(context)!.listingsTitle, style: Constants.titleText,),
                       GestureDetector(
                         onTap: (){
                           Navigator.push(context,

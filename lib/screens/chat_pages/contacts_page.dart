@@ -1,9 +1,7 @@
 import 'package:biblio_files/services/database.dart';
 import 'package:biblio_files/widgets/message_list_preview.dart';
-import 'package:biblio_files/widgets/post_list_preview.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'chat_page.dart';
@@ -18,7 +16,7 @@ class ContactsPage extends StatefulWidget {
 
 class _ContactsPageState extends State<ContactsPage> {
 
-  DatabaseMethods databaseMethods = new DatabaseMethods();
+  DatabaseMethods databaseMethods = DatabaseMethods();
   var currentUser = FirebaseAuth.instance.currentUser;
 
   //widget to show the user a list of open chats
@@ -37,7 +35,7 @@ class _ContactsPageState extends State<ContactsPage> {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(
+            return const Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
               ),
@@ -62,10 +60,8 @@ class _ContactsPageState extends State<ContactsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: chatRoomList()
-      ),
+    return Center(
+      child: chatRoomList()
     );
   }
 }

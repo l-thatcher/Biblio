@@ -1,6 +1,3 @@
-import 'package:biblio_files/screens/edit_post_page.dart';
-import 'package:biblio_files/screens/personal_post_page.dart';
-import 'package:biblio_files/screens/post_page.dart';
 import 'package:biblio_files/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -76,7 +73,7 @@ class _MessageListPreviewState extends State<MessageListPreview> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(documentData['name'], style: constants.subtitleText,),
+                      Text(documentData['name'], style: Constants.subtitleText,),
                       Text(widget.chatName!),
                     ],
                   ),

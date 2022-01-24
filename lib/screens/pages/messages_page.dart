@@ -1,10 +1,6 @@
 import 'package:biblio_files/screens/chat_pages/contacts_page.dart';
-import 'package:biblio_files/widgets/custom_image_button.dart';
-import 'package:biblio_files/widgets/custom_input_field.dart';
-import 'package:biblio_files/widgets/post_rows.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:biblio_files/Styles/constants.dart';
 
 class Messagespage extends StatelessWidget {
@@ -26,11 +22,11 @@ class Messagespage extends StatelessWidget {
               right: 24,
               bottom: 10,
             ),
-            child: Text(AppLocalizations.of(context)!.messagesTitle, style: constants.titleText,),
+            child: Text(AppLocalizations.of(context)!.messagesTitle, style: Constants.titleText,),
           ),
           Expanded(
             child: Container(
-              margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
+              margin: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15),
@@ -43,7 +39,7 @@ class Messagespage extends StatelessWidget {
                   ]
               ),
               padding: const EdgeInsets.all(7),
-              child: ContactsPage()
+              child: const ContactsPage()
               ),
             ),
         ],

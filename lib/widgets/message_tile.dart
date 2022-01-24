@@ -32,7 +32,7 @@ class MessageTile extends StatelessWidget {
               )
             ]
         ),
-        child: Text(message, style: fromMe ? constants.myMsg : constants.otherMsg,),
+        child: Text(message, style: fromMe ? Constants.myMsg : Constants.otherMsg,),
       ),
     );
   }

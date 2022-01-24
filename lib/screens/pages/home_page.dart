@@ -3,13 +3,12 @@ import 'package:biblio_files/widgets/post_rows.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:biblio_files/Styles/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class Homepage extends StatefulWidget {
-  Homepage({Key? key}) : super(key: key);
+  const Homepage({Key? key}) : super(key: key);
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -39,7 +38,7 @@ class _HomepageState extends State<Homepage> {
           }
 
           if (streamSnapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(
+            return const Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
               ),
@@ -60,7 +59,7 @@ class _HomepageState extends State<Homepage> {
                     right: 24,
                     bottom: 24,
                   ),
-                  child: Text(AppLocalizations.of(context)!.homeTitle, style: constants.titleText,),
+                  child: Text(AppLocalizations.of(context)!.homeTitle, style: Constants.titleText,),
                 ),
                 Container(
                   padding: const EdgeInsets.only(

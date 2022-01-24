@@ -3,17 +3,14 @@ import 'package:biblio_files/services/database.dart';
 import 'package:biblio_files/widgets/image_carousel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:biblio_files/Styles/constants.dart';
-
-import 'home_screen.dart';
 
 
 class PostPage extends StatefulWidget {
   final String? postID;
 
-  PostPage({this.postID});
+  const PostPage({this.postID});
 
   @override
   _PostPageState createState() => _PostPageState();
@@ -26,7 +23,7 @@ class _PostPageState extends State<PostPage> {
   DatabaseMethods databaseMethods = DatabaseMethods();
 
 
-  AssetImage saveAsset = AssetImage('lib/assets/savePost.png');
+  AssetImage saveAsset = const AssetImage('lib/assets/savePost.png');
   bool saved = false;
   List<String> savedPosts = [];
 
@@ -52,7 +49,7 @@ class _PostPageState extends State<PostPage> {
   void savePost() async {
     setState(() {
       saved = true;
-      saveAsset = AssetImage('lib/assets/savePostTabbed.png');
+      saveAsset = const AssetImage('lib/assets/savePostTabbed.png');
     });
     var currentUser = FirebaseAuth.instance.currentUser;
     var idList = [widget.postID];
@@ -65,7 +62,7 @@ class _PostPageState extends State<PostPage> {
   void unSavePost() async {
     setState(() {
       saved = false;
-      saveAsset = AssetImage('lib/assets/savePost.png');
+      saveAsset = const AssetImage('lib/assets/savePost.png');
     });
     var currentUser = FirebaseAuth.instance.currentUser;
     var idList = [widget.postID];
@@ -116,10 +113,10 @@ class _PostPageState extends State<PostPage> {
 
                   if (savedPosts.contains(widget.postID)) {
                     saved = true;
-                    saveAsset = AssetImage('lib/assets/savePostTabbed.png');
+                    saveAsset = const AssetImage('lib/assets/savePostTabbed.png');
                   } else {
                     saved = false;
-                    saveAsset = AssetImage('lib/assets/savePost.png');
+                    saveAsset = const AssetImage('lib/assets/savePost.png');
                   }
 
                   Map<String, dynamic> documentData = snapshot.data!.data()!;
@@ -144,7 +141,7 @@ class _PostPageState extends State<PostPage> {
                     child: Column(
                       children: [
                         Container(
-                          margin: EdgeInsets.only(top: 5, bottom: 5),
+                          margin: const EdgeInsets.only(top: 5, bottom: 5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -157,7 +154,7 @@ class _PostPageState extends State<PostPage> {
                                 child: Container(
                                   width: 15,
                                   height: 15,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     image: DecorationImage(
                                       image: AssetImage("lib/assets/backArrow.png"),
                                       fit: BoxFit.contain,
@@ -165,14 +162,14 @@ class _PostPageState extends State<PostPage> {
                                   ),
                                 ),
                               ),
-                              Text(documentData["name"], style: constants.subtitleText,),
+                              Text(documentData["name"], style: Constants.subtitleText,),
                               Row(
                                 children: [
                                   GestureDetector(
                                     onTap: () {
                                       saved ? unSavePost() : savePost();
                                     },
-                                    child: Container(
+                                    child: SizedBox(
                                         width: 45,
                                         height: 45,
                                         child: Image(
@@ -186,11 +183,11 @@ class _PostPageState extends State<PostPage> {
                                     onTap: () {
                                       createChatRoom(documentData["userUuid"], snapshot.data!.id, documentData["name"], documentData["image1"]);
                                     },
-                                    child: Container(
+                                    child: SizedBox(
                                         width: 32,
                                         height: 32,
                                         child: Image(
-                                          image: AssetImage("lib/assets/sendMessage.png"),
+                                          image: const AssetImage("lib/assets/sendMessage.png"),
                                           fit: BoxFit.contain,
                                           color: Theme.of(context).colorScheme.secondary,
                                         )
@@ -225,11 +222,11 @@ class _PostPageState extends State<PostPage> {
                                   child: Stack(
                                     children: [
                                       Container(
-                                          alignment: Alignment(-1, -1),
+                                          alignment: const Alignment(-1, -1),
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text("Description", style: constants.regularText,),
+                                              const Text("Description", style: Constants.regularText,),
                                               Expanded(
                                                 child: Container(
                                                     decoration: BoxDecoration(
@@ -244,8 +241,8 @@ class _PostPageState extends State<PostPage> {
                                                         ]
                                                     ),
                                                     width: MediaQuery.of(context).size.width * 1,
-                                                    padding: EdgeInsets.all(15),
-                                                    margin: EdgeInsets.only(
+                                                    padding: const EdgeInsets.all(15),
+                                                    margin: const EdgeInsets.only(
                                                       top: 5,
                                                       left: 5,
                                                       right: 5,
@@ -258,16 +255,16 @@ class _PostPageState extends State<PostPage> {
                                           )
                                       ),
                                       Container(
-                                          alignment: Alignment(-1, 1),
-                                          child: Text("${documentData["price"]}", style: constants.regularText,),
+                                          alignment: const Alignment(-1, 1),
+                                          child: Text("${documentData["price"]}", style: Constants.regularText,),
                                       ),
                                       Container(
-                                        alignment: Alignment(1, -1),
-                                        child: Text("Condition: ${documentData["condition"]}", style: constants.regularText,),
+                                        alignment: const Alignment(1, -1),
+                                        child: Text("Condition: ${documentData["condition"]}", style: Constants.regularText,),
                                       ),
                                       Container(
-                                        alignment: Alignment(1, 1),
-                                        child: Text("Course: ${documentData["course"]}", style: constants.regularText,),
+                                        alignment: const Alignment(1, 1),
+                                        child: Text("Course: ${documentData["course"]}", style: Constants.regularText,),
                                       ),
                                     ],
                                   ),
@@ -280,7 +277,7 @@ class _PostPageState extends State<PostPage> {
                     ),
                   );
                 }
-                return Scaffold(
+                return const Scaffold(
                   body: Center(
                     child: CircularProgressIndicator(),
                   ),
