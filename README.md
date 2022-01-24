@@ -1,3 +1,5 @@
+Version 1.0.0 
+
 How to build/run
 Android
 - set up flutter on your pc
