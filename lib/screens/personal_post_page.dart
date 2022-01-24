@@ -192,8 +192,8 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
                                       _deleteConfirm();
                                     },
                                     child: SizedBox(
-                                        width: 25,
-                                        height: 25,
+                                        width: 20,
+                                        height: 20,
                                         child: Image(
                                           image: const AssetImage("lib/assets/deletePost.png"),
                                           fit: BoxFit.contain,

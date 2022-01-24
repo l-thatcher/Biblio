@@ -3,6 +3,7 @@ import 'package:biblio_files/widgets/custom_image_button.dart';
 import 'package:biblio_files/widgets/post_list_preview.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:biblio_files/Styles/Constants.dart';
@@ -51,7 +52,7 @@ class UserListingsPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(AppLocalizations.of(context)!.listingsTitle, style: Constants.titleText,),
-                    GestureDetector(
+                    (defaultTargetPlatform == TargetPlatform.iOS) || (defaultTargetPlatform == TargetPlatform.android) ? GestureDetector(
                       onTap: (){
                         Navigator.push(context,
                           MaterialPageRoute(
@@ -62,7 +63,7 @@ class UserListingsPage extends StatelessWidget {
                       child: const SizedBox(
                           height: 63,
                           child: CustomImageButton(image: 'lib/assets/plusIcon.png', outlined: true,)),
-                    ),
+                    ) : const Text(""),
                   ],
                 ),
               ),

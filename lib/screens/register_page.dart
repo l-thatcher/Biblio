@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:biblio_files/Styles/constants.dart';
+import 'package:biblio_files/screens/home_screen.dart';
 import 'package:biblio_files/services/database.dart';
 import 'package:biblio_files/widgets/course_selector.dart';
 import 'package:biblio_files/widgets/custom_button.dart';
@@ -74,7 +75,11 @@ class _RegisterPage extends State<RegisterPage> {
       });
       errorMsg = createAccountString;
     } else {
-      Navigator.pop(context);
+      Navigator.push(context,
+        MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        ),
+      );
     }
   }
   bool formLoading = false;
