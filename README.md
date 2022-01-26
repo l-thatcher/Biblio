@@ -14,9 +14,10 @@ IOS
 - right click on runner and click add file, add the googleservices.plist from the google-services_InfoPlist_podfile folder
 - in the Runner folder replace the info.plist with the one from the google-services_InfoPlist_podfile folder
 - replace the podfile that is in IOS with the one from the google-services_InfoPlist_podfile folder
-- open an IOS simulator
-- run "flutter run" in the folder from terminal
-- the application will open in the connected simulator
+- run the project in android studio on an IOS simulator once, it will then work here or you can:
+    - open an IOS simulator
+    - run "flutter run" in the folder from terminal
+    - the application will open in the connected simulator
 
 Chrome
 - set up flutter on your pc
