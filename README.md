@@ -11,13 +11,12 @@ IOS
 - set up flutter on your Mac
 - clone the project and run "flutter create ." in the folder from terminal
 - open the runner.xcodeworkspace file from within the IOS folder
-- right click on runner and click add file, add the googleservices.plist from the google-services_InfoPlist_podfile folder
+- right click on the runner folder and click add file, add the googleservices.plist from the google-services_InfoPlist_podfile folder
 - in the Runner folder replace the info.plist with the one from the google-services_InfoPlist_podfile folder
 - replace the podfile that is in IOS with the one from the google-services_InfoPlist_podfile folder
-- run the project in android studio on an IOS simulator once, it will then work here or you can:
-    - open an IOS simulator
-    - run "flutter run" in the folder from terminal
-    - the application will open in the connected simulator
+  - open an IOS simulator
+  - run "flutter run" in the folder from terminal
+  - the application will open in the connected simulator
 
 Chrome
 - set up flutter on your pc

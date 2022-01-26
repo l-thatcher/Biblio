@@ -67,10 +67,10 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
           actions: <Widget>[
             Row(
               children: [
-                CustomButton(text: "No", width: MediaQuery.of(context).size.width * 0.25, outlined: true, onPressed: () {
+                CustomButton(text: "No", width: MediaQuery.of(context).size.width * 0.20, outlined: true, onPressed: () {
                   Navigator.of(context).pop();
                 },),
-                CustomButton(text: "Yes", width: MediaQuery.of(context).size.width * 0.25, onPressed: () {
+                CustomButton(text: "Yes", width: MediaQuery.of(context).size.width * 0.20, onPressed: () {
                   databaseMethods.deleteChatsWithUid(widget.postID!);
                   databaseMethods.deletePost(widget.postID!);
                   Navigator.push(context,
@@ -263,20 +263,16 @@ class _PersonalPostPageState extends State<PersonalPostPage> {
                                           )
                                       ),
                                       Container(
-                                          alignment: const Alignment(-0.9, 1),
-                                          child: Text("${documentData["price"]}", style: Constants.regularText,),
+                                        alignment: const Alignment(-1, 1),
+                                        child: Text("${documentData["price"]}", style: Constants.regularText,),
                                       ),
                                       Container(
                                         alignment: const Alignment(1, -1),
                                         child: Text("Condition: ${documentData["condition"]}", style: Constants.regularText,),
                                       ),
                                       Container(
-                                        alignment: const Alignment(0, 1),
-                                        child: Text("Course: ${documentData["course"]}", style: Constants.regularText,),
-                                      ),
-                                      Container(
                                         alignment: const Alignment(1, 1),
-                                        child: const Text("Location: ", style: Constants.regularText,),
+                                        child: Text("Course: ${documentData["course"]}", style: Constants.regularText,),
                                       ),
                                     ],
                                   ),

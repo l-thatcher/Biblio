@@ -7,7 +7,8 @@ class CourseSelector extends StatelessWidget {
 
   final Function(dynamic)? onChanged;
   //the courses are loaded from a list so can easily be added to or taken away
-  final courseOptions = ['Other', 'Physics', 'Chemistry', 'Computer Science', 'Maths', 'Engineering'];
+  final courseOptions = ['Other', 'Physics', 'Biology', 'Chemistry', 'Computer Science', 'Maths', 'Engineering', 'Psychology', 'Spanish', 'French',
+  'Design', 'Politics', 'Business', 'Medicine'];
 
   CourseSelector({Key? key, this.onChanged}) : super(key: key);
 
